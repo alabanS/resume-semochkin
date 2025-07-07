@@ -72,46 +72,6 @@ h1 {
   padding-left: 1rem;
 }
 
-/* Кнопка документации */
-.doc-button {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: #4CAF50;
-  color: white;
-  text-decoration: none;
-  border-radius: 0.25rem;
-  font-weight: 600;
-  margin: 0.5rem 0;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.doc-button:hover {
-  background-color: #45a049;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.doc-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Для темной темы */
-.dark-mode .doc-button {
-  background-color: #2E7D32;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.dark-mode .doc-button:hover {
-  background-color: #1B5E20;
-}
-
 @keyframes fadeIn {
   from {opacity: 0; transform: translateY(10px);}
   to {opacity: 1; transform: translateY(0);}
