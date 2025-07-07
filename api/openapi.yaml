@@ -1,1 +1,81 @@
+openapi: 3.0.0
+info:
+  title: Пример API UTKA (PIM-система)
+  description: API для управления товарным каталогом в рамках проекта UTKA
+  version: 1.0.0
+servers:
+  - url: https://utka-api.example.com/v1 
+    description: Тестовая среда
+paths:
+  /categories:
+    get:
+      summary: Получение списка категорий
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+    post:
+      summary: Создание новой категории
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryCreate'
+      responses:
+        '201':
+          description: Категория успешно создана
 
+  /products:
+    get:
+      summary: Получение списка товаров
+      parameters:
+        - name: limit
+          in: query
+          description: Ограничение количества результатов
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        parent_id:
+          type: integer
+    CategoryCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        parent_id:
+          type: integer
+    Product:
+      type: object
+      properties:
+        sku:
+          type: string
+        name:
+          type: string
+        category_id:
+          type: integer
