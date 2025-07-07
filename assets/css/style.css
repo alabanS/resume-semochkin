@@ -73,16 +73,32 @@ h1 {
 }
 
 .photo-container {
-  text-align: center;
+  text-align: left;
   margin: 15px 0;
 }
 
 .resume-photo {
-  width: 120px;        /* Размер фото */
+  width: 120px;
   height: 120px;
-  border-radius: 50%;  /* Круглое фото (уберите, если нужно квадратное) */
-  object-fit: cover;   /* Чтобы фото не искажалось */
-  border: 3px solid #4CAF50; /* Рамка (опционально) */
+  object-fit: cover;
+  border-radius: 8px;
+
+  /* Изначально нет рамки и тени */
+  border: 3px solid transparent;
+  box-shadow: none;
+
+  /* Плавные переходы для всех изменений */
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Стили при наведении */
+.resume-photo:hover {
+  border-color: #4CAF50; /* Цвет рамки */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+  transform: scale(1.03); /* Легкое увеличение */
 }
 
 @keyframes fadeIn {
