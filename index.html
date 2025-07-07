@@ -6,21 +6,256 @@
   <title>Семочкин Илья — Резюме</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Основная структура */
+    body {
+      display: flex;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    /* Сайдбар */
+    .sidebar {
+      width: 250px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 1.5rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    /* Основное содержимое */
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Стили для каталога */
+    .artifacts-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #2f4f4f;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #4CAF50;
+      cursor: pointer;
+    }
+
+    .artifacts-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .artifacts-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .artifacts-link {
+      display: block;
+      padding: 0.7rem 1rem;
+      color: #2f4f4f;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .artifacts-link:hover {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: #4CAF50;
+      transform: translateX(5px);
+      border-color: rgba(76, 175, 80, 0.3);
+    }
+
+    /* Мобильная версия */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        max-height: 60px;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      .sidebar.expanded {
+        max-height: 500px;
+      }
+
+      .artifacts-title::after {
+        content: "▼";
+        float: right;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar.expanded .artifacts-title::after {
+        transform: rotate(180deg);
+      }
+    }
+
+    /* Остальные ваши стили */
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+    }
+
+    .contact {
+      margin-bottom: 1.5rem;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .theme-toggle button {
+      background: #2f4f4f;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .theme-toggle button:hover {
+      background: #3b6f6f;
+    }
+
+    .accordion {
+      background-color: #ffffff;
+      color: #2f4f4f;
+      cursor: pointer;
+      padding: 1rem;
+      width: 100%;
+      border: none;
+      outline: none;
+      text-align: left;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #ccc;
+      transition: background-color 0.3s ease;
+    }
+
+    .accordion:hover {
+      background-color: #f0f0f0;
+    }
+
+    .panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      padding-left: 1rem;
+    }
+
+    .photo-container {
+      text-align: left;
+      margin: 15px 0;
+    }
+
+    .resume-photo {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 3px solid transparent;
+      box-shadow: none;
+      transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .resume-photo:hover {
+      border-color: #4CAF50;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transform: scale(1.03);
+    }
+
+    .doc-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      margin-top: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .doc-button:hover {
+      background-color: #45a049;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
 </head>
 <body>
-  <div class="theme-toggle">
-    <button id="langSwitch">Switch to English 🌐</button>
-  </div>
+  <!-- Сайдбар -->
+  <aside class="sidebar">
+    <div class="artifacts-title">Примеры артефактов</div>
+    <ul class="artifacts-list">
+      <li class="artifacts-item">
+        <a href="https://alabans.github.io/resume-semochkin/api/api-docs.html" class="artifacts-link" target="_blank">API-contracts</a>
+      </li>
+      <li class="artifacts-item">
+        <a href="https://example.com/pdm" class="artifacts-link" target="_blank">PDM</a>
+      </li>
+      <li class="artifacts-item">
+        <a href="https://example.com/er-diagram" class="artifacts-link" target="_blank">ER-diagram</a>
+      </li>
+      <li class="artifacts-item">
+        <a href="https://example.com/sequence-diagram" class="artifacts-link" target="_blank">Sequence diagram</a>
+      </li>
+    </ul>
+  </aside>
 
-  <div class="container">
-    <h1 data-lang="name">Семочкин Илья</h1>
-<div class="photo-container">
-  <img src="assets/css/images/photo.jpg" alt="Фото Семочкин Илья" class="resume-photo" />
-</div>
-<p class="contact" data-lang="position">
-  <strong>Ведущий системный аналитик / Архитектор</strong><br />
-  📍 Москва • <a href="mailto:semochkin.i@icloud.com">semochkin.i@icloud.com</a> • +7 (915) 394-59-43
-</p>
+  <!-- Основное содержимое -->
+  <main class="main-content">
+    <div class="theme-toggle">
+      <button id="langSwitch">Switch to English 🌐</button>
+    </div>
+
+    <div class="container">
+      <h1 data-lang="name">Семочкин Илья</h1>
+      <div class="photo-container">
+        <img src="assets/css/images/photo.jpg" alt="Фото Семочкин Илья" class="resume-photo" />
+      </div>
+      <p class="contact" data-lang="position">
+        <strong>Ведущий системный аналитик / Архитектор</strong><br />
+        📍 Москва • <a href="mailto:semochkin.i@icloud.com">semochkin.i@icloud.com</a> • +7 (915) 394-59-43
+      </p>
 
     <div class="accordion-section" data-lang-section="about">
       <button class="accordion">🧠 Обо мне</button>
@@ -105,7 +340,7 @@
       });
     });
   </script>
-  
+
   <style>
     .doc-button {
       display: inline-block;
@@ -118,10 +353,31 @@
       margin-top: 8px;
       transition: background-color 0.3s;
     }
-    
+
     .doc-button:hover {
       background-color: #45a049;
     }
   </style>
+<script>
+  // Активация аккордеона
+  const acc = document.querySelectorAll(".accordion");
+  acc.forEach(el => {
+    el.addEventListener("click", function() {
+      this.classList.toggle("active");
+      const panel = this.nextElementSibling;
+      panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+    });
+  });
+
+  // Для мобильного меню
+  const artifactsTitle = document.querySelector('.artifacts-title');
+  if (artifactsTitle) {
+    artifactsTitle.addEventListener('click', function() {
+      if (window.innerWidth <= 768) {
+        document.querySelector('.sidebar').classList.toggle('active');
+      }
+    });
+  }
+</script>
 </body>
 </html>
