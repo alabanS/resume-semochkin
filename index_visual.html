@@ -91,6 +91,29 @@ title: Главная
       margin-bottom: 0.5rem;
     }
 
+    .lang-switch {
+      float: right;
+      font-weight: bold;
+      cursor: pointer;
+      background: #2F4F4F;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      user-select: none;
+    }
+
+    .lang-switch:hover {
+      background: #1a2b5c;
+    }
+
+    [lang="en"] {
+      display: none;
+    }
+
+    [lang].active {
+      display: block;
+    }
+
     @media (max-width: 600px) {
       .container {
         margin: 1rem;
@@ -101,7 +124,7 @@ title: Главная
 </head>
 <body>
   <div class="container">
-    <h1>Семочкин Илья</h1>
+    <h1>Семочкин Илья <span class="lang-switch" onclick="toggleLang()">RU / EN</span></h1>
     <p class="contact">
       <strong>Ведущий системный аналитик / Архитектор</strong><br>
       📍 Москва • 
@@ -111,12 +134,18 @@ title: Главная
 
     <hr>
 
-    <div class="section collapsed">
+    <!-- Section: Обо мне -->
+    <div class="section collapsed" lang="ru">
       <h2>🧠 Обо мне</h2>
       <p>Системный аналитик и архитектор с более чем 7-летним опытом участия в разработке высоконагруженных микросервисных систем...</p>
     </div>
+    <div class="section collapsed" lang="en">
+      <h2>🧠 About Me</h2>
+      <p>Senior systems analyst and architect with over 7 years of experience in developing high-load microservices systems...</p>
+    </div>
 
-    <div class="section collapsed">
+    <!-- Section: Навыки -->
+    <div class="section collapsed" lang="ru">
       <h2>🛠 Ключевые навыки</h2>
       <ul>
         <li><strong>📐 Архитектура:</strong> Microservices, SOA, CQRS, EDA, Saga, C4, ADR</li>
@@ -128,8 +157,21 @@ title: Главная
         <li><strong>💻 Языки:</strong> Python, SQL</li>
       </ul>
     </div>
+    <div class="section collapsed" lang="en">
+      <h2>🛠 Key Skills</h2>
+      <ul>
+        <li><strong>📐 Architecture:</strong> Microservices, SOA, CQRS, EDA, Saga, C4, ADR</li>
+        <li><strong>🔗 Integrations:</strong> REST, gRPC, Kafka, Outbox Pattern, Swagger</li>
+        <li><strong>🗃 Data Stores:</strong> PostgreSQL, Redis, ClickHouse, Elasticsearch</li>
+        <li><strong>⚙️ DevOps:</strong> Docker, Kubernetes, GitLab CI/CD, Jenkins</li>
+        <li><strong>🧾 Analysis & Modeling:</strong> BPMN, UML, Event Storming, Camunda</li>
+        <li><strong>🧰 Tools:</strong> Jira, Confluence, draw.io, Postman, Figma</li>
+        <li><strong>💻 Languages:</strong> Python, SQL</li>
+      </ul>
+    </div>
 
-    <div class="section collapsed">
+    <!-- Section: Опыт работы -->
+    <div class="section collapsed" lang="ru">
       <h2>💼 Опыт работы</h2>
       <h3>📌 МегаМаркет — Ведущий системный аналитик / Архитектор</h3>
       <p><em>Март 2023 — настоящее время, Москва</em></p>
@@ -156,7 +198,35 @@ title: Главная
       </ul>
     </div>
 
-    <div class="section collapsed">
+    <div class="section collapsed" lang="en">
+      <h2>💼 Work Experience</h2>
+      <h3>📌 MegaMarket — Senior Systems Analyst / Architect</h3>
+      <p><em>March 2023 – Present, Moscow</em></p>
+      <ul>
+        <li>Designing architecture for a new PIM system (100M+ SKUs)</li>
+        <li>Building attribute model (350K+) and categories (16K+)</li>
+        <li>Integrations with 10+ systems, API (REST/gRPC), Kafka</li>
+        <li>Developing architectural solutions and documentation (ADR, Swagger, UML)</li>
+      </ul>
+
+      <h3>📌 League of Digital Economy — Architect / Systems Analyst</h3>
+      <p><em>November 2021 – February 2023, Moscow</em></p>
+      <ul>
+        <li>Participated in architecture design, CI/CD, integrations</li>
+        <li>Worked with Java (Spring Cloud), Camunda, Talend</li>
+        <li>Documentation, releases, API, team collaboration</li>
+      </ul>
+
+      <h3>📌 Oil Transport Research Institute — Systems Analyst</h3>
+      <p><em>July 2018 – November 2021, Moscow</em></p>
+      <ul>
+        <li>Gathering and analyzing requirements, SQL, architectural design</li>
+        <li>Scrum, technical documentation, client communication</li>
+      </ul>
+    </div>
+
+    <!-- Section: Образование -->
+    <div class="section collapsed" lang="ru">
       <h2>🎓 Образование и курсы</h2>
       <ul>
         <li>Магистр, РГУ нефти и газа им. И.М. Губкина, 2017</li>
@@ -166,8 +236,19 @@ title: Главная
         <li>Основы SQL — Shultais Education (2021)</li>
       </ul>
     </div>
+    <div class="section collapsed" lang="en">
+      <h2>🎓 Education & Courses</h2>
+      <ul>
+        <li>MSc, Gubkin Russian State University of Oil and Gas, 2017</li>
+        <li>Python — Bioinformatics Institute (2021)</li>
+        <li>SQL — RRS Training Center (2021)</li>
+        <li>Presentations — MBS (2021)</li>
+        <li>SQL Basics — Shultais Education (2021)</li>
+      </ul>
+    </div>
 
-    <div class="section collapsed">
+    <!-- Section: Языки -->
+    <div class="section collapsed" lang="ru">
       <h2>🌍 Языки</h2>
       <ul>
         <li>Русский — родной</li>
@@ -175,8 +256,17 @@ title: Главная
         <li>Немецкий — A1</li>
       </ul>
     </div>
+    <div class="section collapsed" lang="en">
+      <h2>🌍 Languages</h2>
+      <ul>
+        <li>Russian — Native</li>
+        <li>English — A1</li>
+        <li>German — A1</li>
+      </ul>
+    </div>
 
-    <div class="section collapsed">
+    <!-- Section: Дополнительно -->
+    <div class="section collapsed" lang="ru">
       <h2>➕ Дополнительно</h2>
       <ul>
         <li>Удалённая работа, интервьюирование, наставничество</li>
@@ -184,13 +274,40 @@ title: Главная
         <li>Хобби: самообразование, спорт, видеомонтаж</li>
       </ul>
     </div>
+    <div class="section collapsed" lang="en">
+      <h2>➕ Additional Info</h2>
+      <ul>
+        <li>Remote work, interviewing, mentoring</li>
+        <li>CI/CD, documentation, DevOps tools</li>
+        <li>Hobbies: self-education, sports, video editing</li>
+      </ul>
+    </div>
   </div>
 
   <script>
-    document.querySelectorAll('.section').forEach(section => {
-      section.addEventListener('click', () => {
-        section.classList.toggle('collapsed');
-      });
+    function toggleLang() {
+      const sections = document.querySelectorAll('[lang]');
+      const currentLang = document.documentElement.getAttribute('lang');
+
+      if (currentLang === 'ru') {
+        document.documentElement.setAttribute('lang', 'en');
+        sections.forEach(el => {
+          el.classList.remove('active');
+          if (el.getAttribute('lang') === 'en') el.classList.add('active');
+        });
+      } else {
+        document.documentElement.setAttribute('lang', 'ru');
+        sections.forEach(el => {
+          el.classList.remove('active');
+          if (el.getAttribute('lang') === 'ru') el.classList.add('active');
+        });
+      }
+    }
+
+    // По умолчанию активируем русский
+    document.addEventListener('DOMContentLoaded', () => {
+      document.documentElement.setAttribute('lang', 'ru');
+      document.querySelectorAll('[lang="ru"]').forEach(el => el.classList.add('active'));
     });
   </script>
 </body>
