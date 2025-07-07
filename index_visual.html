@@ -1,289 +1,103 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Семочкин Илья — Ведущий системный аналитик / Архитектор</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #f0f4f8, #e2eafc);
-      color: #333;
-      margin: 0;
-      padding: 0;
-      animation: fadeIn 1s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    h1, h2 {
-      color: #2F4F4F;
-    }
-
-    h1 {
-      margin-bottom: 0.5rem;
-    }
-
-    .contact {
-      margin-bottom: 1.5rem;
-    }
-
-    hr {
-      border: none;
-      border-top: 1px solid #ddd;
-      margin: 2rem 0;
-    }
-
-    .section {
-      margin-bottom: 2rem;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-      max-height: 500px;
-    }
-
-    .section.collapsed {
-      max-height: 40px;
-    }
-
-    .section h2 {
-      cursor: pointer;
-      padding-bottom: 0.3rem;
-      border-bottom: 2px solid #2F4F4F;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .section h2::after {
-      content: '▼';
-      font-size: 0.8em;
-    }
-
-    .section.collapsed h2::after {
-      content: '▶';
-    }
-
-    ul {
-      margin-left: 1.5rem;
-      padding-left: 1rem;
-    }
-
-    li {
-      margin-bottom: 0.5rem;
-    }
-
-    .lang-switch {
-      float: right;
-      font-weight: bold;
-      cursor: pointer;
-      background: #2F4F4F;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      user-select: none;
-    }
-
-    .lang-switch:hover {
-      background: #1a2b5c;
-    }
-
-    [data-lang="en"] {
-      display: none;
-    }
-
-    [data-lang].active {
-      display: block;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        margin: 1rem;
-        padding: 1rem;
-      }
-    }
-  </style>
+  <title>Семочкин Илья — Резюме</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+  <div class="theme-toggle">
+    <button id="langSwitch">Switch to English 🌐</button>
+  </div>
+
   <div class="container">
-    <h1>Семочкин Илья <span class="lang-switch" onclick="toggleLang()">RU / EN</span></h1>
-    <p class="contact">
-      <strong>Ведущий системный аналитик / Архитектор</strong><br>
-      📍 Москва • 
-      <a href="mailto:semochkin.i@icloud.com">semochkin.i@icloud.com</a> • 
-      +7 (915) 394-59-43
+    <h1 data-lang="name">Семочкин Илья</h1>
+    <p class="contact" data-lang="position">
+      <strong>Ведущий системный аналитик / Архитектор</strong><br />
+      📍 Москва • <a href="mailto:semochkin.i@icloud.com">semochkin.i@icloud.com</a> • +7 (915) 394-59-43
     </p>
 
-    <hr>
-
-    <!-- Section: Обо мне -->
-    <div class="section collapsed">
-      <h2 data-lang="ru">🧠 Обо мне</h2>
-      <h2 data-lang="en" style="display:none">🧠 About Me</h2>
-      <p data-lang="ru">Системный аналитик и архитектор с более чем 7-летним опытом участия в разработке высоконагруженных микросервисных систем...</p>
-      <p data-lang="en" style="display:none">Senior systems analyst and architect with over 7 years of experience in developing high-load microservices systems...</p>
+    <div class="accordion-section" data-lang-section="about">
+      <button class="accordion">🧠 Обо мне</button>
+      <div class="panel">
+        <p>Системный аналитик и архитектор с более чем 7-летним опытом участия в разработке высоконагруженных микросервисных систем...</p>
+      </div>
     </div>
 
-    <!-- Section: Навыки -->
-    <div class="section collapsed">
-      <h2 data-lang="ru">🛠 Ключевые навыки</h2>
-      <h2 data-lang="en" style="display:none">🛠 Key Skills</h2>
-      <ul>
-        <li data-lang="ru"><strong>📐 Архитектура:</strong> Microservices, SOA, CQRS, EDA, Saga, C4, ADR</li>
-        <li data-lang="en"><strong>📐 Architecture:</strong> Microservices, SOA, CQRS, EDA, Saga, C4, ADR</li>
-        <li data-lang="ru"><strong>🔗 Интеграции:</strong> REST, gRPC, Kafka, Outbox Pattern, Swagger</li>
-        <li data-lang="en"><strong>🔗 Integrations:</strong> REST, gRPC, Kafka, Outbox Pattern, Swagger</li>
-        <li data-lang="ru"><strong>🗃 Хранилища данных:</strong> PostgreSQL, Redis, ClickHouse, Elasticsearch</li>
-        <li data-lang="en"><strong>🗃 Data Stores:</strong> PostgreSQL, Redis, ClickHouse, Elasticsearch</li>
-        <li data-lang="ru"><strong>⚙️ DevOps:</strong> Docker, Kubernetes, GitLab CI/CD, Jenkins</li>
-        <li data-lang="en"><strong>⚙️ DevOps:</strong> Docker, Kubernetes, GitLab CI/CD, Jenkins</li>
-        <li data-lang="ru"><strong>🧾 Анализ и моделирование:</strong> BPMN, UML, Event Storming, Camunda</li>
-        <li data-lang="en"><strong>🧾 Analysis & Modeling:</strong> BPMN, UML, Event Storming, Camunda</li>
-        <li data-lang="ru"><strong>🧰 Инструменты:</strong> Jira, Confluence, draw.io, Postman, Figma</li>
-        <li data-lang="en"><strong>🧰 Tools:</strong> Jira, Confluence, draw.io, Postman, Figma</li>
-        <li data-lang="ru"><strong>💻 Языки:</strong> Python, SQL</li>
-        <li data-lang="en"><strong>💻 Languages:</strong> Python, SQL</li>
-      </ul>
+    <div class="accordion-section" data-lang-section="skills">
+      <button class="accordion">🛠 Ключевые навыки</button>
+      <div class="panel">
+        <ul>
+          <li><strong>📐 Архитектура:</strong> Microservices, SOA, CQRS, EDA, Saga, C4, ADR</li>
+          <li><strong>🔗 Интеграции:</strong> REST, gRPC, Kafka, Outbox Pattern, Swagger</li>
+          <li><strong>🗃 Хранилища:</strong> PostgreSQL, Redis, ClickHouse, Elasticsearch</li>
+          <li><strong>⚙️ DevOps:</strong> Docker, Kubernetes, GitLab CI/CD, Jenkins</li>
+          <li><strong>🧾 Анализ:</strong> BPMN, UML, Event Storming, Camunda</li>
+          <li><strong>🧰 Инструменты:</strong> Jira, Confluence, draw.io, Postman, Figma</li>
+          <li><strong>💻 Языки:</strong> Python, SQL</li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Section: Опыт работы -->
-    <div class="section collapsed">
-      <h2 data-lang="ru">💼 Опыт работы</h2>
-      <h2 data-lang="en" style="display:none">💼 Work Experience</h2>
-
-      <h3 data-lang="ru">📌 МегаМаркет — Ведущий системный аналитик / Архитектор</h3>
-      <h3 data-lang="en" style="display:none">📌 MegaMarket — Senior Systems Analyst / Architect</h3>
-      <p data-lang="ru"><em>Март 2023 — настоящее время, Москва</em></p>
-      <p data-lang="en" style="display:none"><em>March 2023 – Present, Moscow</em></p>
-      <ul>
-        <li data-lang="ru">Проектирование архитектуры новой PIM-системы (100M+ SKU)</li>
-        <li data-lang="en" style="display:none">Designing architecture for a new PIM system (100M+ SKUs)</li>
-        <li data-lang="ru">Создание модели атрибутов (350K+) и категорий (16K+)</li>
-        <li data-lang="en" style="display:none">Building attribute model (350K+) and categories (16K+)</li>
-        <li data-lang="ru">Интеграции с 10+ системами, API (REST/gRPC), Kafka</li>
-        <li data-lang="en" style="display:none">Integrations with 10+ systems, API (REST/gRPC), Kafka</li>
-        <li data-lang="ru">Разработка архитектурных решений и документации (ADR, Swagger, UML)</li>
-        <li data-lang="en" style="display:none">Developing architectural solutions and documentation (ADR, Swagger, UML)</li>
-      </ul>
-
-      <h3 data-lang="ru">📌 Лига Цифровой Экономики — Архитектор / Системный аналитик</h3>
-      <h3 data-lang="en" style="display:none">📌 League of Digital Economy — Architect / Systems Analyst</h3>
-      <p data-lang="ru"><em>Ноябрь 2021 — Февраль 2023, Москва</em></p>
-      <p data-lang="en" style="display:none"><em>November 2021 – February 2023, Moscow</em></p>
-      <ul>
-        <li data-lang="ru">Участие в проектировании архитектуры, CI/CD, интеграциях</li>
-        <li data-lang="en" style="display:none">Participated in architecture design, CI/CD, integrations</li>
-        <li data-lang="ru">Работа с Java (Spring Cloud), Camunda, Talend</li>
-        <li data-lang="en" style="display:none">Worked with Java (Spring Cloud), Camunda, Talend</li>
-        <li data-lang="ru">Документация, релизы, API, взаимодействие с командой</li>
-        <li data-lang="en" style="display:none">Documentation, releases, API, team collaboration</li>
-      </ul>
-
-      <h3 data-lang="ru">📌 НИИ транспорта нефти и нефтепродуктов — Системный аналитик</h3>
-      <h3 data-lang="en" style="display:none">📌 Oil Transport Research Institute — Systems Analyst</h3>
-      <p data-lang="ru"><em>Июль 2018 — Ноябрь 2021, Москва</em></p>
-      <p data-lang="en" style="display:none"><em>July 2018 – November 2021, Moscow</em></p>
-      <ul>
-        <li data-lang="ru">Сбор и анализ требований, SQL, архитектурное проектирование</li>
-        <li data-lang="en" style="display:none">Gathering and analyzing requirements, SQL, architectural design</li>
-        <li data-lang="ru">Scrum, техническая документация, взаимодействие с заказчиками</li>
-        <li data-lang="en" style="display:none">Scrum, technical documentation, client communication</li>
-      </ul>
+    <div class="accordion-section" data-lang-section="experience">
+      <button class="accordion">💼 Опыт работы</button>
+      <div class="panel">
+        <h3>📌 МегаМаркет — Ведущий системный аналитик / Архитектор</h3>
+        <p><em>Март 2023 — настоящее время</em></p>
+        <ul>
+          <li>Проектирование архитектуры новой PIM-системы (100M+ SKU)</li>
+          <li>Интеграции, модель атрибутов, API и документация</li>
+        </ul>
+        <!-- Остальной опыт аналогично -->
+      </div>
     </div>
 
-    <!-- Section: Образование -->
-    <div class="section collapsed">
-      <h2 data-lang="ru">🎓 Образование и курсы</h2>
-      <h2 data-lang="en" style="display:none">🎓 Education & Courses</h2>
-      <ul>
-        <li data-lang="ru">Магистр, РГУ нефти и газа им. И.М. Губкина, 2017</li>
-        <li data-lang="en" style="display:none">MSc, Gubkin Russian State University of Oil and Gas, 2017</li>
-        <li data-lang="ru">Python — Bioinformatics Institute (2021)</li>
-        <li data-lang="en" style="display:none">Python — Bioinformatics Institute (2021)</li>
-        <li data-lang="ru">SQL — Учебный центр РРС (2021)</li>
-        <li data-lang="en" style="display:none">SQL — RRS Training Center (2021)</li>
-        <li data-lang="ru">Презентации — MBS (2021)</li>
-        <li data-lang="en" style="display:none">Presentations — MBS (2021)</li>
-        <li data-lang="ru">Основы SQL — Shultais Education (2021)</li>
-        <li data-lang="en" style="display:none">SQL Basics — Shultais Education (2021)</li>
-      </ul>
+    <div class="accordion-section" data-lang-section="education">
+      <button class="accordion">🎓 Образование и курсы</button>
+      <div class="panel">
+        <ul>
+          <li>Магистр, РГУ нефти и газа им. И.М. Губкина, 2017</li>
+          <li>Python, SQL, презентации — 2021</li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Section: Языки -->
-    <div class="section collapsed">
-      <h2 data-lang="ru">🌍 Языки</h2>
-      <h2 data-lang="en" style="display:none">🌍 Languages</h2>
-      <ul>
-        <li data-lang="ru">Русский — родной</li>
-        <li data-lang="en" style="display:none">Russian — Native</li>
-        <li data-lang="ru">Английский — A1</li>
-        <li data-lang="en" style="display:none">English — A1</li>
-        <li data-lang="ru">Немецкий — A1</li>
-        <li data-lang="en" style="display:none">German — A1</li>
-      </ul>
+    <div class="accordion-section" data-lang-section="languages">
+      <button class="accordion">🌍 Языки</button>
+      <div class="panel">
+        <ul>
+          <li>Русский — родной</li>
+          <li>Английский — A1</li>
+          <li>Немецкий — A1</li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Section: Дополнительно -->
-    <div class="section collapsed">
-      <h2 data-lang="ru">➕ Дополнительно</h2>
-      <h2 data-lang="en" style="display:none">➕ Additional Info</h2>
-      <ul>
-        <li data-lang="ru">Удалённая работа, интервьюирование, наставничество</li>
-        <li data-lang="en" style="display:none">Remote work, interviewing, mentoring</li>
-        <li data-lang="ru">CI/CD, документация, DevOps-инструменты</li>
-        <li data-lang="en" style="display:none">CI/CD, documentation, DevOps tools</li>
-        <li data-lang="ru">Хобби: самообразование, спорт, видеомонтаж</li>
-        <li data-lang="en" style="display:none">Hobbies: self-education, sports, video editing</li>
-      </ul>
+    <div class="accordion-section" data-lang-section="extra">
+      <button class="accordion">➕ Дополнительно</button>
+      <div class="panel">
+        <ul>
+          <li>Удалённая работа, наставничество</li>
+          <li>CI/CD, DevOps</li>
+          <li>Хобби: спорт, видеомонтаж</li>
+        </ul>
+      </div>
     </div>
   </div>
 
+  <script src="lang.js"></script>
   <script>
-    function toggleLang() {
-      const all = document.querySelectorAll('[data-lang]');
-      const currentLang = document.documentElement.getAttribute('lang');
-
-      if (currentLang === 'ru') {
-        document.documentElement.setAttribute('lang', 'en');
-        all.forEach(el => {
-          el.style.display = el.dataset.lang === 'en' ? 'block' : 'none';
-        });
-      } else {
-        document.documentElement.setAttribute('lang', 'ru');
-        all.forEach(el => {
-          el.style.display = el.dataset.lang === 'ru' ? 'block' : 'none';
-        });
-      }
-    }
-
-    // По умолчанию активируем русский
-    document.addEventListener('DOMContentLoaded', () => {
-      document.documentElement.setAttribute('lang', 'ru');
-      document.querySelectorAll('[data-lang]').forEach(el => {
-        el.style.display = el.dataset.lang === 'ru' ? 'block' : 'none';
-      });
-    });
-
-    // Раскрытие секций по клику
-    document.querySelectorAll('.section').forEach(section => {
-      section.addEventListener('click', () => {
-        section.classList.toggle('collapsed');
+    const acc = document.querySelectorAll(".accordion");
+    acc.forEach(el => {el.addEventListener("click", function () {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
       });
     });
   </script>
 </body>
 </html>
+
+      
