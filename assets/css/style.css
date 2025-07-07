@@ -72,6 +72,19 @@ h1 {
   padding-left: 1rem;
 }
 
+.photo-container {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.resume-photo {
+  width: 120px;        /* Размер фото */
+  height: 120px;
+  border-radius: 50%;  /* Круглое фото (уберите, если нужно квадратное) */
+  object-fit: cover;   /* Чтобы фото не искажалось */
+  border: 3px solid #4CAF50; /* Рамка (опционально) */
+}
+
 @keyframes fadeIn {
   from {opacity: 0; transform: translateY(10px);}
   to {opacity: 1; transform: translateY(0);}
