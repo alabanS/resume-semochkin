@@ -48,9 +48,9 @@
         <p><em>Март 2023 — настоящее время</em></p>
         <ul>
           <li>Проектирование архитектуры новой PIM-системы (100M+ SKU)</li>
-          <li>Интеграции, модель атрибутов, API и документация</li>
+          <li>Разработка интеграций, модели атрибутов, API и документации</li>
         </ul>
-        <!-- Остальной опыт аналогично -->
+        <!-- Другие места работы -->
       </div>
     </div>
 
@@ -59,7 +59,7 @@
       <div class="panel">
         <ul>
           <li>Магистр, РГУ нефти и газа им. И.М. Губкина, 2017</li>
-          <li>Python, SQL, презентации — 2021</li>
+          <li>Курсы: Python, SQL, презентации — 2021</li>
         </ul>
       </div>
     </div>
@@ -80,17 +80,26 @@
       <div class="panel">
         <ul>
           <li>Удалённая работа, наставничество</li>
-          <li>CI/CD, DevOps</li>
+          <li>Опыт работы с CI/CD, DevOps-практиками</li>
           <li>Хобби: спорт, видеомонтаж</li>
+          <li>
+            <a href="https://github.com/alabanS/resume-semochkin/blob/main/api/api-docs.html" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="doc-button">
+              Пример документации API
+            </a>
+          </li>
         </ul>
       </div>
     </div>
   </div>
 
-  <script src="lang.js"></script>
+  <script src="assets/js/lang.js"></script>
   <script>
     const acc = document.querySelectorAll(".accordion");
-    acc.forEach(el => {el.addEventListener("click", function () {
+    acc.forEach(el => {
+      el.addEventListener("click", function() {
         this.classList.toggle("active");
         const panel = this.nextElementSibling;
         panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
