@@ -6,240 +6,27 @@
   <title>Семочкин Илья — Резюме</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
-  <style>
-    /* Основная структура */
-    body {
-      display: flex;
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
-      color: #333;
-      transition: all 0.3s ease;
-    }
-
-    /* Сайдбар */
-    .sidebar {
-      width: 250px;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      padding: 1.5rem;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      z-index: 100;
-      animation: fadeIn 0.7s ease-in-out;
-    }
-
-    /* Основное содержимое */
-    .main-content {
-      flex: 1;
-      padding: 2rem;
-    }
-
-    .container {
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Стили для каталога */
-    .artifacts-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: #2f4f4f;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #4CAF50;
-      cursor: pointer;
-    }
-
-    .artifacts-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .artifacts-item {
-      margin-bottom: 0.5rem;
-    }
-
-    .artifacts-link {
-      display: block;
-      padding: 0.7rem 1rem;
-      color: #2f4f4f;
-      text-decoration: none;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      background-color: rgba(255, 255, 255, 0.5);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .artifacts-link:hover {
-      background-color: rgba(76, 175, 80, 0.1);
-      color: #4CAF50;
-      transform: translateX(5px);
-      border-color: rgba(76, 175, 80, 0.3);
-    }
-
-    /* Мобильная версия */
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        max-height: 60px;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-      }
-
-      .sidebar.expanded {
-        max-height: 500px;
-      }
-
-      .artifacts-title::after {
-        content: "▼";
-        float: right;
-        transition: transform 0.3s ease;
-      }
-
-      .sidebar.expanded .artifacts-title::after {
-        transform: rotate(180deg);
-      }
-    }
-
-    /* Остальные ваши стили */
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.2rem;
-    }
-
-    .contact {
-      margin-bottom: 1.5rem;
-    }
-
-    .theme-toggle {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-    }
-
-    .theme-toggle button {
-      background: #2f4f4f;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .theme-toggle button:hover {
-      background: #3b6f6f;
-    }
-
-    .accordion {
-      background-color: #ffffff;
-      color: #2f4f4f;
-      cursor: pointer;
-      padding: 1rem;
-      width: 100%;
-      border: none;
-      outline: none;
-      text-align: left;
-      font-size: 1.1rem;
-      border-bottom: 1px solid #ccc;
-      transition: background-color 0.3s ease;
-    }
-
-    .accordion:hover {
-      background-color: #f0f0f0;
-    }
-
-    .panel {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-      padding-left: 1rem;
-    }
-
-    .photo-container {
-      text-align: left;
-      margin: 15px 0;
-    }
-
-    .resume-photo {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 3px solid transparent;
-      box-shadow: none;
-      transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        transform 0.3s ease;
-    }
-
-    .resume-photo:hover {
-      border-color: #4CAF50;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transform: scale(1.03);
-    }
-
-    .doc-button {
-      display: inline-block;
-      padding: 8px 16px;
-      background-color: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: 600;
-      margin-top: 8px;
-      transition: background-color 0.3s;
-    }
-
-    .doc-button:hover {
-      background-color: #45a049;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-  </style>
 </head>
 <body>
-  <!-- Сайдбар -->
-  <aside class="sidebar">
-    <div class="artifacts-title">Примеры артефактов</div>
-    <ul class="artifacts-list">
-      <li class="artifacts-item">
-        <a href="https://alabans.github.io/resume-semochkin/api/api-docs.html" class="artifacts-link" target="_blank">API-contracts</a>
-      </li>
-      <li class="artifacts-item">
-        <a href="https://example.com/pdm" class="artifacts-link" target="_blank">PDM</a>
-      </li>
-      <li class="artifacts-item">
-        <a href="https://example.com/er-diagram" class="artifacts-link" target="_blank">ER-diagram</a>
-      </li>
-      <li class="artifacts-item">
-        <a href="https://example.com/sequence-diagram" class="artifacts-link" target="_blank">Sequence diagram</a>
-      </li>
-    </ul>
-  </aside>
+    <div class="sidebar-trigger"></div>
+      <!-- Сайдбар -->
+    <aside class="sidebar">
+      <div class="artifacts-title">Примеры артефактов</div>
+      <ul class="artifacts-list">
+        <li class="artifacts-item">
+          <a href="https://alabans.github.io/resume-semochkin/api/api-docs.html" class="artifacts-link" target="_blank">API-contracts</a>
+        </li>
+        <li class="artifacts-item">
+          <a href="https://example.com/pdm" class="artifacts-link" target="_blank">PDM</a>
+        </li>
+        <li class="artifacts-item">
+          <a href="https://example.com/er-diagram" class="artifacts-link" target="_blank">ER-diagram</a>
+        </li>
+        <li class="artifacts-item">
+          <a href="https://example.com/sequence-diagram" class="artifacts-link" target="_blank">Sequence diagram</a>
+        </li>
+      </ul>
+    </aside>
 
   <!-- Основное содержимое -->
   <main class="main-content">
@@ -248,117 +35,134 @@
     </div>
 
     <div class="container">
-      <h1 data-lang="name">Семочкин Илья</h1>
+      <h1>Семочкин Илья</h1>
       <div class="photo-container">
         <img src="assets/css/images/photo.jpg" alt="Фото Семочкин Илья" class="resume-photo" />
       </div>
-      <p class="contact" data-lang="position">
-        <strong>Ведущий системный аналитик / Архитектор</strong><br />
-        📍 Москва • <a href="mailto:semochkin.i@icloud.com">semochkin.i@icloud.com</a> • +7 (915) 394-59-43
+      <p class="contact">
+        <strong>Системный аналитик / Solution Architect</strong><br />
+        Мужчина, 31 год (родился 30 августа 1993)<br />
+        📍 Москва, м. Дмитровская<br />
+        📧 <a href="mailto:semochkin.i@icloud.com">semochkin.i@icloud.com</a><br />
+        📞 +7 (915) 394-59-43<br />
+        Готов к переезду, готов к редким командировкам
       </p>
 
-    <div class="accordion-section" data-lang-section="about">
-      <button class="accordion">🧠 Обо мне</button>
-      <div class="panel">
-        <p>Системный аналитик и архитектор с более чем 7-летним опытом участия в разработке высоконагруженных микросервисных систем...</p>
+      <h2>Ключевая информация</h2>
+      <p>7+ лет опыта в системном анализе и архитектуре. Специализация: e-commerce (маркетплейсы) и ритейл-технологии, проектирование PIM-систем.</p>
+
+      <div class="accordion-section">
+        <button class="accordion">💼 Опыт работы</button>
+        <div class="panel">
+          <div class="experience-item">
+            <h3>Метамаркет (megamarket.ru)</h3>
+            <p class="experience-period">Март 2023 — настоящее время (2 года 5 месяцев)</p>
+            <p><strong>Ведущий системный аналитик</strong></p>
+            <p>Проект: UTKA - собственная PIM-система Мега Маркета для управления товарным каталогом</p>
+            <ul>
+              <li>Проектирование API и событийных контрактов (REST/OpenAPI, Kafka, Avro/Protobuf)</li>
+              <li>Архитектурное и процессное моделирование (ADR, C4-диаграммы, UML Sequence)</li>
+              <li>Проектирование основных сервисов UTKA для 300M+ SKU</li>
+              <li>Интеграции с OpenAI (ChatGPT) и Sber (GigaChat)</li>
+              <li>Внедрение процессов системного анализа в команде</li>
+            </ul>
+            <p><strong>Стек:</strong> микросервисы, SOA, EDA, CQRS, PostgreSQL, Redis, ClickHouse, Elasticsearch, Kafka, gRPC, Camunda</p>
+          </div>
+
+          <div class="experience-item">
+            <h3>Лига Цифровой Экономики (digitalleague.ru)</h3>
+            <p class="experience-period">Ноябрь 2021 — Февраль 2023 (1 год 4 месяца)</p>
+            <p><strong>Системный аналитик/Архитектор</strong></p>
+            <p>Проект: Система управления федеральным имуществом для Росимущества</p>
+            <ul>
+              <li>Проектирование API-контрактов (REST, SOAP/WSDL)</li>
+              <li>Разработка схем БД и модели данных объектов имущества</li>
+              <li>Настройка бизнес-процессов (Camunda) и ETI-процессов (Talend)</li>
+              <li>Внедрение CI/CD-практик (GitLab, Jenkins)</li>
+            </ul>
+            <p><strong>Стек:</strong> PostgreSQL, RabitMQ, Jenkins, Camunda, Talend, OpenAM, Python</p>
+          </div>
+
+          <div class="experience-item">
+            <h3>Научно-исследовательский институт транспорта нефти и нефтепродуктов</h3>
+            <p class="experience-period">Июль 2018 — Ноябрь 2021 (3 года 5 месяца)</p>
+            <p><strong>Системный аналитик</strong></p>
+            <p>Проект: Корпоративные ИТ-системы для управления транспортировкой нефти</p>
+            <ul>
+              <li>Сбор и анализ бизнес-требований</li>
+              <li>Разработка технических заданий</li>
+              <li>Моделирование нефтепроводных систем</li>
+              <li>Работа в Agile/Scrum</li>
+            </ul>
+            <p><strong>Стек:</strong> Azure DevOps, Matlab, Python, T-SQL, Microsoft SQL Server</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-section">
+        <button class="accordion">🛠 Навыки</button>
+        <div class="panel">
+          <ul class="skills-list">
+            <li><strong>Архитектура:</strong> Microservices, SOA, EDA, CQRS, Saga</li>
+            <li><strong>Нотации:</strong> BPMN, UML, C4, ERD</li>
+            <li><strong>Интеграции:</strong> REST, Kafka, gRPC, RabbitMQ</li>
+            <li><strong>Базы данных:</strong> PostgreSQL, Redis, ClickHouse, Elasticsearch</li>
+            <li><strong>DevOps:</strong> Docker, Kubernetes, GitLab CI/CD, Jenkins</li>
+            <li><strong>API:</strong> OpenAPI/Swagger, CloudEvents</li>
+            <li><strong>Инструменты:</strong> Jira, Confluence, draw.io, Camunda</li>
+            <li><strong>Языки программирования:</strong> Python, SQL, Golang</li>
+            <li><strong>Soft skills:</strong> фасилитация, ревью, интервью, наставничество</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-section">
+        <button class="accordion">🎓 Образование</button>
+        <div class="panel">
+          <h3>Российский государственный университет нефти и газа им. И.М. Губкина</h3>
+          <p>Магистр, Автоматика и вычислительная техника, Приборостроение</p>
+          <p>2017 год</p>
+
+          <h3>Курсы</h3>
+          <ul>
+            <li>Python: основы и применение (Bioinformatics Institute, 2021)</li>
+            <li>Анализ данных на языке SQL (АНО ДПО "Учебный центр РРС", 2021)</li>
+            <li>Искусство презентации (Moscow Business School, 2021)</li>
+            <li>Основы SQL (Shultais Education, 2021)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-section">
+        <button class="accordion">🌍 Языки</button>
+        <div class="panel">
+          <ul>
+            <li>Русский — родной</li>
+            <li>Английский — A1 (начальный)</li>
+            <li>Немецкий — A1 (начальный)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-section">
+        <button class="accordion">➕ Дополнительно</button>
+        <div class="panel">
+          <ul>
+            <li>Готов к удаленной работе</li>
+            <li>Опыт наставничества</li>
+            <li>Хобби: спорт, видеомонтаж</li>
+            <li>
+              <a href="https://alabans.github.io/resume-semochkin/api/api-docs.html" target="_blank" class="doc-button">
+                Пример документации API
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <div class="accordion-section" data-lang-section="skills">
-      <button class="accordion">🛠 Ключевые навыки</button>
-      <div class="panel">
-        <ul>
-          <li><strong>📐 Архитектура:</strong> Microservices, SOA, CQRS, EDA, Saga, C4, ADR</li>
-          <li><strong>🔗 Интеграции:</strong> REST, gRPC, Kafka, Outbox Pattern, Swagger</li>
-          <li><strong>🗃 Хранилища:</strong> PostgreSQL, Redis, ClickHouse, Elasticsearch</li>
-          <li><strong>⚙️ DevOps:</strong> Docker, Kubernetes, GitLab CI/CD, Jenkins</li>
-          <li><strong>🧾 Анализ:</strong> BPMN, UML, Event Storming, Camunda</li>
-          <li><strong>🧰 Инструменты:</strong> Jira, Confluence, draw.io, Postman, Figma</li>
-          <li><strong>💻 Языки:</strong> Python, SQL</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="accordion-section" data-lang-section="experience">
-      <button class="accordion">💼 Опыт работы</button>
-      <div class="panel">
-        <h3>📌 МегаМаркет — Ведущий системный аналитик / Архитектор</h3>
-        <p><em>Март 2023 — настоящее время</em></p>
-        <ul>
-          <li>Проектирование архитектуры новой PIM-системы (100M+ SKU)</li>
-          <li>Интеграции, модель атрибутов, API и документация</li>
-        </ul>
-        <!-- Остальной опыт аналогично -->
-      </div>
-    </div>
-
-    <div class="accordion-section" data-lang-section="education">
-      <button class="accordion">🎓 Образование и курсы</button>
-      <div class="panel">
-        <ul>
-          <li>Магистр, РГУ нефти и газа им. И.М. Губкина, 2017</li>
-          <li>Python, SQL, презентации — 2021</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="accordion-section" data-lang-section="languages">
-      <button class="accordion">🌍 Языки</button>
-      <div class="panel">
-        <ul>
-          <li>Русский — родной</li>
-          <li>Английский — A1</li>
-          <li>Немецкий — A1</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="accordion-section" data-lang-section="extra">
-      <button class="accordion">➕ Дополнительно</button>
-      <div class="panel">
-        <ul>
-          <li>Удалённая работа, наставничество</li>
-          <li>CI/CD, DevOps</li>
-          <li>Хобби: спорт, видеомонтаж</li>
-          <li>
-            <a href="https://alabans.github.io/resume-semochkin/api/api-docs.html" target="_blank" class="doc-button">
-              Пример документации API
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <script src="lang.js"></script>
-  <script>
-    const acc = document.querySelectorAll(".accordion");
-    acc.forEach(el => {el.addEventListener("click", function () {
-        this.classList.toggle("active");
-        const panel = this.nextElementSibling;
-        panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
-      });
-    });
-  </script>
-
-  <style>
-    .doc-button {
-      display: inline-block;
-      padding: 8px 16px;
-      background-color: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: 600;
-      margin-top: 8px;
-      transition: background-color 0.3s;
-    }
-
-    .doc-button:hover {
-      background-color: #45a049;
-    }
-  </style>
-<script>
+    <script src="lang.js"></script>
+   <script>
   // Активация аккордеона
   const acc = document.querySelectorAll(".accordion");
   acc.forEach(el => {
@@ -369,12 +173,34 @@
     });
   });
 
+  // Управление сайдбаром
+  const sidebar = document.querySelector('.sidebar');
+  const sidebarTrigger = document.querySelector('.sidebar-trigger');
+  let sidebarTimeout;
+
+  function showSidebar() {
+    clearTimeout(sidebarTimeout);
+    sidebar.style.left = '0';
+  }
+
+  function hideSidebar() {
+    sidebarTimeout = setTimeout(() => {
+      sidebar.style.left = '-300px';
+    }, 200); // Небольшая задержка перед закрытием
+  }
+
+  sidebarTrigger.addEventListener('mouseenter', showSidebar);
+  sidebar.addEventListener('mouseenter', showSidebar);
+
+  sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+  sidebar.addEventListener('mouseleave', hideSidebar);
+
   // Для мобильного меню
   const artifactsTitle = document.querySelector('.artifacts-title');
   if (artifactsTitle) {
     artifactsTitle.addEventListener('click', function() {
       if (window.innerWidth <= 768) {
-        document.querySelector('.sidebar').classList.toggle('active');
+        document.querySelector('.sidebar').classList.toggle('expanded');
       }
     });
   }
