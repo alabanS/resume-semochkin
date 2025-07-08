@@ -208,7 +208,7 @@ function updateLang() {
   `;
 
   // Ключевая информация
-  document.querySelector("h2").textContent = currentLang === "ru" ? "Ключевая информация" : "Key Information";
+  document.querySelector("h2").textContent = currentLang === "ru" ? "Моя экспертиза" : "Core Expertise";
   document.querySelector("h2").nextElementSibling.textContent = lang.keyInfo;
 
   // Сайдбар
