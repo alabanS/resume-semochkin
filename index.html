@@ -3,30 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Семочкин Илья — Резюме</title>
+  <title>Ilya Semochkin — Resume</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-    <div class="sidebar-trigger"></div>
-      <!-- Сайдбар -->
-    <aside class="sidebar">
-      <div class="artifacts-title">Примеры артефактов</div>
-      <ul class="artifacts-list">
-        <li class="artifacts-item">
-          <a href="https://alabans.github.io/resume-semochkin/api/api-docs.html" class="artifacts-link" target="_blank">API-contracts</a>
-        </li>
-        <li class="artifacts-item">
-          <a href="https://example.com/pdm" class="artifacts-link" target="_blank">PDM</a>
-        </li>
-        <li class="artifacts-item">
-          <a href="https://example.com/er-diagram" class="artifacts-link" target="_blank">ER-diagram</a>
-        </li>
-        <li class="artifacts-item">
-          <a href="https://example.com/sequence-diagram" class="artifacts-link" target="_blank">Sequence diagram</a>
-        </li>
-      </ul>
-    </aside>
+  <div class="sidebar-trigger"></div>
+
+  <!-- Сайдбар -->
+  <aside class="sidebar">
+  <div class="artifacts-title">📁 Examples of artifacts</div>
+  <ul class="artifacts-list">
+    <!-- API Contracts -->
+    <li class="artifacts-item">
+      <details class="artifact-group">
+        <summary class="artifact-category">API Contracts</summary>
+        <ul class="artifact-subitems">
+          <li class="artifact-subitem">
+            <details class="artifact-subgroup">
+              <summary class="artifact-subcategory">REST API</summary>
+              <ul class="artifact-links">
+                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
+                      target="_blank"
+                      class="artifacts-link">API Documentation</a></li>
+              </ul>
+            </details>
+          </li>
+          <li class="artifact-subitem">
+            <details class="artifact-subgroup">
+              <summary class="artifact-subcategory">Kafka API</summary>
+              <ul class="artifact-links">
+                <li><span class="artifact-direction">Inbound</span>
+                  <ul class="artifact-sublinks">
+                    <li><a href="#" class="artifacts-link">Product Updates</a></li>
+                    <li><a href="#" class="artifacts-link">Inventory Changes</a></li>
+                  </ul>
+                </li>
+                <li><span class="artifact-direction">Outbound</span>
+                  <ul class="artifact-sublinks">
+                    <li><a href="#" class="artifacts-link">Catalog Export</a></li>
+                    <li><a href="#" class="artifacts-link">Analytics Events</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </details>
+    </li>
+
+    <!-- PDM -->
+    <li class="artifacts-item">
+      <details class="artifact-group">
+        <summary class="artifact-category">PDM</summary>
+        <ul class="artifact-subitems">
+          <li><a href="#" class="artifacts-link">Database Schema</a></li>
+        </ul>
+      </details>
+    </li>
+
+    <!-- ER-diagram -->
+    <li class="artifacts-item">
+      <details class="artifact-group">
+        <summary class="artifact-category">ER-diagram</summary>
+        <ul class="artifact-subitems">
+          <li><a href="#" class="artifacts-link">Entity Relations</a></li>
+        </ul>
+      </details>
+    </li>
+
+    <!-- Sequence diagram -->
+    <li class="artifacts-item">
+      <details class="artifact-group">
+        <summary class="artifact-category">Sequence diagram</summary>
+        <ul class="artifact-subitems">
+          <li><a href="#" class="artifacts-link">Order Processing</a></li>
+          <li><a href="#" class="artifacts-link">Payment Flow</a></li>
+        </ul>
+      </details>
+    </li>
+  </ul>
+</aside>
 
   <!-- Основное содержимое -->
   <main class="main-content">
@@ -35,134 +92,73 @@
     </div>
 
     <div class="container">
-      <h1>Семочкин Илья</h1>
+      <h1 data-lang="name">Семочкин Илья</h1>
       <div class="photo-container">
-        <img src="assets/css/images/photo.jpg" alt="Фото Семочкин Илья" class="resume-photo" />
+        <img src="assets/css/images/photo.jpg" alt="Фото" class="resume-photo" />
       </div>
-      <p class="contact">
-        <strong>Системный аналитик / Solution Architect</strong><br />
-        Мужчина, 31 год (родился 30 августа 1993)<br />
-        📍 Москва, м. Дмитровская<br />
-        📧 <a href="mailto:semochkin.i@icloud.com">semochkin.i@icloud.com</a><br />
-        📞 +7 (915) 394-59-43<br />
+
+      <div class="contact" data-lang="contact">
+        <strong>Ведущий системный аналитик / Архитектор</strong><br>
+        Мужчина, 31 год (родился 30 августа 1993)<br>
+        📍 Москва, м. Дмитровская<br>
+        📧 <a href="mailto:semochkin.i@icloud.com">semochkin.i@icloud.com</a><br>
+        📞 +7 (915) 394-59-43<br>
         Готов к переезду, готов к редким командировкам
-      </p>
+      </div>
 
-      <h2>Ключевая информация</h2>
-      <p>7+ лет опыта в системном анализе и архитектуре. Специализация: e-commerce (маркетплейсы) и ритейл-технологии, проектирование PIM-систем.</p>
+      <h2 data-lang="keyInfoTitle">Ключевая информация</h2>
+      <p data-lang="keyInfoText">7+ лет опыта в системном анализе и архитектуре...</p>
 
-      <div class="accordion-section">
+      <!-- Опыт работы -->
+      <div class="accordion-section" data-lang-section="experience">
         <button class="accordion">💼 Опыт работы</button>
-        <div class="panel">
-          <div class="experience-item">
-            <h3>Метамаркет (megamarket.ru)</h3>
-            <p class="experience-period">Март 2023 — настоящее время (2 года 5 месяцев)</p>
-            <p><strong>Ведущий системный аналитик</strong></p>
-            <p>Проект: UTKA - собственная PIM-система Мега Маркета для управления товарным каталогом</p>
-            <ul>
-              <li>Проектирование API и событийных контрактов (REST/OpenAPI, Kafka, Avro/Protobuf)</li>
-              <li>Архитектурное и процессное моделирование (ADR, C4-диаграммы, UML Sequence)</li>
-              <li>Проектирование основных сервисов UTKA для 300M+ SKU</li>
-              <li>Интеграции с OpenAI (ChatGPT) и Sber (GigaChat)</li>
-              <li>Внедрение процессов системного анализа в команде</li>
-            </ul>
-            <p><strong>Стек:</strong> микросервисы, SOA, EDA, CQRS, PostgreSQL, Redis, ClickHouse, Elasticsearch, Kafka, gRPC, Camunda</p>
-          </div>
-
-          <div class="experience-item">
-            <h3>Лига Цифровой Экономики (digitalleague.ru)</h3>
-            <p class="experience-period">Ноябрь 2021 — Февраль 2023 (1 год 4 месяца)</p>
-            <p><strong>Системный аналитик/Архитектор</strong></p>
-            <p>Проект: Система управления федеральным имуществом для Росимущества</p>
-            <ul>
-              <li>Проектирование API-контрактов (REST, SOAP/WSDL)</li>
-              <li>Разработка схем БД и модели данных объектов имущества</li>
-              <li>Настройка бизнес-процессов (Camunda) и ETI-процессов (Talend)</li>
-              <li>Внедрение CI/CD-практик (GitLab, Jenkins)</li>
-            </ul>
-            <p><strong>Стек:</strong> PostgreSQL, RabitMQ, Jenkins, Camunda, Talend, OpenAM, Python</p>
-          </div>
-
-          <div class="experience-item">
-            <h3>Научно-исследовательский институт транспорта нефти и нефтепродуктов</h3>
-            <p class="experience-period">Июль 2018 — Ноябрь 2021 (3 года 5 месяца)</p>
-            <p><strong>Системный аналитик</strong></p>
-            <p>Проект: Корпоративные ИТ-системы для управления транспортировкой нефти</p>
-            <ul>
-              <li>Сбор и анализ бизнес-требований</li>
-              <li>Разработка технических заданий</li>
-              <li>Моделирование нефтепроводных систем</li>
-              <li>Работа в Agile/Scrum</li>
-            </ul>
-            <p><strong>Стек:</strong> Azure DevOps, Matlab, Python, T-SQL, Microsoft SQL Server</p>
-          </div>
+        <div class="panel experience-container">
+          <!-- Динамически заполняется через JS -->
         </div>
       </div>
 
-      <div class="accordion-section">
-        <button class="accordion">🛠 Навыки</button>
+      <!-- Навыки -->
+      <div class="accordion-section" data-lang-section="skills">
+        <button class="accordion">🛠 Ключевые навыки</button>
         <div class="panel">
           <ul class="skills-list">
-            <li><strong>Архитектура:</strong> Microservices, SOA, EDA, CQRS, Saga</li>
-            <li><strong>Нотации:</strong> BPMN, UML, C4, ERD</li>
-            <li><strong>Интеграции:</strong> REST, Kafka, gRPC, RabbitMQ</li>
-            <li><strong>Базы данных:</strong> PostgreSQL, Redis, ClickHouse, Elasticsearch</li>
-            <li><strong>DevOps:</strong> Docker, Kubernetes, GitLab CI/CD, Jenkins</li>
-            <li><strong>API:</strong> OpenAPI/Swagger, CloudEvents</li>
-            <li><strong>Инструменты:</strong> Jira, Confluence, draw.io, Camunda</li>
-            <li><strong>Языки программирования:</strong> Python, SQL, Golang</li>
-            <li><strong>Soft skills:</strong> фасилитация, ревью, интервью, наставничество</li>
+            <!-- Динамически заполняется -->
           </ul>
         </div>
       </div>
 
-      <div class="accordion-section">
-        <button class="accordion">🎓 Образование</button>
-        <div class="panel">
-          <h3>Российский государственный университет нефти и газа им. И.М. Губкина</h3>
-          <p>Магистр, Автоматика и вычислительная техника, Приборостроение</p>
-          <p>2017 год</p>
-
-          <h3>Курсы</h3>
-          <ul>
-            <li>Python: основы и применение (Bioinformatics Institute, 2021)</li>
-            <li>Анализ данных на языке SQL (АНО ДПО "Учебный центр РРС", 2021)</li>
-            <li>Искусство презентации (Moscow Business School, 2021)</li>
-            <li>Основы SQL (Shultais Education, 2021)</li>
-          </ul>
+      <!-- Образование -->
+      <div class="accordion-section" data-lang-section="education">
+        <button class="accordion">🎓 Образование и курсы</button>
+        <div class="panel education-panel">
+          <!-- Динамически заполняется -->
         </div>
       </div>
 
-      <div class="accordion-section">
+      <!-- Языки -->
+      <div class="accordion-section" data-lang-section="languages">
         <button class="accordion">🌍 Языки</button>
         <div class="panel">
-          <ul>
-            <li>Русский — родной</li>
-            <li>Английский — A1 (начальный)</li>
-            <li>Немецкий — A1 (начальный)</li>
+          <ul class="languages-list">
+            <!-- Динамически заполняется -->
           </ul>
         </div>
       </div>
 
-      <div class="accordion-section">
+      <!-- Дополнительно -->
+      <div class="accordion-section" data-lang-section="extra">
         <button class="accordion">➕ Дополнительно</button>
         <div class="panel">
-          <ul>
-            <li>Готов к удаленной работе</li>
-            <li>Опыт наставничества</li>
-            <li>Хобби: спорт, видеомонтаж</li>
-            <li>
-              <a href="https://alabans.github.io/resume-semochkin/api/api-docs.html" target="_blank" class="doc-button">
-                Пример документации API
-              </a>
-            </li>
+          <ul class="additional-list">
+            <!-- Динамически заполняется -->
           </ul>
         </div>
       </div>
     </div>
+  </main>
 
-    <script src="lang.js"></script>
-   <script>
+  <script src="lang.js"></script>
+  <script>
   // Активация аккордеона
   const acc = document.querySelectorAll(".accordion");
   acc.forEach(el => {
@@ -176,17 +172,20 @@
   // Управление сайдбаром
   const sidebar = document.querySelector('.sidebar');
   const sidebarTrigger = document.querySelector('.sidebar-trigger');
+
   let sidebarTimeout;
 
   function showSidebar() {
     clearTimeout(sidebarTimeout);
     sidebar.style.left = '0';
+    sidebar.style.pointerEvents = 'auto';
   }
 
   function hideSidebar() {
     sidebarTimeout = setTimeout(() => {
       sidebar.style.left = '-300px';
-    }, 200); // Небольшая задержка перед закрытием
+      sidebar.style.pointerEvents = 'none';
+    }, 300); // Задержка перед исчезновением (можно регулировать)
   }
 
   sidebarTrigger.addEventListener('mouseenter', showSidebar);
