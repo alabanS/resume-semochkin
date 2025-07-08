@@ -31,7 +31,7 @@ body:hover .sidebar {
 }
 
 .sidebar-trigger {
-   position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   width: 20px;
@@ -43,23 +43,7 @@ body:hover .sidebar {
   left: 0;
 }
 
-/* Основное содержимое */
-.main-content {
-  flex: 1;
-  padding: 2rem;
-}
-
-.container {
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-/* Стили для каталога */
+/* Стили для древовидного каталога артефактов */
 .artifacts-title {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.3rem;
@@ -81,6 +65,86 @@ body:hover .sidebar {
   margin-bottom: 0.5rem;
 }
 
+.artifact-group {
+  margin-bottom: 0.5rem;
+}
+
+.artifact-category {
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  color: #2f4f4f;
+  cursor: pointer;
+  list-style: none;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.artifact-subitems {
+  padding-left: 1rem;
+  margin: 0;
+}
+
+.artifact-subgroup {
+  margin: 0.3rem 0;
+}
+
+.artifact-subcategory {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: #2f4f4f;
+  cursor: pointer;
+  list-style: none;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+}
+
+.artifact-links {
+  padding-left: 1rem;
+  margin: 0;
+  list-style: none;
+}
+
+.artifact-direction {
+  display: block;
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+}
+
+.artifact-sublinks {
+  padding-left: 1rem;
+  margin: 0;
+  list-style: none;
+}
+
+/* Убираем стандартный маркер details */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Иконки для раскрытия/закрытия */
+.artifact-category:before,
+.artifact-subcategory:before {
+  content: "📁 ";
+  margin-right: 5px;
+}
+details[open] > .artifact-category:before,
+details[open] > .artifact-subcategory:before {
+  content: "📂 ";
+}
+
+/* Анимация раскрытия */
+details[open] summary ~ * {
+  animation: fadeIn 0.3s ease;
+}
+
 .artifacts-link {
   display: block;
   padding: 0.7rem 1rem;
@@ -97,6 +161,22 @@ body:hover .sidebar {
   color: #4CAF50;
   transform: translateX(5px);
   border-color: rgba(76, 175, 80, 0.3);
+}
+
+/* Основное содержимое */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* Заголовки */
@@ -233,8 +313,8 @@ ul.skills-list li {
 
 /* Анимации */
 @keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Опыт работы */
@@ -281,5 +361,21 @@ ul.skills-list li {
     columns: 1;
     -webkit-columns: 1;
     -moz-columns: 1;
+  }
+
+  /* Адаптация древовидного сайдбара */
+  .artifact-group,
+  .artifact-subgroup {
+    margin-bottom: 0.3rem;
+  }
+
+  .artifact-category,
+  .artifact-subcategory {
+    padding: 0.5rem;
+  }
+
+  .artifact-links,
+  .artifact-sublinks {
+    padding-left: 0.5rem;
   }
 }
