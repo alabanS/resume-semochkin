@@ -11,7 +11,7 @@ const translations = {
       extra: "➕ Additional Info"
     },
     contact: {
-      title: "Lead Systems Analyst / Architect",
+      title: "Systems Analyst / Solution Architect",
       details: "Man, 31 years old (born August 30, 1993)<br>📍 Moscow, Dmitrovskaya metro station<br>📧 <a href='mailto:semochkin.i@icloud.com'>semochkin.i@icloud.com</a><br>📞 +7 (915) 394-59-43<br>Ready to relocate, open to occasional business trips"
     },
     keyInfo: "7+ years of experience in system analysis and architecture. Specialization: e-commerce (marketplaces) and retail technologies, particularly PIM system design.",
@@ -89,7 +89,7 @@ const translations = {
   },
   ru: {
     name: "Семочкин Илья",
-    position: "Ведущий системный аналитик / Архитектор",
+    position: "Cистемный аналитик /Solution Architec",
     sections: {
       about: "🧠 Обо мне",
       skills: "🛠 Ключевые навыки",
@@ -99,7 +99,7 @@ const translations = {
       extra: "➕ Дополнительно"
     },
     contact: {
-      title: "Ведущий системный аналитик / Архитектор",
+      title: "Cистемный аналитик /Solution Architec",
       details: "Мужчина, 31 год (родился 30 августа 1993)<br>📍 Москва, м. Дмитровская<br>📧 <a href='mailto:semochkin.i@icloud.com'>semochkin.i@icloud.com</a><br>📞 +7 (915) 394-59-43<br>Готов к переезду, готов к редким командировкам"
     },
     keyInfo: "7+ лет опыта в системном анализе и архитектуре. Специализация: e-commerce (маркетплейсы) и ритейл-технологии, проектирование PIM-систем.",
