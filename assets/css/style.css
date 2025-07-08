@@ -1,120 +1,65 @@
+/* Основные стили */
 body {
-  font-family: 'Inter', sans-serif;
+  display: flex;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
+  font-family: 'Inter', sans-serif;
   background: linear-gradient(135deg, #e0f7fa, #f1f8ff);
   color: #333;
   transition: all 0.3s ease;
 }
 
+/* Сайдбар */
+.sidebar {
+  width: 250px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 1.5rem;
+  position: fixed;
+  top: 0;
+  left: -300px;
+  height: 100vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  z-index: 500;
+  transition: all 0.3s ease;
+}
+
+body:hover .sidebar {
+  left: 0;
+}
+
+.sidebar-trigger {
+   position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 100vh;
+  z-index: 600;
+}
+
+.sidebar-trigger:hover ~ .sidebar {
+  left: 0;
+}
+
+/* Основное содержимое */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
 .container {
   max-width: 880px;
-  margin: 2rem auto;
+  margin: 0 auto;
   padding: 2rem;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.7s ease-in-out;
 }
 
-h1 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2.2rem;
-}
-
-.contact {
-  margin-bottom: 1.5rem;
-}
-
-.theme-toggle {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-
-.theme-toggle button {
-  background: #2f4f4f;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.theme-toggle button:hover {
-  background: #3b6f6f;
-}
-
-.accordion {
-  background-color: #ffffff;
-  color: #2f4f4f;
-  cursor: pointer;
-  padding: 1rem;
-  width: 100%;
-  border: none;
-  outline: none;
-  text-align: left;
-  font-size: 1.1rem;
-  border-bottom: 1px solid #ccc;
-  transition: background-color 0.3s ease;
-}
-
-.accordion:hover {
-  background-color: #f0f0f0;
-}
-
-.panel {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-  padding-left: 1rem;
-}
-
-.photo-container {
-  text-align: left;
-  margin: 15px 0;
-}
-
-.resume-photo {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-
-  /* Изначально нет рамки и тени */
-  border: 3px solid transparent;
-  box-shadow: none;
-
-  /* Плавные переходы для всех изменений */
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
-}
-
-/* Стили при наведении */
-.resume-photo:hover {
-  border-color: #4CAF50; /* Цвет рамки */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
-  transform: scale(1.03); /* Легкое увеличение */
-}
-/* Стили для каталога артефактов */
-.artifacts-catalog {
-  position: fixed;
-  left: 1rem;
-  top: 1rem;
-  width: 250px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 1.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  animation: fadeIn 0.7s ease-in-out;
-}
-
+/* Стили для каталога */
 .artifacts-title {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.3rem;
@@ -123,6 +68,7 @@ h1 {
   color: #2f4f4f;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid #4CAF50;
+  cursor: pointer;
 }
 
 .artifacts-list {
@@ -153,32 +99,158 @@ h1 {
   border-color: rgba(76, 175, 80, 0.3);
 }
 
-/* Основная структура */
-.layout-wrapper {
-  display: flex;
-  min-height: 100vh;
+/* Заголовки */
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.2rem;
 }
 
-.sidebar {
-  width: 250px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  padding: 1.5rem;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
-  transition: transform 0.3s ease;
+h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  color: #2f4f4f;
+  margin-top: 2rem;
+  border-bottom: 2px solid #4CAF50;
+  padding-bottom: 0.5rem;
 }
 
-.main-content {
-  flex: 1;
-  padding: 2rem;
+h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  color: #2f4f4f;
+  margin-top: 1.5rem;
 }
 
-/* Стили для мобильных устройств */
+/* Контактная информация */
+.contact {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* Переключатель темы */
+.theme-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.theme-toggle button {
+  background: #2f4f4f;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.theme-toggle button:hover {
+  background: #3b6f6f;
+}
+
+/* Аккордеон */
+.accordion {
+  background-color: #ffffff;
+  color: #2f4f4f;
+  cursor: pointer;
+  padding: 1rem;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #ccc;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.accordion:hover {
+  background-color: #f0f0f0;
+}
+
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  padding-left: 1rem;
+}
+
+/* Фото */
+.photo-container {
+  text-align: left;
+  margin: 15px 0;
+}
+
+.resume-photo {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 3px solid transparent;
+  box-shadow: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.resume-photo:hover {
+  border-color: #4CAF50;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: scale(1.03);
+}
+
+/* Кнопки */
+.doc-button {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-top: 8px;
+  transition: background-color 0.3s;
+}
+
+.doc-button:hover {
+  background-color: #45a049;
+}
+
+/* Списки */
+ul.skills-list {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul.skills-list li {
+  margin-bottom: 0.5rem;
+  break-inside: avoid;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* Опыт работы */
+.experience-item {
+  margin-bottom: 2rem;
+}
+
+.experience-period {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+/* Мобильная версия */
 @media (max-width: 768px) {
-  .layout-wrapper {
+  body {
     flex-direction: column;
   }
 
@@ -186,48 +258,28 @@ h1 {
     width: 100%;
     height: auto;
     position: relative;
-    max-height: 0;
+    max-height: 60px;
     overflow: hidden;
-    padding: 0;
     transition: max-height 0.3s ease;
   }
 
-  .sidebar.active {
+  .sidebar.expanded {
     max-height: 500px;
-    padding: 1.5rem;
   }
 
-  .artifacts-title {
-    cursor: pointer;
-    padding: 1rem;
-    margin: 0;
-  }
-}
-
-/* Адаптация для мобильных */
-@media (max-width: 1024px) {
-  .artifacts-catalog {
-    position: static;
-    width: auto;
-    margin-bottom: 2rem;
-    margin-right: 2rem;
-    float: left;
+  .artifacts-title::after {
+    content: "▼";
+    float: right;
+    transition: transform 0.3s ease;
   }
 
-  .container {
-    clear: both;
+  .sidebar.expanded .artifacts-title::after {
+    transform: rotate(180deg);
   }
-}
 
-@media (max-width: 768px) {
-  .artifacts-catalog {
-    float: none;
-    width: 100%;
-    margin-right: 0;
+  ul.skills-list {
+    columns: 1;
+    -webkit-columns: 1;
+    -moz-columns: 1;
   }
-}
-
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
 }
