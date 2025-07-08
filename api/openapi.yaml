@@ -1,43 +1,102 @@
 openapi: 3.0.0
 info:
-  title: Пример API UTKA (PIM-система)
-  description: API для управления товарным каталогом в рамках проекта UTKA
+  title: Search API
   version: 1.0.0
-servers:
-  - url: https://utka-api.example.com/v1 
-    description: Тестовая среда
+  description: API для управления поисками
+
 paths:
-  /categories:
+  /api/searches:
     get:
-      summary: Получение списка категорий
+      summary: Получить список поисков
+      tags:
+        - Searches
+      operationId: getSearches
       responses:
         '200':
           description: Успешный ответ
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Category'
+                type: object
+                properties:
+                  success:
+                    type: integer
+                    example: 1
+                  data:
+                    type: object
+                    properties:
+                      searches:
+                            $ref: '#/components/schemas/Searches'
+        '422':
+          description: Ошибки валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     post:
-      summary: Создание новой категории
+      summary: Создать новый поиск
+      tags:
+        - Searches
+      operationId: createSearch
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CategoryCreate'
+              $ref: '#/components/schemas/CreateSearchRequest'
       responses:
         '201':
-          description: Категория успешно создана
+          description: Поиск создан успешно
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: integer
+                    example: 1
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+        '400':
+          description: Некорректный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Ошибки валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
-  /products:
+  /api/searches/{id}:
     get:
-      summary: Получение списка товаров
+      summary: Получить поиск по ID
+      tags:
+        - Searches
+      operationId: getSearchById
       parameters:
-        - name: limit
-          in: query
-          description: Ограничение количества результатов
+        - name: id
+          in: path
+          required: true
           schema:
             type: integer
       responses:
@@ -46,36 +105,260 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Product'
+                type: object
+                properties:
+                  success:
+                    type: integer
+                    example: 1
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "string"
+                      description:
+                        type: string
+                        example: "string"
+                      filters:
+                        $ref: '#/components/schemas/Filters'
+        '400':
+          description: Некорректный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Ресурс не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      summary: Обновить поиск по ID
+      tags:
+        - Searches
+      operationId: updateSearch
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Search'
+      responses:
+        '200':
+          description: Поиск обновлен успешно
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: integer
+                    example: 1
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+        '400':
+          description: Некорректный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+       
+        '404':
+          description: Ресурс не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Ошибки валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Удалить поиск по ID
+      tags:
+        - Searches
+      operationId: deleteSearch
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Поиск удален успешно
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: integer
+                    example: 1
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+        '400':
+          description: Некорректный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      
+        '404':
+          description: Ресурс не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Ошибки валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
-    Category:
+    CreateSearchRequest:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 100
+              description: Наименование поиска
+            description:
+              type: string
+              maxLength: 3000
+              description: Описание поиска
+            filters:
+              $ref: '#/components/schemas/Filters'
+      required:
+        - data
+
+    Filters:
+      type: object
+      properties:
+        logic:
+          type: string
+          enum: [AND, OR, IS]
+          description: Логический оператор объединения условий
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition'
+      required:
+        - logic
+        - conditions
+
+    Condition:
+      type: object
+      properties:
+        logic:
+          type: string
+          enum: [AND, OR, IS]
+          description: Логический оператор объединения вложенных условий
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeCondition'
+
+    AttributeCondition:
+      type: object
+      properties:
+        entityType:
+          type: string
+          enum: [attribute, master, content, item, category]
+          description: Тип сущности поиска
+        entityAttributeId:
+          type: integer
+          description: Идентификатор атрибута сущности
+        entityAttributeName:
+          type: string
+          description: Наименование атрибута сущности
+        operator:
+          type: string
+          enum: [eq, notEq, contains, notContains, lt, lteq, gt, gteq, between]
+          description: Оператор сравнения
+        values:
+          type: array
+          items:
+            type: string
+          description: Значения для сравнения
+      required:
+        - entityType
+        - operator
+        - values
+
+    Search:
       type: object
       properties:
         id:
           type: integer
+          description: Уникальный идентификатор поиска
         name:
           type: string
-        parent_id:
-          type: integer
-    CategoryCreate:
+          description: Название поиска
+        description:
+          type: string
+          description: Описание поиска
+        filters:
+          $ref: '#/components/schemas/Filters'
+    Searches:
+      type: array
+      items:
+        $ref: "#/components/schemas/Search"
+
+    ErrorResponse:
       type: object
-      required:
-        - name
       properties:
-        name:
-          type: string
-        parent_id:
+        success:
           type: integer
-    Product:
-      type: object
-      properties:
-        sku:
-          type: string
-        name:
-          type: string
-        category_id:
-          type: integer
+        error:
+          type: object
+          properties:
+            message:
+              type: string
