@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product Catalog GraphQL API</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Стили документации */
+    .api-doc {
+      margin-top: 2rem;
+    }
+
+    .api-endpoint {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #4CAF50;
+      margin-bottom: 2rem;
+    }
+
+    .api-method {
+      font-weight: bold;
+      color: #4CAF50;
+      margin-right: 1rem;
+    }
+
+    .api-description {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+
+    .api-section {
+      margin-bottom: 2rem;
+    }
+
+    .api-section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #2f4f4f;
+      border-bottom: 2px solid #2196F3;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .api-subsection {
+      margin-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .api-subsection-title {
+      font-weight: 600;
+      color: #2f4f4f;
+      margin-bottom: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(33, 150, 243, 0.1);
+    }
+
+    tr:hover {
+      background-color: rgba(33, 150, 243, 0.2);
+    }
+
+    .code-block {
+      background-color: #f5f5f5;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      margin: 1rem 0;
+      border-left: 4px solid #2196F3;
+      overflow-x: auto;
+    }
+
+    .error-table {
+      border-left: 4px solid #f44336;
+    }
+
+    .error-table th {
+      background-color: #f44336;
+    }
+
+    .jira-link {
+      color: #2196F3;
+      text-decoration: none;
+    }
+
+    .jira-link:hover {
+      text-decoration: underline;
+    }
+
+    .load-table {
+      border-left: 4px solid #4CAF50;
+    }
+
+    .load-table th {
+      background-color: #4CAF50;
+    }
+
+    .graphql-query {
+      color: #e10098;
+    }
+
+    .graphql-type {
+      color: #005cc5;
+    }
+
+    .graphql-keyword {
+      color: #d6336c;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-trigger"></div>
+  <div id="sidebar-container"></div>
+
+  <main class="main-content">
+    <div class="theme-toggle">
+      <button id="langSwitch">Switch to English 🌐</button>
+    </div>
+
+    <div class="container api-doc">
+      <h1>Product Catalog GraphQL API</h1>
+
+      <div class="api-description">
+        <p>GraphQL API для работы с каталогом товаров, включая запросы, мутации и подписки.</p>
+        <p><strong>Jira Task:</strong> <a href="#" class="jira-link" target="_blank">CAT-42</a></p>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">1. Запросы (Queries)</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">1.1 Получение товаров</h3>
+          <div class="api-endpoint">
+            <div>
+              <span class="api-method">QUERY</span>
+              <strong>products</strong>
+            </div>
+            <div class="api-description">
+              <p>Получение списка товаров с возможностью фильтрации, сортировки и пагинации</p>
+            </div>
+
+            <h4>Параметры запроса</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Параметр</th>
+                  <th>Тип</th>
+                  <th>Обязательный</th>
+                  <th>Описание</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>category</td>
+                  <td>ID</td>
+                  <td>Нет</td>
+                  <td>Фильтр по ID категории</td>
+                </tr>
+                <tr>
+                  <td>priceMin</td>
+                  <td>Float</td>
+                  <td>Нет</td>
+                  <td>Минимальная цена товара</td>
+                </tr>
+                <tr>
+                  <td>priceMax</td>
+                  <td>Float</td>
+                  <td>Нет</td>
+                  <td>Максимальная цена товара</td>
+                </tr>
+                <tr>
+                  <td>sort</td>
+                  <td>ProductSortField</td>
+                  <td>Нет</td>
+                  <td>Поле для сортировки (PRICE, RATING, POPULARITY)</td>
+                </tr>
+                <tr>
+                  <td>order</td>
+                  <td>SortOrder</td>
+                  <td>Нет</td>
+                  <td>Направление сортировки (ASC, DESC)</td>
+                </tr>
+                <tr>
+                  <td>limit</td>
+                  <td>Int</td>
+                  <td>Нет</td>
+                  <td>Лимит товаров (по умолчанию: 20)</td>
+                </tr>
+                <tr>
+                  <td>offset</td>
+                  <td>Int</td>
+                  <td>Нет</td>
+                  <td>Смещение (по умолчанию: 0)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h4>Пример запроса</h4>
+            <div class="code-block">
+<span class="graphql-keyword">query</span> <span class="graphql-query">GetProducts</span>($category: ID, $priceMin: Float, $priceMax: Float) {
+  <span class="graphql-query">products</span>(
+    category: $category
+    priceMin: $priceMin
+    priceMax: $priceMax
+    sort: <span class="graphql-type">PRICE</span>
+    order: <span class="graphql-type">ASC</span>
+    limit: 20
+    offset: 0
+  ) {
+    totalCount
+    edges {
+      node {
+        id
+        name
+        price
+        currency
+        rating
+        inStock
+        images
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+            </div>
+
+            <h4>Пример переменных</h4>
+            <div class="code-block">
+{
+  "category": "42",
+  "priceMin": 1000,
+  "priceMax": 5000
+}
+            </div>
+
+            <h4>Структура ответа</h4>
+            <div class="code-block">
+<span class="graphql-keyword">type</span> <span class="graphql-type">ProductConnection</span> {
+  edges: [<span class="graphql-type">ProductEdge</span>!]!
+  pageInfo: <span class="graphql-type">PageInfo</span>!
+  totalCount: <span class="graphql-type">Int</span>!
+}
+
+<span class="graphql-keyword">type</span> <span class="graphql-type">ProductEdge</span> {
+  node: <span class="graphql-type">Product</span>!
+  cursor: <span class="graphql-type">String</span>!
+}
+
+<span class="graphql-keyword">type</span> <span class="graphql-type">Product</span> {
+  id: <span class="graphql-type">ID</span>!
+  name: <span class="graphql-type">String</span>!
+  description: <span class="graphql-type">String</span>
+  price: <span class="graphql-type">Float</span>!
+  currency: <span class="graphql-type">Currency</span>!
+  rating: <span class="graphql-type">Float</span>
+  inStock: <span class="graphql-type">Boolean</span>!
+  images: [<span class="graphql-type">String</span>!]
+  category: <span class="graphql-type">Category</span>
+}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">2. Мутации (Mutations)</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">2.1 Создание товара</h3>
+          <div class="api-endpoint">
+            <div>
+              <span class="api-method">MUTATION</span>
+              <strong>createProduct</strong>
+            </div>
+            <div class="api-description">
+              <p>Создание нового товара в каталоге</p>
+            </div>
+
+            <h4>Параметры запроса</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Параметр</th>
+                  <th>Тип</th>
+                  <th>Обязательный</th>
+                  <th>Описание</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>input</td>
+                  <td>ProductInput!</td>
+                  <td>Да</td>
+                  <td>Данные для создания товара</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h4>Пример запроса</h4>
+            <div class="code-block">
+<span class="graphql-keyword">mutation</span> <span class="graphql-query">CreateProduct</span>($input: <span class="graphql-type">ProductInput</span>!) {
+  <span class="graphql-query">createProduct</span>(input: $input) {
+    id
+    name
+    price
+    currency
+    inStock
+  }
+}
+            </div>
+
+            <h4>Пример переменных</h4>
+            <div class="code-block">
+{
+  "input": {
+    "name": "Смартфон Premium X",
+    "description": "Флагманский смартфон с AMOLED экраном",
+    "price": 49999.99,
+    "currency": "RUB",
+    "inStock": true,
+    "images": [
+      "https://cdn.example.com/img123_1.jpg",
+      "https://cdn.example.com/img123_2.jpg"
+    ],
+    "categoryId": "42"
+  }
+}
+            </div>
+
+            <h4>Структура входных данных</h4>
+            <div class="code-block">
+<span class="graphql-keyword">input</span> <span class="graphql-type">ProductInput</span> {
+  name: <span class="graphql-type">String</span>!
+  description: <span class="graphql-type">String</span>
+  price: <span class="graphql-type">Float</span>!
+  currency: <span class="graphql-type">Currency</span> = RUB
+  inStock: <span class="graphql-type">Boolean</span> = true
+  images: [<span class="graphql-type">String</span>!]
+  categoryId: <span class="graphql-type">ID</span>
+}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">3. Типы данных</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">3.1 Основные типы</h3>
+          <div class="code-block">
+<span class="graphql-keyword">enum</span> <span class="graphql-type">Currency</span> {
+  USD
+  EUR
+  RUB
+}
+
+<span class="graphql-keyword">enum</span> <span class="graphql-type">ProductSortField</span> {
+  PRICE
+  RATING
+  POPULARITY
+  CREATED_AT
+}
+
+<span class="graphql-keyword">enum</span> <span class="graphql-type">SortOrder</span> {
+  ASC
+  DESC
+}
+
+<span class="graphql-keyword">type</span> <span class="graphql-type">PageInfo</span> {
+  hasNextPage: <span class="graphql-type">Boolean</span>!
+  hasPreviousPage: <span class="graphql-type">Boolean</span>!
+  startCursor: <span class="graphql-type">String</span>
+  endCursor: <span class="graphql-type">String</span>
+}
+
+<span class="graphql-keyword">scalar</span> <span class="graphql-type">DateTime</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">4. Ошибки</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">4.1 Коды ошибок</h3>
+          <table class="error-table">
+            <thead>
+              <tr>
+                <th>Код</th>
+                <th>Сообщение</th>
+                <th>Решение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PRODUCT_NOT_FOUND</td>
+                <td>Товар не найден</td>
+                <td>Проверьте ID товара</td>
+              </tr>
+              <tr>
+                <td>INVALID_PRICE</td>
+                <td>Недопустимая цена</td>
+                <td>Цена должна быть положительной</td>
+              </tr>
+              <tr>
+                <td>INVALID_CATEGORY</td>
+                <td>Недопустимая категория</td>
+                <td>Проверьте ID категории</td>
+              </tr>
+              <tr>
+                <td>UNAUTHORIZED</td>
+                <td>Требуется авторизация</td>
+                <td>Предоставьте токен доступа</td>
+              </tr>
+              <tr>
+                <td>FORBIDDEN</td>
+                <td>Доступ запрещен</td>
+                <td>Проверьте права доступа</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">4.2 Пример ошибки</h3>
+          <div class="code-block">
+{
+  "errors": [
+    {
+      "message": "Требуется авторизация",
+      "locations": [ { "line": 2, "column": 3 } ],
+      "path": [ "createProduct" ],
+      "extensions": {
+        "code": "UNAUTHORIZED",
+        "timestamp": "2025-07-10T12:34:56Z"
+      }
+    }
+  ]
+}
+          </div>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">5. Нагрузка и производительность</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">5.1 Показатели производительности</h3>
+          <table class="load-table">
+            <thead>
+              <tr>
+                <th>Метрика</th>
+                <th>Значение</th>
+                <th>Описание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Среднее время ответа</td>
+                <td>120 мс</td>
+                <td>Для запросов товаров</td>
+              </tr>
+              <tr>
+                <td>Пиковая нагрузка</td>
+                <td>850 RPS</td>
+                <td>Максимальное количество запросов в секунду</td>
+              </tr>
+              <tr>
+                <td>Средняя нагрузка</td>
+                <td>320 RPS</td>
+                <td>Среднее количество запросов в секунду</td>
+              </tr>
+              <tr>
+                <td>99-й перцентиль</td>
+                <td>250 мс</td>
+                <td>99% запросов обрабатываются быстрее</td>
+              </tr>
+              <tr>
+                <td>Ошибки при нагрузке</td>
+                <td>&lt; 0.1%</td>
+                <td>Процент ошибок при пиковой нагрузке</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Рекомендации по кэшированию</h4>
+          <div class="code-block">
+# Конфигурация кэширования GraphQL
+directive @cacheControl(
+  maxAge: Int
+  scope: CacheControlScope
+) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+type Product @cacheControl(maxAge: 300, scope: PUBLIC) {
+  id: ID!
+  name: String!
+  # ... другие поля
+}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="lang.js"></script>
+  <script>
+    // Загрузка сайдбара
+    fetch('sidebar.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById('sidebar-container').innerHTML = html;
+        initializeSidebar();
+      })
+      .catch(error => {
+        console.error('Error loading sidebar:', error);
+      });
+
+    function initializeSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarTrigger = document.querySelector('.sidebar-trigger');
+
+      let sidebarTimeout;
+
+      function showSidebar() {
+        clearTimeout(sidebarTimeout);
+        sidebar.style.left = '0';
+        sidebar.style.pointerEvents = 'auto';
+      }
+
+      function hideSidebar() {
+        sidebarTimeout = setTimeout(() => {
+          sidebar.style.left = '-300px';
+          sidebar.style.pointerEvents = 'none';
+        }, 300);
+      }
+
+      if (sidebar && sidebarTrigger) {
+        sidebarTrigger.addEventListener('mouseenter', showSidebar);
+        sidebar.addEventListener('mouseenter', showSidebar);
+        sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+        sidebar.addEventListener('mouseleave', hideSidebar);
+      }
+
+      const artifactsTitle = document.querySelector('.artifacts-title');
+      if (artifactsTitle) {
+        artifactsTitle.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            document.querySelector('.sidebar').classList.toggle('expanded');
+          }
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const acc = document.querySelectorAll(".accordion");
+      acc.forEach(el => {
+        el.addEventListener("click", function() {
+          this.classList.toggle("active");
+          const panel = this.nextElementSibling;
+          panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+        });
+      });
+    });
+  </script>
+</body>
+</html>

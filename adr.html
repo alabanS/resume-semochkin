@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADR - QuantumFlow Data Pipeline</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Стили для ADR документации */
+    .adr-doc {
+      margin-top: 2rem;
+    }
+
+    .adr-header {
+      background-color: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      border-left: 4px solid #6A5ACD;
+    }
+
+    .adr-title {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #2f4f4f;
+      margin-bottom: 0.5rem;
+    }
+
+    .adr-status {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background-color: #6A5ACD;
+      color: white;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .adr-section {
+      margin-bottom: 2rem;
+    }
+
+    .adr-section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #2f4f4f;
+      border-bottom: 2px solid #6A5ACD;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .adr-subsection {
+      margin-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .adr-subsection-title {
+      font-weight: 600;
+      color: #2f4f4f;
+      margin-bottom: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #6A5ACD;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(106, 90, 205, 0.1);
+    }
+
+    tr:hover {
+      background-color: rgba(106, 90, 205, 0.2);
+    }
+
+    .info-box {
+      background-color: #e7e4f4;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #6A5ACD;
+      margin: 1rem 0;
+    }
+
+    .tip-box {
+      background-color: #e4e7f4;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #4682B4;
+      margin: 1rem 0;
+    }
+
+    .jira-link {
+      color: #6A5ACD;
+      text-decoration: none;
+    }
+
+    .jira-link:hover {
+      text-decoration: underline;
+    }
+
+    .diagram-img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-trigger"></div>
+
+  <!-- Сайдбар -->
+  <aside class="sidebar">
+    <div class="artifacts-title">📁 Architecture Artifacts</div>
+    <ul class="artifacts-list">
+      <!-- API Contracts -->
+      <li class="artifacts-item">
+        <details class="artifact-group">
+          <summary class="artifact-category">API Contracts</summary>
+          <ul class="artifact-subitems">
+            <li class="artifact-subitem">
+              <details class="artifact-subgroup">
+                <summary class="artifact-subcategory">REST API</summary>
+                <ul class="artifact-links">
+                  <li><a href="#" target="_blank" class="artifacts-link">API Documentation</a></li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </details>
+      </li>
+
+      <!-- ADRs -->
+      <li class="artifacts-item">
+        <details class="artifact-group" open>
+          <summary class="artifact-category">ADRs</summary>
+          <ul class="artifact-subitems">
+            <li><a href="#" class="artifacts-link active">QuantumFlow ADR</a></li>
+            <li><a href="#" class="artifacts-link">Data Lake ADR</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <!-- Diagrams -->
+      <li class="artifacts-item">
+        <details class="artifact-group">
+          <summary class="artifact-category">Diagrams</summary>
+          <ul class="artifact-subitems">
+            <li><a href="#" class="artifacts-link">System Architecture</a></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Основное содержимое -->
+  <main class="main-content">
+    <div class="theme-toggle">
+      <button id="langSwitch">Switch to English 🌐</button>
+    </div>
+
+    <div class="container adr-doc">
+      <div class="adr-header">
+        <h1 class="adr-title">ADR - QuantumFlow Data Pipeline</h1>
+        <span class="adr-status">APPROVED</span>
+        <p>Architecture Decision Record - документ, фиксирующий ключевые архитектурные решения по системе обработки данных QuantumFlow для компании NebulaTech.</p>
+      </div>
+
+      <div class="adr-section">
+        <h2 class="adr-section-title">Контекст</h2>
+
+        <div class="info-box">
+          <p><strong>Цель:</strong> Создание масштабируемой системы обработки потоковых данных для аналитики в реальном времени.</p>
+        </div>
+
+        <div class="adr-subsection">
+          <h3 class="adr-subsection-title">Проблема</h3>
+          <p>Текущая система NebulaAnalytics не справляется с нагрузкой:</p>
+          <ul>
+            <li>Обрабатывает только 50K событий/сек при требуемых 500K</li>
+            <li>Задержка обработки 5-10 минут вместо требуемых 30 сек</li>
+            <li>Не поддерживает сложные агрегации в реальном времени</li>
+            <li>Частые простои из-за перегрузки</li>
+          </ul>
+
+          <p><strong>Бизнес-требования:</strong></p>
+          <ol>
+            <li>Обработка 1M событий/сек с возможностью масштабирования</li>
+            <li>Задержка не более 30 сек для критичных метрик</li>
+            <li>Поддержка сложных оконных агрегаций</li>
+            <li>99.99% доступности</li>
+          </ol>
+        </div>
+
+        <div class="adr-subsection">
+          <h3 class="adr-subsection-title">Текущий стек</h3>
+          <div class="info-box">
+            <p><strong>Устаревшие компоненты:</strong></p>
+            <ul>
+              <li>NebulaAnalytics (монолит на Java)</li>
+              <li>Legacy Kafka (версия 0.10)</li>
+              <li>PostgreSQL для хранения агрегатов</li>
+            </ul>
+          </div>
+
+          <p><strong>Планируемый функционал QuantumFlow:</strong></p>
+          <ol>
+            <li>Прием и валидация событий от 50+ источников</li>
+            <li>Обогащение данных в реальном времени</li>
+            <li>Сложные агрегации с поддержкой временных окон</li>
+            <li>Маршрутизация обработанных данных в 10+ целевых систем</li>
+            <li>Мониторинг и алертинг</li>
+          </ol>
+
+          <img src="quantumflow-arch.png" class="diagram-img" alt="Архитектура QuantumFlow">
+        </div>
+      </div>
+
+      <div class="adr-section">
+        <h2 class="adr-section-title">Решение</h2>
+
+        <div class="adr-subsection">
+          <h3 class="adr-subsection-title">Рассмотренные варианты</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Решение</th>
+                <th>Описание</th>
+                <th>Плюсы</th>
+                <th>Минусы</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Flink + Kafka Streams</td>
+                <td>Гибридное решение с использованием Apache Flink для сложных агрегаций и Kafka Streams для простых преобразований</td>
+                <td>
+                  <ul>
+                    <li>Высокая производительность</li>
+                    <li>Гибкость в обработке</li>
+                    <li>Поддержка exactly-once семантики</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li>Сложность управления</li>
+                    <li>Высокий порог входа</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>Spark Structured Streaming</td>
+                <td>Использование Spark для batch и stream обработки</td>
+                <td>
+                  <ul>
+                    <li>Единая платформа для batch/stream</li>
+                    <li>Широкая экосистема</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li>Высокая latency</li>
+                    <li>Сложность масштабирования</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>TimescaleDB + Kafka</td>
+                <td>Хранение сырых данных в TimescaleDB с предварительной обработкой в Kafka</td>
+                <td>
+                  <ul>
+                    <li>Простота реализации</li>
+                    <li>SQL интерфейс</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li>Ограниченная производительность</li>
+                    <li>Проблемы с горизонтальным масштабированием</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="adr-subsection">
+          <h3 class="adr-subsection-title">Выбранная архитектура</h3>
+          <div class="info-box">
+            <p><strong>Принятое решение:</strong> Гибридная архитектура на основе Kafka + Flink + ClickHouse:</p>
+            <ol>
+              <li>Kafka (v3.4) как основная шина событий</li>
+              <li>Flink для сложной потоковой обработки</li>
+              <li>ClickHouse для хранения агрегатов и аналитических запросов</li>
+              <li>Kubernetes для оркестрации</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="adr-section">
+        <h2 class="adr-section-title">Последствия</h2>
+
+        <div class="adr-subsection">
+          <h3 class="adr-subsection-title">Преимущества</h3>
+          <ul>
+            <li>Обработка до 2M событий/сек с возможностью масштабирования</li>
+            <li>Задержка менее 10 сек для критичных метрик</li>
+            <li>Снижение TCO на 40% по сравнению с текущим решением</li>
+            <li>Упрощение поддержки за счет стандартизации стека</li>
+          </ul>
+        </div>
+
+        <div class="adr-subsection">
+          <h3 class="adr-subsection-title">Риски</h3>
+          <ul>
+            <li>Необходимость обучения команды (Flink, ClickHouse)</li>
+            <li>Сложность отладки распределенных вычислений</li>
+            <li>Дополнительные затраты на миграцию (6-8 месяцев)</li>
+          </ul>
+        </div>
+
+        <div class="adr-subsection">
+          <h3 class="adr-subsection-title">Связанные задачи</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Тип задачи</th>
+                <th>Ссылка</th>
+                <th>Статус</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>POC</td>
+                <td><a href="#" class="jira-link" target="_blank">QT-101</a></td>
+                <td>Завершено</td>
+              </tr>
+              <tr>
+                <td>Архитектура</td>
+                <td><a href="#" class="jira-link" target="_blank">QT-205</a></td>
+                <td>В работе</td>
+              </tr>
+              <tr>
+                <td>Инфраструктура</td>
+                <td><a href="#" class="jira-link" target="_blank">QT-310</a></td>
+                <td>Запланировано</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="adr-section">
+        <h2 class="adr-section-title">Критерии сложности</h2>
+
+        <div class="info-box">
+          <h3>Техническая сложность</h3>
+          <ul>
+            <li>Распределенная потоковая обработка данных</li>
+            <li>Требования к low-latency (менее 30 сек)</li>
+            <li>Необходимость exactly-once семантики</li>
+            <li>Интеграция с 10+ legacy системами</li>
+          </ul>
+        </div>
+
+        <div class="info-box">
+          <h3>Инфраструктура</h3>
+          <ul>
+            <li>Кластер из 20+ нод для обработки</li>
+            <li>Ежедневный объем данных: 50+ TB</li>
+            <li>Требуемая пропускная способность: 5+ Gbps</li>
+          </ul>
+        </div>
+
+        <div class="tip-box">
+          <h3>Ссылки</h3>
+          <ul>
+            <li><a href="#" class="jira-link" target="_blank">Техническое задание</a></li>
+            <li><a href="#" class="jira-link" target="_blank">POC результаты</a></li>
+            <li><a href="#" class="jira-link" target="_blank">Архитектурная диаграмма</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="lang.js"></script>
+  <script>
+    // Инициализация аккордеона
+    document.addEventListener('DOMContentLoaded', function() {
+      const acc = document.querySelectorAll(".accordion");
+      acc.forEach(el => {
+        el.addEventListener("click", function() {
+          this.classList.toggle("active");
+          const panel = this.nextElementSibling;
+          panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+        });
+      });
+
+      // Управление сайдбаром
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarTrigger = document.querySelector('.sidebar-trigger');
+
+      let sidebarTimeout;
+
+      function showSidebar() {
+        clearTimeout(sidebarTimeout);
+        sidebar.style.left = '0';
+        sidebar.style.pointerEvents = 'auto';
+      }
+
+      function hideSidebar() {
+        sidebarTimeout = setTimeout(() => {
+          sidebar.style.left = '-300px';
+          sidebar.style.pointerEvents = 'none';
+        }, 300);
+      }
+
+      if (sidebar && sidebarTrigger) {
+        sidebarTrigger.addEventListener('mouseenter', showSidebar);
+        sidebar.addEventListener('mouseenter', showSidebar);
+        sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+        sidebar.addEventListener('mouseleave', hideSidebar);
+      }
+
+      // Мобильное меню
+      const artifactsTitle = document.querySelector('.artifacts-title');
+      if (artifactsTitle) {
+        artifactsTitle.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            document.querySelector('.sidebar').classList.toggle('expanded');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

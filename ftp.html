@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FTP - FileName</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Стили документации */
+    .api-doc {
+      margin-top: 2rem;
+    }
+
+    .api-endpoint {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #2196F3;
+      margin-bottom: 2rem;
+    }
+
+    .api-method {
+      font-weight: bold;
+      color: #2196F3;
+    }
+
+    .api-uri {
+      font-family: monospace;
+      background-color: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    .api-description {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+
+    .api-section {
+      margin-bottom: 2rem;
+    }
+
+    .api-section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #2f4f4f;
+      border-bottom: 2px solid #2196F3;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .api-subsection {
+      margin-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .api-subsection-title {
+      font-weight: 600;
+      color: #2f4f4f;
+      margin-bottom: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(33, 150, 243, 0.1);
+    }
+
+    tr:hover {
+      background-color: rgba(33, 150, 243, 0.2);
+    }
+
+    .code-block {
+      background-color: #f5f5f5;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      margin: 1rem 0;
+      border-left: 4px solid #2196F3;
+    }
+
+    .error-table {
+      border-left: 4px solid #f44336;
+    }
+
+    .error-table th {
+      background-color: #f44336;
+    }
+
+    .jira-link {
+      color: #2196F3;
+      text-decoration: none;
+    }
+
+    .jira-link:hover {
+      text-decoration: underline;
+    }
+
+    .load-table {
+      border-left: 4px solid #4CAF50;
+    }
+
+    .load-table th {
+      background-color: #4CAF50;
+    }
+
+    /* Стили для меток */
+    .label {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-right: 0.5rem;
+    }
+
+    .label-ftp {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .label-sftp {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .label-s3 {
+      background-color: #FF9800;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-trigger"></div>
+  <div id="sidebar-container"></div>
+
+  <main class="main-content">
+    <div class="theme-toggle">
+      <button id="langSwitch">Switch to English 🌐</button>
+    </div>
+
+    <div class="container api-doc">
+      <h1>FTP - FileName</h1>
+
+      <div class="api-description">
+        <p>Документ описывает файл для обмена данными через FTP/SFTP/S3. Файл содержит информацию о [указать содержание файла].</p>
+        <p><strong>Jira Task:</strong> <a href="#" class="jira-link" target="_blank">E012ASS13</a></p>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">1. Свойства файла</h2>
+
+        <div class="api-subsection">
+          <table>
+            <thead>
+              <tr>
+                <th>Параметр</th>
+                <th>Значение</th>
+                <th>Описание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Метод обмена</td>
+                <td>
+                  <span class="label label-ftp">FTP</span>
+                  <span class="label label-sftp">SFTP</span>
+                  <span class="label label-s3">S3</span>
+                </td>
+                <td>Протоколы передачи файла</td>
+              </tr>
+              <tr>
+                <td>Адрес хранилища</td>
+                <td><code>sftp://&lt;host&gt;:&lt;port&gt;</code></td>
+                <td>Адрес сервера для загрузки файла</td>
+              </tr>
+              <tr>
+                <td>Путь к папке</td>
+                <td><code>/path/to/folder/</code></td>
+                <td>Путь к директории на сервере</td>
+              </tr>
+              <tr>
+                <td>Наименование файла</td>
+                <td><code>filename.csv</code></td>
+                <td>Имя файла</td>
+              </tr>
+              <tr>
+                <td>Формат</td>
+                <td>
+                  <ul>
+                    <li>CSV с заголовками (разделитель ";")</li>
+                    <li>JSON</li>
+                    <li>XML</li>
+                  </ul>
+                </td>
+                <td>Поддерживаемые форматы файла</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">2. Механизм формирования файла</h2>
+        <div class="api-endpoint">
+          <span class="api-method">PROCESS</span> <span class="api-uri">/file-generation</span>
+        </div>
+        <p>Файл формируется автоматически по следующему алгоритму:</p>
+        <ol>
+          <li>Получение данных из источника (API/база данных)</li>
+          <li>Валидация данных</li>
+          <li>Преобразование в выбранный формат (CSV/JSON/XML)</li>
+          <li>Сохранение во временное хранилище</li>
+          <li>Передача на FTP/SFTP/S3 сервер</li>
+        </ol>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">Диаграмма последовательности</h3>
+          <div class="code-block">
+[Здесь может быть диаграмма последовательности в формате Mermaid или изображение]
+          </div>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">3. Структура файла</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">3.1 CSV формат</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Поле (заголовок)</th>
+                <th>Описание</th>
+                <th>Тип</th>
+                <th>Источник</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>id</code></td>
+                <td>Уникальный идентификатор записи</td>
+                <td>GUID</td>
+                <td><code>root.id</code></td>
+              </tr>
+              <tr>
+                <td><code>timestamp</code></td>
+                <td>Время создания записи</td>
+                <td>DateTime</td>
+                <td>Системное время</td>
+              </tr>
+              <tr>
+                <td><code>status</code></td>
+                <td>Статус записи</td>
+                <td>String</td>
+                <td><code>root.status</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">3.2 JSON/XML формат</h3>
+          <div class="code-block">
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "GUID",
+      "description": "Уникальный идентификатор записи"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Время создания записи"
+    },
+    "status": {
+      "type": "string",
+      "description": "Статус записи"
+    }
+  },
+  "required": ["id", "timestamp"]
+}
+          </div>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">4. Примеры файлов</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">4.1 CSV пример</h3>
+          <div class="code-block">
+id;timestamp;status
+"550e8400-e29b-41d4-a716-446655440000";"2025-07-10T12:00:00Z";"active"
+"550e8400-e29b-41d4-a716-446655440001";"2025-07-10T12:01:00Z";"inactive"
+          </div>
+        </div>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">4.2 JSON пример</h3>
+          <div class="code-block">
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "timestamp": "2025-07-10T12:00:00Z",
+    "status": "active"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440001",
+    "timestamp": "2025-07-10T12:01:00Z",
+    "status": "inactive"
+  }
+]
+          </div>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">5. Часто задаваемые вопросы</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">Как часто обновляется файл?</h3>
+          <p>Файл обновляется ежедневно в 00:00 UTC.</p>
+
+          <h3 class="api-subsection-title">Что делать, если файл не доступен?</h3>
+          <p>Проверьте:</p>
+          <ol>
+            <li>Правильность учетных данных FTP/SFTP</li>
+            <li>Доступность сервера</li>
+            <li>Права на доступ к директории</li>
+          </ol>
+
+          <h3 class="api-subsection-title">Как изменить формат файла?</h3>
+          <p>Формат файла определяется автоматически по расширению. Доступные варианты: <code>.csv</code>, <code>.json</code>, <code>.xml</code>.</p>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">6. Ошибки</h2>
+
+        <div class="api-subsection">
+          <table class="error-table">
+            <thead>
+              <tr>
+                <th>Код</th>
+                <th>Сообщение</th>
+                <th>Решение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>FTP_001</td>
+                <td>Не удалось подключиться к серверу</td>
+                <td>Проверьте параметры подключения и доступность сервера</td>
+              </tr>
+              <tr>
+                <td>FTP_002</td>
+                <td>Ошибка аутентификации</td>
+                <td>Проверьте логин и пароль</td>
+              </tr>
+              <tr>
+                <td>FTP_003</td>
+                <td>Файл не найден</td>
+                <td>Проверьте путь к файлу</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">7. Нагрузка и производительность</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">7.1 RMS (Root Mean Square) нагрузка</h3>
+          <p>Среднеквадратичная нагрузка (RMS) на сервер при работе с файловыми операциями:</p>
+          <table class="load-table">
+            <thead>
+              <tr>
+                <th>Метрика</th>
+                <th>Значение</th>
+                <th>Описание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Среднее время передачи</td>
+                <td>250 мс</td>
+                <td>Среднее время передачи файла</td>
+              </tr>
+              <tr>
+                <td>Пиковая нагрузка</td>
+                <td>50 файлов/мин</td>
+                <td>Максимальное количество файлов в минуту</td>
+              </tr>
+              <tr>
+                <td>Средняя нагрузка</td>
+                <td>20 файлов/мин</td>
+                <td>Среднее количество файлов в минуту</td>
+              </tr>
+              <tr>
+                <td>99-й перцентиль</td>
+                <td>500 мс</td>
+                <td>99% файлов передаются быстрее</td>
+              </tr>
+              <tr>
+                <td>Ошибки при нагрузке</td>
+                <td>&lt; 0.5%</td>
+                <td>Процент ошибок при пиковой нагрузке</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Рекомендации по масштабированию</h4>
+          <div class="code-block">
+# Конфигурация FTP сервера
+ftp_server:
+  max_connections: 100
+  timeout: 300s
+  data_timeout: 60s
+
+# Рекомендуемые параметры
+recommendations:
+  - Увеличить max_connections при нагрузке > 80%
+  - Мониторить timeout соединений
+          </div>
+        </div>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">7.2 Мониторинг</h3>
+          <p>Для мониторинга работы FTP/SFTP используются следующие метрики:</p>
+          <ul>
+            <li>Количество активных соединений</li>
+            <li>Скорость передачи данных</li>
+            <li>Количество ошибок</li>
+            <li>Использование дискового пространства</li>
+          </ul>
+          <p>Графики нагрузки доступны в Grafana по адресу: <a href="#" class="jira-link">https://monitor.example.com/dashboard/ftp-performance</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="lang.js"></script>
+  <script>
+    // Загрузка сайдбара
+    fetch('sidebar.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById('sidebar-container').innerHTML = html;
+        initializeSidebar();
+      })
+      .catch(error => {
+        console.error('Error loading sidebar:', error);
+      });
+
+    function initializeSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarTrigger = document.querySelector('.sidebar-trigger');
+
+      let sidebarTimeout;
+
+      function showSidebar() {
+        clearTimeout(sidebarTimeout);
+        sidebar.style.left = '0';
+        sidebar.style.pointerEvents = 'auto';
+      }
+
+      function hideSidebar() {
+        sidebarTimeout = setTimeout(() => {
+          sidebar.style.left = '-300px';
+          sidebar.style.pointerEvents = 'none';
+        }, 300);
+      }
+
+      if (sidebar && sidebarTrigger) {
+        sidebarTrigger.addEventListener('mouseenter', showSidebar);
+        sidebar.addEventListener('mouseenter', showSidebar);
+        sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+        sidebar.addEventListener('mouseleave', hideSidebar);
+      }
+
+      const artifactsTitle = document.querySelector('.artifacts-title');
+      if (artifactsTitle) {
+        artifactsTitle.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            document.querySelector('.sidebar').classList.toggle('expanded');
+          }
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const acc = document.querySelectorAll(".accordion");
+      acc.forEach(el => {
+        el.addEventListener("click", function() {
+          this.classList.toggle("active");
+          const panel = this.nextElementSibling;
+          panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+        });
+      });
+    });
+  </script>
+</body>
+</html>

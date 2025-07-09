@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ilya Semochkin — Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+    <div class="sidebar-trigger"></div>
+
+    <!-- Место для вставки сайдбара -->
+    <div id="sidebar-container"></div>
+
+    <!-- Основное содержимое -->
+    <main class="main-content">
+        <div class="theme-toggle">
+            <button id="langSwitch">Switch to English 🌐</button>
+        </div>
+
+        <div class="container">
+            <h1 data-lang="name">ER-diagrama</h1>
+            <div class="photo-container">
+                <a href="assets/css/images/alembic_version.png" target="_blank">
+                    <img src="assets/css/images/alembic_version.png" alt="Фото" class="resume-photo" />
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="lang.js"></script>
+    <script>
+        // Загрузка сайдбара
+        fetch('sidebar.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById('sidebar-container').innerHTML = html;
+                initializeSidebar(); // Инициализация функционала сайдбара
+            })
+            .catch(error => {
+                console.error('Error loading sidebar:', error);
+            });
+
+        // Инициализация сайдбара
+        function initializeSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarTrigger = document.querySelector('.sidebar-trigger');
+
+            let sidebarTimeout;
+
+            function showSidebar() {
+                clearTimeout(sidebarTimeout);
+                sidebar.style.left = '0';
+                sidebar.style.pointerEvents = 'auto';
+            }
+
+            function hideSidebar() {
+                sidebarTimeout = setTimeout(() => {
+                    sidebar.style.left = '-300px';
+                    sidebar.style.pointerEvents = 'none';
+                }, 300);
+            }
+
+            if (sidebar && sidebarTrigger) {
+                sidebarTrigger.addEventListener('mouseenter', showSidebar);
+                sidebar.addEventListener('mouseenter', showSidebar);
+                sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+                sidebar.addEventListener('mouseleave', hideSidebar);
+            }
+
+            // Мобильное меню
+            const artifactsTitle = document.querySelector('.artifacts-title');
+            if (artifactsTitle) {
+                artifactsTitle.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.sidebar').classList.toggle('expanded');
+                    }
+                });
+            }
+        }
+
+
+    </script>
+</body>
+</html>
