@@ -9,7 +9,123 @@
 </head>
 <body>
   <div class="sidebar-trigger"></div>
-  <div id="sidebar-container"></div>
+
+  <!-- Сайдбар -->
+ <aside class="sidebar">
+    <div class="artifacts-title">📁 Examples of artifacts</div>
+    <ul class="artifacts-list">
+        <!-- API Contracts -->
+        <li class="artifacts-item">
+            <details class="artifact-group" >
+                <summary class="artifact-category">API Contracts</summary>
+                <ul class="artifact-subitems">
+                    <li class="artifact-subitem">
+                        <details class="artifact-subgroup">
+                            <summary class="artifact-subcategory">REST API</summary>
+                            <ul class="artifact-links">
+                                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
+                                    target="_blank"
+                                    class="artifacts-link">Swagger</a></li>
+                                <li><a href="api-get-searches.html"
+                                    class="artifacts-link active">Doc - GET /searches</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li class="artifact-subitem">
+                        <details class="artifact-subgroup">
+                            <summary class="artifact-subcategory">Kafka API</summary>
+                            <ul class="artifact-links">
+                                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
+                                    target="_blank"
+                                    class="artifacts-link">Inbound</a></li>
+                                <li><a href="api-get-searches.html"
+                                    class="artifacts-link active">Outbound</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li class="artifact-subitem">
+                        <details class="artifact-subgroup">
+                            <summary class="artifact-subcategory">GraphQL API</summary>
+                            <ul class="artifact-links">
+                                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
+                                    target="_blank"
+                                    class="artifacts-link">Swagger</a></li>
+                                <li><a href="api-get-searches.html"
+                                    class="artifacts-link active">Doc - GET /searches</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li class="artifact-subitem">
+                        <details class="artifact-subgroup">
+                            <summary class="artifact-subcategory">JSON-RPC API</summary>
+                            <ul class="artifact-links">
+                                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
+                                    target="_blank"
+                                    class="artifacts-link">Swagger</a></li>
+                                <li><a href="api-get-searches.html"
+                                    class="artifacts-link active">Doc - GET /searches</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                    <li class="artifact-subitem">
+                        <details class="artifact-subgroup">
+                            <summary class="artifact-subcategory">FTP/SFTP/S3</summary>
+                            <ul class="artifact-links">
+                                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
+                                    target="_blank"
+                                    class="artifacts-link">Swagger</a></li>
+                                <li><a href="api-get-searches.html"
+                                    class="artifacts-link active">Doc - GET /searches</a></li>
+                            </ul>
+                        </details>
+                    </li>
+
+                </ul>
+            </details>
+        </li>
+         <!-- Architecture Artifacts -->
+        <li class="artifacts-item">
+            <details class="artifact-group">
+                <summary class="artifact-category">Architecture Artifacts</summary>
+                <ul class="artifact-subitems">
+                    <li><a href="#" class="artifacts-link">ADR</a></li>
+                    <li><a href="#" class="artifacts-link">Technical Solution</a></li>
+                </ul>
+            </details>
+        </li>
+
+        <!-- PDM -->
+        <li class="artifacts-item">
+            <details class="artifact-group">
+                <summary class="artifact-category">PDM</summary>
+                <ul class="artifact-subitems">
+                    <li><a href="#" class="artifacts-link">Database Schema</a></li>
+                </ul>
+            </details>
+        </li>
+
+        <!-- ER-diagram -->
+        <li class="artifacts-item">
+            <details class="artifact-group">
+                <summary class="artifact-category">ER-diagram</summary>
+                <ul class="artifact-subitems">
+                    <li><a href="#" class="artifacts-link">Entity Relations</a></li>
+                </ul>
+            </details>
+        </li>
+
+        <!-- Sequence diagram -->
+        <li class="artifacts-item">
+            <details class="artifact-group">
+                <summary class="artifact-category">Sequence diagram</summary>
+                <ul class="artifact-subitems">
+                    <li><a href="#" class="artifacts-link">Order Processing</a></li>
+                    <li><a href="#" class="artifacts-link">Payment Flow</a></li>
+                </ul>
+            </details>
+        </li>
+    </ul>
+</aside>
 
   <!-- Основное содержимое -->
   <main class="main-content">
@@ -24,7 +140,7 @@
       </div>
 
       <div class="contact" data-lang="contact">
-        <strong>Cистемный аналитик /Solution Architect</strong><br>
+        <strong>Ведущий системный аналитик / Архитектор</strong><br>
         Мужчина, 31 год (родился 30 августа 1993)<br>
         📍 Москва, м. Дмитровская<br>
         📧 <a href="mailto:semochkin.i@icloud.com">semochkin.i@icloud.com</a><br>
@@ -84,75 +200,51 @@
   </main>
 
   <script src="lang.js"></script>
-
   <script>
- // Загрузка сайдбара
-    fetch('sidebar.html')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.text();
-      })
-      .then(html => {
-        document.getElementById('sidebar-container').innerHTML = html;
-        initializeSidebar(); // Инициализация функционала сайдбара
-      })
-      .catch(error => {
-        console.error('Error loading sidebar:', error);
-      });
-
-    // Инициализация сайдбара
-    function initializeSidebar() {
-      const sidebar = document.querySelector('.sidebar');
-      const sidebarTrigger = document.querySelector('.sidebar-trigger');
-
-      let sidebarTimeout;
-
-      function showSidebar() {
-        clearTimeout(sidebarTimeout);
-        sidebar.style.left = '0';
-        sidebar.style.pointerEvents = 'auto';
-      }
-
-      function hideSidebar() {
-        sidebarTimeout = setTimeout(() => {
-          sidebar.style.left = '-300px';
-          sidebar.style.pointerEvents = 'none';
-        }, 300);
-      }
-
-      if (sidebar && sidebarTrigger) {
-        sidebarTrigger.addEventListener('mouseenter', showSidebar);
-        sidebar.addEventListener('mouseenter', showSidebar);
-        sidebarTrigger.addEventListener('mouseleave', hideSidebar);
-        sidebar.addEventListener('mouseleave', hideSidebar);
-      }
-
-      // Мобильное меню
-      const artifactsTitle = document.querySelector('.artifacts-title');
-      if (artifactsTitle) {
-        artifactsTitle.addEventListener('click', function() {
-          if (window.innerWidth <= 768) {
-            document.querySelector('.sidebar').classList.toggle('expanded');
-          }
-        });
-      }
-    }
-
-    // Активация аккордеона (перенесено вниз, чтобы не конфликтовало с загрузкой сайдбара)
-    document.addEventListener('DOMContentLoaded', function() {
-      const acc = document.querySelectorAll(".accordion");
-      acc.forEach(el => {
-        el.addEventListener("click", function() {
-          this.classList.toggle("active");
-          const panel = this.nextElementSibling;
-          panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
-        });
-      });
+  // Активация аккордеона
+  const acc = document.querySelectorAll(".accordion");
+  acc.forEach(el => {
+    el.addEventListener("click", function() {
+      this.classList.toggle("active");
+      const panel = this.nextElementSibling;
+      panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
     });
+  });
 
+  // Управление сайдбаром
+  const sidebar = document.querySelector('.sidebar');
+  const sidebarTrigger = document.querySelector('.sidebar-trigger');
 
+  let sidebarTimeout;
+
+  function showSidebar() {
+    clearTimeout(sidebarTimeout);
+    sidebar.style.left = '0';
+    sidebar.style.pointerEvents = 'auto';
+  }
+
+  function hideSidebar() {
+    sidebarTimeout = setTimeout(() => {
+      sidebar.style.left = '-300px';
+      sidebar.style.pointerEvents = 'none';
+    }, 300); // Задержка перед исчезновением (можно регулировать)
+  }
+
+  sidebarTrigger.addEventListener('mouseenter', showSidebar);
+  sidebar.addEventListener('mouseenter', showSidebar);
+
+  sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+  sidebar.addEventListener('mouseleave', hideSidebar);
+
+  // Для мобильного меню
+  const artifactsTitle = document.querySelector('.artifacts-title');
+  if (artifactsTitle) {
+    artifactsTitle.addEventListener('click', function() {
+      if (window.innerWidth <= 768) {
+        document.querySelector('.sidebar').classList.toggle('expanded');
+      }
+    });
+  }
 </script>
 </body>
 </html>
