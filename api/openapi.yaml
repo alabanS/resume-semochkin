@@ -1,32 +1,74 @@
 openapi: 3.0.0
 info:
-  title: Search API
+  title: Product Catalog API
   version: 1.0.0
-  description: API для управления поисками
+  description: API для управления каталогом товаров
 
 paths:
-  /api/searches:
+  /api/products:
     get:
-      summary: Получить список поисков
+      summary: Получить список товаров
       tags:
-        - Searches
-      operationId: getSearches
+        - Products
+      operationId: getProducts
+      parameters:
+        - name: category
+          in: query
+          description: ID категории для фильтрации
+          schema:
+            type: integer
+        - name: price_min
+          in: query
+          description: Минимальная цена
+          schema:
+            type: number
+            minimum: 0
+        - name: price_max
+          in: query
+          description: Максимальная цена
+          schema:
+            type: number
+            minimum: 0
+        - name: sort
+          in: query
+          description: Поле для сортировки
+          schema:
+            type: string
+            enum: [price, rating, popularity]
+        - name: order
+          in: query
+          description: Направление сортировки
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: limit
+          in: query
+          description: Лимит товаров
+          schema:
+            type: integer
+            minimum: 10
+            maximum: 100
+            default: 20
+        - name: offset
+          in: query
+          description: Смещение
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
       responses:
         '200':
           description: Успешный ответ
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: integer
-                    example: 1
-                  data:
-                    type: object
-                    properties:
-                      searches:
-                            $ref: '#/components/schemas/Searches'
+                $ref: '#/components/schemas/ProductsResponse'
+        '400':
+          description: Некорректный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '422':
           description: Ошибки валидации
           content:
@@ -41,33 +83,23 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 
     post:
-      summary: Создать новый поиск
+      summary: Создать новый товар
       tags:
-        - Searches
-      operationId: createSearch
+        - Products
+      operationId: createProduct
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateSearchRequest'
+              $ref: '#/components/schemas/CreateProductRequest'
       responses:
         '201':
-          description: Поиск создан успешно
+          description: Товар создан успешно
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: integer
-                    example: 1
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        example: 1
+                $ref: '#/components/schemas/CreateProductResponse'
         '400':
           description: Некорректный запрос
           content:
@@ -87,12 +119,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  /api/searches/{id}:
+  /api/products/{id}:
     get:
-      summary: Получить поиск по ID
+      summary: Получить товар по ID
       tags:
-        - Searches
-      operationId: getSearchById
+        - Products
+      operationId: getProductById
       parameters:
         - name: id
           in: path
@@ -105,25 +137,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: integer
-                    example: 1
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        example: 1
-                      name:
-                        type: string
-                        example: "string"
-                      description:
-                        type: string
-                        example: "string"
-                      filters:
-                        $ref: '#/components/schemas/Filters'
+                $ref: '#/components/schemas/ProductResponse'
         '400':
           description: Некорректный запрос
           content:
@@ -131,7 +145,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
-          description: Ресурс не найден
+          description: Товар не найден
           content:
             application/json:
               schema:
@@ -144,10 +158,10 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 
     put:
-      summary: Обновить поиск по ID
+      summary: Обновить товар
       tags:
-        - Searches
-      operationId: updateSearch
+        - Products
+      operationId: updateProduct
       parameters:
         - name: id
           in: path
@@ -159,33 +173,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Search'
+              $ref: '#/components/schemas/UpdateProductRequest'
       responses:
         '200':
-          description: Поиск обновлен успешно
+          description: Товар обновлен успешно
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: integer
-                    example: 1
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        example: 1
+                $ref: '#/components/schemas/ProductResponse'
         '400':
           description: Некорректный запрос
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-       
         '404':
-          description: Ресурс не найден
+          description: Товар не найден
           content:
             application/json:
               schema:
@@ -204,10 +207,10 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 
     delete:
-      summary: Удалить поиск по ID
+      summary: Удалить товар
       tags:
-        - Searches
-      operationId: deleteSearch
+        - Products
+      operationId: deleteProduct
       parameters:
         - name: id
           in: path
@@ -216,36 +219,19 @@ paths:
             type: integer
       responses:
         '200':
-          description: Поиск удален успешно
+          description: Товар удален успешно
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  success:
-                    type: integer
-                    example: 1
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        example: 1
+                $ref: '#/components/schemas/DeleteProductResponse'
         '400':
           description: Некорректный запрос
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-      
         '404':
-          description: Ресурс не найден
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '422':
-          description: Ошибки валидации
+          description: Товар не найден
           content:
             application/json:
               schema:
@@ -259,7 +245,7 @@ paths:
 
 components:
   schemas:
-    CreateSearchRequest:
+    CreateProductRequest:
       type: object
       properties:
         data:
@@ -268,97 +254,193 @@ components:
             name:
               type: string
               minLength: 1
-              maxLength: 100
-              description: Наименование поиска
+              maxLength: 255
+              description: Название товара
             description:
               type: string
               maxLength: 3000
-              description: Описание поиска
-            filters:
-              $ref: '#/components/schemas/Filters'
-      required:
-        - data
+              description: Описание товара
+            price:
+              type: number
+              minimum: 0
+              description: Цена товара
+            currency:
+              type: string
+              enum: [USD, EUR, RUB]
+              default: RUB
+              description: Валюта цены
+            category_id:
+              type: integer
+              description: ID категории
+            images:
+              type: array
+              items:
+                type: string
+                format: uri
+              description: Ссылки на изображения
+          required:
+            - name
+            - price
+            - category_id
 
-    Filters:
+    UpdateProductRequest:
       type: object
       properties:
-        logic:
-          type: string
-          enum: [AND, OR, IS]
-          description: Логический оператор объединения условий
-        conditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Condition'
-      required:
-        - logic
-        - conditions
+        data:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              description: Название товара
+            description:
+              type: string
+              maxLength: 3000
+              description: Описание товара
+            price:
+              type: number
+              minimum: 0
+              description: Цена товара
+            currency:
+              type: string
+              enum: [USD, EUR, RUB]
+              description: Валюта цены
+            in_stock:
+              type: boolean
+              description: Наличие товара
+            images:
+              type: array
+              items:
+                type: string
+                format: uri
+              description: Ссылки на изображения
 
-    Condition:
-      type: object
-      properties:
-        logic:
-          type: string
-          enum: [AND, OR, IS]
-          description: Логический оператор объединения вложенных условий
-        conditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/AttributeCondition'
-
-    AttributeCondition:
-      type: object
-      properties:
-        entityType:
-          type: string
-          enum: [attribute, master, content, item, category]
-          description: Тип сущности поиска
-        entityAttributeId:
-          type: integer
-          description: Идентификатор атрибута сущности
-        entityAttributeName:
-          type: string
-          description: Наименование атрибута сущности
-        operator:
-          type: string
-          enum: [eq, notEq, contains, notContains, lt, lteq, gt, gteq, between]
-          description: Оператор сравнения
-        values:
-          type: array
-          items:
-            type: string
-          description: Значения для сравнения
-      required:
-        - entityType
-        - operator
-        - values
-
-    Search:
+    Product:
       type: object
       properties:
         id:
           type: integer
-          description: Уникальный идентификатор поиска
+          description: ID товара
         name:
           type: string
-          description: Название поиска
+          description: Название товара
         description:
           type: string
-          description: Описание поиска
-        filters:
-          $ref: '#/components/schemas/Filters'
-    Searches:
-      type: array
-      items:
-        $ref: "#/components/schemas/Search"
+          description: Описание товара
+        price:
+          type: number
+          description: Цена товара
+        currency:
+          type: string
+          description: Валюта цены
+        rating:
+          type: number
+          minimum: 0
+          maximum: 5
+          description: Рейтинг товара
+        in_stock:
+          type: boolean
+          description: Наличие товара
+        images:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: Ссылки на изображения
+        created_at:
+          type: string
+          format: date-time
+          description: Дата создания
+        updated_at:
+          type: string
+          format: date-time
+          description: Дата обновления
+
+    ProductsResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            products:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+            meta:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  description: Общее количество товаров
+                limit:
+                  type: integer
+                  description: Лимит товаров
+                offset:
+                  type: integer
+                  description: Смещение
+
+    ProductResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          $ref: '#/components/schemas/Product'
+
+    CreateProductResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: ID созданного товара
+
+    DeleteProductResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: ID удаленного товара
 
     ErrorResponse:
       type: object
       properties:
         success:
-          type: integer
+          type: boolean
+          example: false
         error:
           type: object
           properties:
+            code:
+              type: string
+              description: Код ошибки
             message:
               type: string
+              description: Сообщение об ошибке
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    description: Поле с ошибкой
+                  message:
+                    type: string
+                    description: Сообщение об ошибке
