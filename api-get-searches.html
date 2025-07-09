@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GET /products - Product Catalog API</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Стили документации */
+    .api-doc {
+      margin-top: 2rem;
+    }
+
+    .api-endpoint {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #2196F3;
+      margin-bottom: 2rem;
+    }
+
+    .api-method {
+      font-weight: bold;
+      color: #2196F3;
+    }
+
+    .api-uri {
+      font-family: monospace;
+      background-color: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    .api-description {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+
+    .api-section {
+      margin-bottom: 2rem;
+    }
+
+    .api-section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #2f4f4f;
+      border-bottom: 2px solid #2196F3;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .api-subsection {
+      margin-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .api-subsection-title {
+      font-weight: 600;
+      color: #2f4f4f;
+      margin-bottom: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(33, 150, 243, 0.1);
+    }
+
+    tr:hover {
+      background-color: rgba(33, 150, 243, 0.2);
+    }
+
+    .code-block {
+      background-color: #f5f5f5;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      margin: 1rem 0;
+      border-left: 4px solid #2196F3;
+    }
+
+    .error-table {
+      border-left: 4px solid #f44336;
+    }
+
+    .error-table th {
+      background-color: #f44336;
+    }
+
+    .jira-link {
+      color: #2196F3;
+      text-decoration: none;
+    }
+
+    .jira-link:hover {
+      text-decoration: underline;
+    }
+
+    .load-table {
+      border-left: 4px solid #4CAF50;
+    }
+
+    .load-table th {
+      background-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-trigger"></div>
+  <div id="sidebar-container"></div>
+
+  <main class="main-content">
+    <div class="theme-toggle">
+      <button id="langSwitch">Switch to English 🌐</button>
+    </div>
+
+    <div class="container api-doc">
+      <h1>GET /products - получение каталога товаров</h1>
+
+      <div class="api-description">
+        <p>Метод возвращает список товаров с возможностью фильтрации, сортировки и пагинации.</p>
+        <p><strong>Jira Task:</strong> <a href="#" class="jira-link" target="_blank">CAT-42</a></p>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">1. Запрос</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">1.1 URI</h3>
+          <div class="api-endpoint">
+            <span class="api-method">GET</span> <span class="api-uri">/products</span>
+          </div>
+        </div>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">1.2 Параметры запроса</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Параметр</th>
+                <th>Описание</th>
+                <th>Тип</th>
+                <th>Обязательный</th>
+                <th>Формат</th>
+                <th>Пример</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>category</td>
+                <td>ID категории</td>
+                <td>integer</td>
+                <td>Нет</td>
+                <td>> 0</td>
+                <td>42</td>
+              </tr>
+              <tr>
+                <td>price_min</td>
+                <td>Минимальная цена</td>
+                <td>number</td>
+                <td>Нет</td>
+                <td>>= 0</td>
+                <td>1000</td>
+              </tr>
+              <tr>
+                <td>price_max</td>
+                <td>Максимальная цена</td>
+                <td>number</td>
+                <td>Нет</td>
+                <td>>= price_min</td>
+                <td>5000</td>
+              </tr>
+              <tr>
+                <td>sort</td>
+                <td>Поле сортировки</td>
+                <td>string</td>
+                <td>Нет</td>
+                <td>price|rating|popularity</td>
+                <td>price</td>
+              </tr>
+              <tr>
+                <td>order</td>
+                <td>Направление сортировки</td>
+                <td>string</td>
+                <td>Нет</td>
+                <td>asc|desc</td>
+                <td>asc</td>
+              </tr>
+              <tr>
+                <td>limit</td>
+                <td>Лимит товаров</td>
+                <td>integer</td>
+                <td>Нет</td>
+                <td>10-100</td>
+                <td>20</td>
+              </tr>
+              <tr>
+                <td>offset</td>
+                <td>Смещение</td>
+                <td>integer</td>
+                <td>Нет</td>
+                <td>>= 0</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Пример запроса</h4>
+          <div class="code-block">
+GET /products?category=42&price_min=1000&price_max=5000&sort=price&order=asc&limit=20&offset=0
+          </div>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">2. Ответ</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">2.1 Структура ответа</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Поле</th>
+                <th>Описание</th>
+                <th>Тип</th>
+                <th>Формат</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>success</td>
+                <td>Флаг успеха</td>
+                <td>boolean</td>
+                <td>1 - успех, 0 - ошибка</td>
+              </tr>
+              <tr>
+                <td>data</td>
+                <td>Данные товаров</td>
+                <td>object</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>products</td>
+                <td>Список товаров</td>
+                <td>array</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>id</td>
+                <td>ID товара</td>
+                <td>integer</td>
+                <td>> 0</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Название</td>
+                <td>string</td>
+                <td>max 255 chars</td>
+              </tr>
+              <tr>
+                <td>description</td>
+                <td>Описание</td>
+                <td>string</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>price</td>
+                <td>Цена</td>
+                <td>number</td>
+                <td>>= 0, 2 decimal places</td>
+              </tr>
+              <tr>
+                <td>currency</td>
+                <td>Валюта</td>
+                <td>string</td>
+                <td>USD|EUR|RUB</td>
+              </tr>
+              <tr>
+                <td>rating</td>
+                <td>Рейтинг</td>
+                <td>number</td>
+                <td>0.0-5.0</td>
+              </tr>
+              <tr>
+                <td>in_stock</td>
+                <td>Наличие</td>
+                <td>boolean</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>images</td>
+                <td>Изображения</td>
+                <td>array</td>
+                <td>URLs</td>
+              </tr>
+              <tr>
+                <td>meta</td>
+                <td>Метаданные</td>
+                <td>object</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>total</td>
+                <td>Всего товаров</td>
+                <td>integer</td>
+                <td>>= 0</td>
+              </tr>
+              <tr>
+                <td>limit</td>
+                <td>Лимит</td>
+                <td>integer</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>offset</td>
+                <td>Смещение</td>
+                <td>integer</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">2.2 Пример успешного ответа</h3>
+          <div class="code-block">
+{
+  "success": true,
+  "data": {
+    "products": [
+      {
+        "id": 123,
+        "name": "Смартфон Premium X",
+        "description": "Флагманский смартфон с AMOLED экраном",
+        "price": 49999.99,
+        "currency": "RUB",
+        "rating": 4.8,
+        "in_stock": true,
+        "images": [
+          "https://cdn.example.com/img123_1.jpg",
+          "https://cdn.example.com/img123_2.jpg"
+        ]
+      },
+      {
+        "id": 124,
+        "name": "Смартфон Standard Y",
+        "description": "Бюджетный смартфон с хорошей камерой",
+        "price": 19999.99,
+        "currency": "RUB",
+        "rating": 4.2,
+        "in_stock": true,
+        "images": [
+          "https://cdn.example.com/img124_1.jpg"
+        ]
+      }
+    ],
+    "meta": {
+      "total": 42,
+      "limit": 20,
+      "offset": 0
+    }
+  }
+}
+          </div>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">3. Ошибки</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">3.1 400 Bad Request</h3>
+          <table class="error-table">
+            <thead>
+              <tr>
+                <th>Код</th>
+                <th>Сообщение</th>
+                <th>Решение</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>40001</td>
+                <td>Недопустимое значение параметра price_min</td>
+                <td>Укажите значение >= 0</td>
+              </tr>
+              <tr>
+                <td>40002</td>
+                <td>price_max должен быть больше price_min</td>
+                <td>Проверьте значения цен</td>
+              </tr>
+              <tr>
+                <td>40003</td>
+                <td>Недопустимое значение параметра sort</td>
+                <td>Допустимые значения: price, rating, popularity</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">3.2 404 Not Found</h3>
+          <p>Категория не найдена</p>
+        </div>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">3.3 500 Internal Server Error</h3>
+          <p>Внутренняя ошибка сервера. Попробуйте позже.</p>
+        </div>
+      </div>
+
+      <div class="api-section">
+        <h2 class="api-section-title">4. Нагрузка и производительность</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">4.1 RMS (Root Mean Square) нагрузка</h3>
+          <p>Среднеквадратичная нагрузка (RMS) на сервер при работе с API:</p>
+          <table class="load-table">
+            <thead>
+              <tr>
+                <th>Метрика</th>
+                <th>Значение</th>
+                <th>Описание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Среднее время ответа</td>
+                <td>120 мс</td>
+                <td>Среднее время обработки запроса</td>
+              </tr>
+              <tr>
+                <td>Пиковая нагрузка</td>
+                <td>850 RPS</td>
+                <td>Максимальное количество запросов в секунду</td>
+              </tr>
+              <tr>
+                <td>Средняя нагрузка</td>
+                <td>320 RPS</td>
+                <td>Среднее количество запросов в секунду</td>
+              </tr>
+              <tr>
+                <td>99-й перцентиль</td>
+                <td>250 мс</td>
+                <td>99% запросов обрабатываются быстрее</td>
+              </tr>
+              <tr>
+                <td>Ошибки при нагрузке</td>
+                <td>&lt; 0.1%</td>
+                <td>Процент ошибок при пиковой нагрузке</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Рекомендации по масштабированию</h4>
+          <div class="code-block">
+# Конфигурация горизонтального масштабирования
+api_servers:
+  min_nodes: 3
+  max_nodes: 12
+  scale_up_threshold: 70% CPU
+  scale_down_threshold: 30% CPU
+
+# Рекомендуемые параметры кэширования
+cache:
+  enabled: true
+  ttl: 300s  # 5 минут
+  strategy: lru
+  max_size: 1GB
+          </div>
+        </div>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">4.2 Мониторинг</h3>
+          <p>Для мониторинга нагрузки API используются следующие метрики:</p>
+          <ul>
+            <li>Загрузка CPU (средняя и пиковая)</li>
+            <li>Использование памяти</li>
+            <li>Количество активных соединений</li>
+            <li>Латентность базы данных</li>
+            <li>Коэффициент кэш-попаданий</li>
+          </ul>
+          <p>Графики нагрузки доступны в Grafana по адресу: <a href="#" class="jira-link">https://monitor.example.com/dashboard/api-products</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="lang.js"></script>
+  <script>
+    // Загрузка сайдбара
+    fetch('sidebar.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById('sidebar-container').innerHTML = html;
+        initializeSidebar();
+      })
+      .catch(error => {
+        console.error('Error loading sidebar:', error);
+      });
+
+    function initializeSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarTrigger = document.querySelector('.sidebar-trigger');
+
+      let sidebarTimeout;
+
+      function showSidebar() {
+        clearTimeout(sidebarTimeout);
+        sidebar.style.left = '0';
+        sidebar.style.pointerEvents = 'auto';
+      }
+
+      function hideSidebar() {
+        sidebarTimeout = setTimeout(() => {
+          sidebar.style.left = '-300px';
+          sidebar.style.pointerEvents = 'none';
+        }, 300);
+      }
+
+      if (sidebar && sidebarTrigger) {
+        sidebarTrigger.addEventListener('mouseenter', showSidebar);
+        sidebar.addEventListener('mouseenter', showSidebar);
+        sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+        sidebar.addEventListener('mouseleave', hideSidebar);
+      }
+
+      const artifactsTitle = document.querySelector('.artifacts-title');
+      if (artifactsTitle) {
+        artifactsTitle.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            document.querySelector('.sidebar').classList.toggle('expanded');
+          }
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const acc = document.querySelectorAll(".accordion");
+      acc.forEach(el => {
+        el.addEventListener("click", function() {
+          this.classList.toggle("active");
+          const panel = this.nextElementSibling;
+          panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+        });
+      });
+    });
+  </script>
+</body>
+</html>
