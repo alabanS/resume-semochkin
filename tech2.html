@@ -3,63 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>E012.A06.TS007 - Кэширование товаров</title>
+  <title>E012.A06.TS001 - Техническое решение для интеграции платежной системы</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
   <style>
-    /* Основные стили из вашего API примера */
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f5f7fa;
-    }
-
-    .main-content {
-      margin-left: 300px;
-      transition: margin-left 0.3s;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
     /* Стили документации */
-    .api-doc {
+    .tech-solution {
       margin-top: 2rem;
     }
 
-    .api-endpoint {
-      background-color: #f8f9fa;
+    .warning-box {
+      background-color: #fff4e5;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #ff991f;
+      margin-bottom: 2rem;
+    }
+
+    .info-box {
+      background-color: #e6f3ff;
       padding: 1rem;
       border-radius: 8px;
       border-left: 4px solid #2196F3;
       margin-bottom: 2rem;
     }
 
-    .api-method {
-      font-weight: bold;
-      color: #2196F3;
-    }
-
-    .api-uri {
-      font-family: monospace;
-      background-color: #f0f0f0;
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-    }
-
-    .api-description {
-      margin: 1rem 0;
-      line-height: 1.6;
-    }
-
-    .api-section {
-      margin-bottom: 2rem;
-    }
-
-    .api-section-title {
+    .section-title {
       font-family: 'Space Grotesk', sans-serif;
       color: #2f4f4f;
       border-bottom: 2px solid #2196F3;
@@ -67,12 +36,7 @@
       margin-bottom: 1rem;
     }
 
-    .api-subsection {
-      margin-left: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .api-subsection-title {
+    .subsection-title {
       font-weight: 600;
       color: #2f4f4f;
       margin-bottom: 0.5rem;
@@ -90,12 +54,13 @@
     th, td {
       padding: 0.75rem;
       text-align: left;
-      border-bottom: 1px solid #ddd;
+      border: 1px solid #ddd;
     }
 
     th {
       background-color: #2196F3;
       color: white;
+      border: 1px solid #ddd;
     }
 
     tr:nth-child(even) {
@@ -116,14 +81,6 @@
       border-left: 4px solid #2196F3;
     }
 
-    .error-table {
-      border-left: 4px solid #f44336;
-    }
-
-    .error-table th {
-      background-color: #f44336;
-    }
-
     .jira-link {
       color: #2196F3;
       text-decoration: none;
@@ -133,180 +90,102 @@
       text-decoration: underline;
     }
 
-    .load-table {
+    .reviewer-table {
       border-left: 4px solid #4CAF50;
     }
 
-    .load-table th {
+    .reviewer-table th {
       background-color: #4CAF50;
     }
 
-    /* Стили сайдбара как в API примере */
-    .sidebar {
-      position: fixed;
-      left: -300px;
-      top: 0;
-      width: 300px;
-      height: 100vh;
-      background-color: #2c3e50;
-      color: white;
+    .toc {
+      background-color: #f8f9fa;
       padding: 1rem;
-      overflow-y: auto;
-      z-index: 1000;
-      transition: left 0.3s;
-      pointer-events: none;
+      border-radius: 8px;
+      margin-bottom: 2rem;
     }
 
-    .sidebar-trigger {
-      position: fixed;
-      left: 0;
-      top: 50%;
-      width: 20px;
-      height: 60px;
-      background-color: #2c3e50;
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-      cursor: pointer;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      transform: translateY(-50%);
+    .toc ul {
+      list-style-type: none;
+      padding-left: 1rem;
     }
 
-    .sidebar h3 {
-      color: white;
-      border-bottom: 1px solid #34495e;
-      padding-bottom: 0.5rem;
-    }
-
-    .sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .sidebar li {
+    .toc li {
       margin-bottom: 0.5rem;
     }
 
-    .sidebar a {
-      color: #ecf0f1;
+    .toc a {
+      color: #2196F3;
       text-decoration: none;
-      display: block;
-      padding: 0.25rem 0;
     }
 
-    .sidebar a:hover {
-      color: #3498db;
-    }
-
-    .sidebar ul ul {
-      margin-left: 1rem;
-      border-left: 1px solid #34495e;
-      padding-left: 0.5rem;
-    }
-
-    /* Специфичные стили для TS документа */
-    .ts-warning {
-      background-color: #fff3e0;
-      border-left: 4px solid #ff9800;
-      padding: 1rem;
-      margin: 1rem 0;
-    }
-
-    .ts-info {
-      background-color: #e3f2fd;
-      border-left: 4px solid #2196f3;
-      padding: 1rem;
-      margin: 1rem 0;
-    }
-
-    .ts-success {
-      background-color: #e8f5e9;
-      border-left: 4px solid #4caf50;
-      padding: 1rem;
-      margin: 1rem 0;
+    .toc a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="sidebar-trigger">☰</div>
-  <div id="sidebar-container">
-    <div class="sidebar">
-      <h3>E012.A06.TS007</h3>
-      <ul>
-        <li><a href="#description">Описание</a></li>
-        <li><a href="#e2e">E2E процессы</a></li>
-        <li><a href="#architecture">Архитектура</a></li>
-        <li><a href="#services">Сервисы</a>
-          <ul>
-            <li><a href="#service-catalog">Каталог товаров</a></li>
-            <li><a href="#service-cache">Сервис кэширования</a></li>
-          </ul>
-        </li>
-        <li><a href="#migration">План миграции</a></li>
-        <li><a href="#risks">Риски</a></li>
-      </ul>
-      <div class="artifacts">
-        <h4>Артефакты</h4>
-        <ul>
-          <li><a href="#" class="jira-link">ADR-042</a></li>
-          <li><a href="#" class="jira-link">CAT-42</a></li>
-          <li><a href="#" class="jira-link">PERF-15</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <div class="sidebar-trigger"></div>
+  <div id="sidebar-container"></div>
 
   <main class="main-content">
-    <div class="container api-doc">
-      <h1>E012.A06.TS007 - Реализация кэширования товаров</h1>
+    <div class="theme-toggle">
+      <a href="https://alabans.github.io/resume-semochkin/index.html" class="home-link">На главную</a>
+    </div>
 
-      <div class="ts-warning">
-        <p><strong>Внимание!</strong> Перед заполнением шаблона проверьте его актуальность.</p>
-        <p>Актуальная версия находится здесь: <a href="#" class="jira-link" target="_blank">E012.A06.TS007</a></p>
+    <div class="container tech-solution">
+      <h1>E012.A06.TS001 - Интеграция платежной системы XYZ</h1>
+
+      <div class="warning-box">
+        <p><strong>Внимание!</strong> Перед заполнением шаблона Технического решения проверьте его актуальность. Актуальная версия находится здесь: <a href="#" class="jira-link">E012.A06.TSnnn - Заголовок</a></p>
       </div>
 
-      <div class="ts-info">
-        <p>Данный документ является шаблоном Технического Решения (Technical Solution).</p>
-        <p><strong>Technical Solution</strong> - один из артефактов продуктовой архитектуры, описывающий детали решения на уровне разработки.</p>
+      <div class="info-box">
+        <p>Данный документ является шаблоном Технического решения (Technical Solution).</p>
+        <p><strong>Technical Solution</strong> - Техническое решение - Один из артефактов продуктовой архитектуры, описывающий детали решений на уровне разработки. Tech Solution уточняет <a href="#" class="jira-link">ADR</a> и включает в себя артефакты системного анализа.</p>
+        <p><strong>Цель Technical Solution</strong> - собрать все изменения продукта в рамках сложной задачи в одном месте. Техническое решение содержит в себе текстовое описание необходимых изменений, а также ссылки на обновленные артефакты системного анализа.</p>
       </div>
 
-      <div class="api-section" id="description">
-        <h2 class="api-section-title">Описание</h2>
-        <p>Реализация системы кэширования для каталога товаров с целью повышения производительности и снижения нагрузки на базу данных.</p>
+      <div class="toc">
+        <h3>Содержание</h3>
+        <ul>
+          <li><a href="#description">Описание</a></li>
+          <li><a href="#e2e-processes">E2E процессы</a></li>
+          <li><a href="#architecture">Архитектура</a></li>
+          <li><a href="#services">Сервисы</a>
+            <ul>
+              <li><a href="#payment-service">E012.A06.S001 - Payment Service</a>
+                <ul>
+                  <li><a href="#changes">Краткое описание изменений</a></li>
+                  <li><a href="#api-contracts">API-contracts</a></li>
+                  <li><a href="#pdm">PDM</a></li>
+                  <li><a href="#sequences">Sequences</a></li>
+                  <li><a href="#other-changes">Иные изменения</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#migration">План миграции/релиза</a></li>
+          <li><a href="#risks">Потенциальные проблемы и риски</a></li>
+        </ul>
+      </div>
+
+      <div id="description">
+        <h2 class="section-title">Описание</h2>
+        <p>Краткое описание целей и предмета проекта. Обоснование, зачем был создан этот документ.</p>
+        <p>Необходимо реализовать интеграцию с новой платежной системой XYZ для расширения возможностей оплаты для клиентов. Интеграция должна поддерживать основные операции: авторизацию платежа, завершение транзакции, возврат средств и проверку статуса платежа.</p>
+      </div>
+
+      <div id="e2e-processes">
+        <h2 class="section-title">E2E процессы</h2>
+        <div class="info-box">
+          <p>Раздел заполняется в случае изменений, вызванных реализацией сквозной продуктовой инициативы/проекта (aka PRCON), в случае изменений, производимых в отсутствие подобного проекта, раздел следует удалить.</p>
+        </div>
 
         <table>
           <thead>
             <tr>
-              <th>Метрика</th>
-              <th>С Technical Solution</th>
-              <th>Без Technical Solution</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Информация об изменениях</td>
-              <td>Вся информация в одном месте → легче воспринимать</td>
-              <td>Информация распределена по задачам, документам и комментариям</td>
-            </tr>
-            <tr>
-              <td>Объяснение изменений</td>
-              <td>Показываем Technical Solution</td>
-              <td>Показываем различные документы и пишем комментарии</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="api-section" id="e2e">
-        <h2 class="api-section-title">E2E процессы</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Название процесса</th>
+              <th>Название e2e процесса</th>
               <th>Архитектура</th>
               <th>Статус</th>
               <th>Описание</th>
@@ -314,156 +193,236 @@
           </thead>
           <tbody>
             <tr>
-              <td>Получение каталога товаров</td>
-              <td><a href="#" class="jira-link">AV2025.042</a></td>
-              <td>Изменяется</td>
-              <td>Добавлен шаг проверки кэша перед запросом к БД</td>
+              <td>Обработка платежа через XYZ</td>
+              <td><a href="#" class="jira-link">AV2025.xxx - Архитектурный вижн</a></td>
+              <td>Новый</td>
+              <td>Описание нового процесса обработки платежей через систему XYZ, включая авторизацию и подтверждение транзакции.</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="api-section" id="architecture">
-        <h2 class="api-section-title">Архитектура</h2>
-        <p>Изменения в архитектурной схеме продукта:</p>
-        <div class="code-block">
-// Архитектурная схема будет обновлена
-// Добавлен сервис кэширования Redis
-// Изменены связи между компонентами
-        </div>
-        <p>Ссылка на обновленную схему: <a href="#" class="jira-link">Exxx Architecture</a></p>
+      <div id="architecture">
+        <h2 class="section-title">Архитектура</h2>
+        <p>Описание изменений в архитектурной схеме продукта <a href="#" class="jira-link">Exxx Architecture</a> (здесь нужно добавить обновленную архитектурную диаграмму продукта, выделив изменения другим цветом).</p>
+        <p>Основные изменения архитектуры:</p>
+        <ul>
+          <li>Добавлен новый сервис Payment Gateway Adapter для взаимодействия с платежной системой XYZ</li>
+          <li>Обновлен сервис Payment Service для поддержки нового провайдера</li>
+          <li>Добавлены новые очереди для обработки асинхронных платежных операций</li>
+        </ul>
       </div>
 
-      <div class="api-section" id="services">
-        <h2 class="api-section-title">Сервисы</h2>
+      <div id="services">
+        <h2 class="section-title">Сервисы</h2>
+        <p>В подразделах указываются сервисы, изменения в которых необходимо сделать в рамках данного технического решения.</p>
 
-        <div class="api-subsection" id="service-catalog">
-          <h3 class="api-subsection-title">E012.A06.S042 - Каталог товаров</h3>
-          <h4>Краткое описание изменений</h4>
-          <p>Добавлена проверка кэша перед запросом к базе данных и сохранение результатов в кэш.</p>
+        <div id="payment-service">
+          <h3>E012.A06.S001 - Payment Service</h3>
 
-          <h4>API-contracts</h4>
-          <table>
-            <thead>
-              <tr>
-                <th>Контракт</th>
-                <th>Статус</th>
-                <th>Описание</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><a href="#" class="jira-link">GET /products</a></td>
-                <td>Изменяется</td>
-                <td>Добавлен параметр nocache для обхода кэширования</td>
-              </tr>
-            </tbody>
-          </table>
+          <div id="changes">
+            <h4 class="subsection-title">Краткое описание изменений</h4>
+            <p>Добавление поддержки новой платежной системы XYZ требует следующих изменений:</p>
+            <ul>
+              <li>Реализация нового адаптера для платежного шлюза XYZ</li>
+              <li>Добавление новых методов в API для работы с XYZ</li>
+              <li>Обновление модели данных для хранения специфичных параметров XYZ</li>
+              <li>Реализация новых сценариев обработки платежей</li>
+            </ul>
+          </div>
 
-          <h4>PDM</h4>
-          <table>
-            <thead>
-              <tr>
-                <th>Таблица</th>
-                <th>Статус</th>
-                <th>Описание</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><a href="#" class="jira-link">products</a></td>
-                <td>Без изменений</td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+          <div id="api-contracts">
+            <h4 class="subsection-title">API-contracts</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Контракт</th>
+                  <th>Статус</th>
+                  <th>Описание</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="#" class="jira-link">E012.A06.S001 GraphQL API#processXYZPayment</a></td>
+                  <td>Новый</td>
+                  <td>Новый метод для обработки платежей через систему XYZ. Поддерживает авторизацию и подтверждение транзакции.</td>
+                </tr>
+                <tr>
+                  <td><a href="#" class="jira-link">E012.A06.S001 GraphQL API#checkXYZStatus</a></td>
+                  <td>Новый</td>
+                  <td>Метод для проверки статуса платежа в системе XYZ.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-        <div class="api-subsection" id="service-cache">
-          <h3 class="api-subsection-title">E012.A06.S043 - Сервис кэширования</h3>
-          <h4>Краткое описание изменений</h4>
-          <p>Новый сервис для хранения кэшированных данных товаров.</p>
+          <div id="pdm">
+            <h4 class="subsection-title">PDM</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Таблица</th>
+                  <th>Статус</th>
+                  <th>Описание</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="#" class="jira-link">E012.A06.S001.PDM payment_transactions</a></td>
+                  <td>Изменяется</td>
+                  <td>Добавление новых полей для хранения специфичных параметров XYZ (transaction_id, auth_code, xyz_response).</td>
+                </tr>
+                <tr>
+                  <td><a href="#" class="jira-link">E012.A06.S001.PDM payment_providers</a></td>
+                  <td>Изменяется</td>
+                  <td>Добавление новой записи для провайдера XYZ.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-          <h4>API-contracts</h4>
-          <table>
-            <thead>
-              <tr>
-                <th>Контракт</th>
-                <th>Статус</th>
-                <th>Описание</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><a href="#" class="jira-link">GET /cache/{key}</a></td>
-                <td>Новый</td>
-                <td>Получение данных из кэша</td>
-              </tr>
-              <tr>
-                <td><a href="#" class="jira-link">POST /cache</a></td>
-                <td>Новый</td>
-                <td>Сохранение данных в кэш</td>
-              </tr>
-            </tbody>
-          </table>
+          <div id="sequences">
+            <h4 class="subsection-title">Sequences</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Диаграмма</th>
+                  <th>Статус</th>
+                  <th>Описание</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="#" class="jira-link">E012.A06.S001.SEQ001 XYZ Payment Sequence</a></td>
+                  <td>Новая</td>
+                  <td>Диаграмма последовательности обработки платежа через XYZ.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="other-changes">
+            <h4 class="subsection-title">Иные изменения</h4>
+            <p>Описание всех необходимых изменений, которые не относятся к разделам API, PDM, Sequences.</p>
+            <ul>
+              <li>Обновление конфигурации сервиса для поддержки новых параметров XYZ</li>
+              <li>Реализация новых обработчиков событий платежной системы</li>
+              <li>Добавление тестовых сценариев для нового провайдера</li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div class="api-section" id="migration">
-        <h2 class="api-section-title">План миграции</h2>
-        <div class="code-block">
-1. Развертывание кластера Redis
-2. Деплой новой версии сервиса каталога
-3. Наполнение кэша в фоновом режиме
-4. Переключение трафика на новую версию
-        </div>
+      <div id="migration">
+        <h2 class="section-title">План миграции/релиза</h2>
+        <p>Описание нестандартных действий и ситуаций, которые необходимо учитывать при релизе/миграции.</p>
+        <ol>
+          <li>Поэтапный rollout нового функционала с feature toggle</li>
+          <li>Миграция данных для существующих транзакций (при необходимости)</li>
+          <li>Мониторинг ошибок в течение 48 часов после включения</li>
+          <li>План отката на предыдущую версию в случае критических ошибок</li>
+        </ol>
       </div>
 
-      <div class="api-section" id="risks">
-        <h2 class="api-section-title">Потенциальные проблемы и риски</h2>
-        <table class="error-table">
+      <div id="risks">
+        <h2 class="section-title">Потенциальные проблемы и риски</h2>
+        <p>Указываются проблемы и риски, которые могут возникнуть при внедрении описанных выше доработок.</p>
+        <table>
           <thead>
             <tr>
               <th>Риск</th>
               <th>Вероятность</th>
-              <th>Воздействие</th>
-              <th>Митригация</th>
+              <th>Влияние</th>
+              <th>Меры предотвращения</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Несвоевременное обновление кэша</td>
+              <td>Нестабильность API платежной системы</td>
               <td>Средняя</td>
-              <td>Высокая</td>
-              <td>Реализовать инвалидацию кэша при изменениях</td>
+              <td>Высокое</td>
+              <td>Реализация retry-механизмов, кэширование ответов, circuit breaker</td>
             </tr>
             <tr>
-              <td>Перегрузка Redis</td>
+              <td>Расхождение в логике обработки статусов</td>
               <td>Низкая</td>
-              <td>Критическая</td>
-              <td>Мониторинг и автоматическое масштабирование</td>
+              <td>Среднее</td>
+              <td>Тщательное тестирование всех возможных статусов транзакций</td>
+            </tr>
+            <tr>
+              <td>Недостаточная производительность при пиковой нагрузке</td>
+              <td>Низкая</td>
+              <td>Высокое</td>
+              <td>Нагрузочное тестирование, горизонтальное масштабирование</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="ts-success">
-        <h3>Reviewers</h3>
-        <p>@system_analyst OR @senior_developer OR @architect</p>
-        <ul>
-          <li>Validated: ✓ / ✗</li>
-          <li>Date: <time datetime="2025-07-10">10.07.2025</time></li>
-        </ul>
+      <div>
+        <h2 class="section-title">Метаданные</h2>
+        <table class="reviewer-table">
+          <thead>
+            <tr>
+              <th>Поле</th>
+              <th>Значение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jira Task</td>
+              <td><a href="#" class="jira-link">PAY-123</a> - Интеграция с платежной системой XYZ</td>
+            </tr>
+            <tr>
+              <td>User Story</td>
+              <td><a href="#" class="jira-link">US-456</a> - Как клиент, я хочу оплачивать заказы через XYZ, чтобы иметь больше вариантов оплаты</td>
+            </tr>
+            <tr>
+              <td>Related Technical Solutions</td>
+              <td><a href="#" class="jira-link">E012.A05.TS001</a> - Обновление платежного шлюза</td>
+            </tr>
+            <tr>
+              <td>ADR</td>
+              <td><a href="#" class="jira-link">ADR-789</a> - Решение об интеграции с XYZ</td>
+            </tr>
+            <tr>
+              <td>Reviewers</td>
+              <td>
+                <p>При необходимости указываются ревьюеры. Ревьюер должен проставить зеленую галочку и дату проверки документа.</p>
+                <p>@system_analyst OR @business_analyst OR @developer OR @architect</p>
+                <ul>
+                  <li>Validated: ✓ / ✗</li>
+                  <li>Date: <time datetime="2025-07-10">10.07.2025</time></li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </main>
 
+  <script src="lang.js"></script>
   <script>
-    // Инициализация сайдбара как в API примере
-    document.addEventListener('DOMContentLoaded', function() {
+    // Загрузка сайдбара
+    fetch('sidebar.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById('sidebar-container').innerHTML = html;
+        initializeSidebar();
+      })
+      .catch(error => {
+        console.error('Error loading sidebar:', error);
+      });
+
+    function initializeSidebar() {
       const sidebar = document.querySelector('.sidebar');
       const sidebarTrigger = document.querySelector('.sidebar-trigger');
-      const mainContent = document.querySelector('.main-content');
 
       let sidebarTimeout;
 
@@ -471,14 +430,12 @@
         clearTimeout(sidebarTimeout);
         sidebar.style.left = '0';
         sidebar.style.pointerEvents = 'auto';
-        mainContent.style.marginLeft = '300px';
       }
 
       function hideSidebar() {
         sidebarTimeout = setTimeout(() => {
           sidebar.style.left = '-300px';
           sidebar.style.pointerEvents = 'none';
-          mainContent.style.marginLeft = '0';
         }, 300);
       }
 
@@ -489,30 +446,25 @@
         sidebar.addEventListener('mouseleave', hideSidebar);
       }
 
-      // Клик по триггеру на мобильных
-      sidebarTrigger.addEventListener('click', function() {
-        if (sidebar.style.left === '0px') {
-          hideSidebar();
-        } else {
-          showSidebar();
-        }
-      });
-
-      // Адаптивность
-      function handleResize() {
-        if (window.innerWidth <= 768) {
-          sidebar.style.left = '-300px';
-          mainContent.style.marginLeft = '0';
-          sidebarTrigger.style.display = 'flex';
-        } else {
-          sidebar.style.left = '0';
-          mainContent.style.marginLeft = '300px';
-          sidebarTrigger.style.display = 'none';
-        }
+      const artifactsTitle = document.querySelector('.artifacts-title');
+      if (artifactsTitle) {
+        artifactsTitle.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            document.querySelector('.sidebar').classList.toggle('expanded');
+          }
+        });
       }
+    }
 
-      window.addEventListener('resize', handleResize);
-      handleResize();
+    document.addEventListener('DOMContentLoaded', function() {
+      const acc = document.querySelectorAll(".accordion");
+      acc.forEach(el => {
+        el.addEventListener("click", function() {
+          this.classList.toggle("active");
+          const panel = this.nextElementSibling;
+          panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+        });
+      });
     });
   </script>
 </body>
