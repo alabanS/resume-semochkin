@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:v="urn:schemas-microsoft-com:vml" xmlns="urn:w3-org-ns:HTML">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Outbound EventStreaming - Shift Management Events</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet">
+  <style>
+    /* Основные стили документа */
+    body {
+      font-family: 'Inter', Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background: #fff;
+    }
+
+    .main-content {
+      margin-left: 300px;
+      padding: 2rem;
+      transition: margin-left 0.3s;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: -300px;
+      top: 0;
+      width: 300px;
+      height: 100%;
+      background: #f8f9fa;
+      border-right: 1px solid #ddd;
+      overflow-y: auto;
+      transition: left 0.3s;
+      z-index: 1000;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+
+    .sidebar-trigger {
+      position: fixed;
+      left: 0;
+      top: 50%;
+      width: 20px;
+      height: 100px;
+      background: #2196F3;
+      z-index: 999;
+      cursor: pointer;
+      transform: translateY(-50%);
+      border-radius: 0 5px 5px 0;
+      transition: all 0.3s;
+    }
+
+    .sidebar-trigger:hover {
+      width: 25px;
+      background: #0d8bf2;
+    }
+
+    .sidebar:hover, .sidebar-trigger:hover + .sidebar {
+      left: 0;
+    }
+
+    /* Стили документации */
+    .event-doc {
+      margin-top: 2rem;
+      max-width: 1200px;
+    }
+
+    .event-endpoint {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #2196F3;
+      margin-bottom: 2rem;
+    }
+
+    .event-method {
+      font-weight: bold;
+      color: #2196F3;
+    }
+
+    .event-uri {
+      font-family: monospace;
+      background-color: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    .event-description {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+
+    .event-section {
+      margin-bottom: 2rem;
+    }
+
+    .event-section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #2f4f4f;
+      border-bottom: 2px solid #2196F3;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .event-subsection {
+      margin-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .event-subsection-title {
+      font-weight: 600;
+      color: #2f4f4f;
+      margin-bottom: 0.5rem;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #2f4f4f;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #2196F3;
+      color: white;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(33, 150, 243, 0.1);
+    }
+
+    tr:hover {
+      background-color: rgba(33, 150, 243, 0.2);
+    }
+
+    .confluence-information-macro {
+      background-color: #f8f9fa;
+      border-left: 4px solid #2196F3;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .confluence-information-macro-icon {
+      float: left;
+      margin-right: 10px;
+      color: #2196F3;
+    }
+
+    .confluence-information-macro-body {
+      margin-left: 30px;
+    }
+
+    .code-block {
+      background-color: #f5f5f5;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: 'Monaco', 'Courier New', monospace;
+      white-space: pre-wrap;
+      margin: 1rem 0;
+      border-left: 4px solid #2196F3;
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    .status-macro {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background-color: #ffd351;
+      color: #594300;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    .home-link {
+      color: #2196F3;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.3s;
+      display: inline-block;
+      margin-left: auto;
+    }
+
+    .home-link:hover {
+      background-color: rgba(33, 150, 243, 0.1);
+      text-decoration: underline;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Специальные стили таблиц */
+    .error-table {
+      border-left: 4px solid #f44336;
+    }
+
+    .error-table th {
+      background-color: #f44336;
+    }
+
+    .load-table {
+      border-left: 4px solid #4CAF50;
+    }
+
+    .load-table th {
+      background-color: #4CAF50;
+    }
+
+    /* Стили для печати */
+    @media print {
+      .sidebar, .sidebar-trigger {
+        display: none;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 0;
+      }
+
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .home-link {
+        margin: 1rem 0 0 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-trigger"></div>
+  <div id="sidebar-container" class="sidebar">
+    <div class="sidebar-content">
+      <h3>Содержание</h3>
+      <ul>
+        <li><a href="#overview">Обзор</a></li>
+        <li><a href="#integration-details">Детали интеграции</a></li>
+        <li><a href="#event-description">Описание событий</a></li>
+        <li><a href="#event-structure">Структура события</a>
+          <ul>
+            <li><a href="#schema">Схема</a></li>
+            <li><a href="#json-structure">Описание полей</a></li>
+            <li><a href="#json-example">Пример события</a></li>
+          </ul>
+        </li>
+        <li><a href="#related-docs">Связанные документы</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="event-doc">
+      <div class="page-header">
+        <h1>Outbound EventStreaming - Shift Management Events</h1>
+        <a href="https://example.com" class="home-link">На главную</a>
+      </div>
+
+      <div class="event-description">
+        <p>Документация по событиям управления сменами, публикуемым в Kafka топик <code>sam.shift.event-sourcing.shift-events</code>.</p>
+        <p><strong>Jira Task:</strong> <a href="#" style="color: #2196F3; text-decoration: none;">SHIFT-42</a></p>
+      </div>
+
+      <div class="event-section">
+        <h2 class="event-section-title" id="integration-details">Детали интеграции</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Параметр</th>
+              <th>Значение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Status</td>
+              <td><span class="status-macro">DRAFT</span></td>
+            </tr>
+            <tr>
+              <td>Last updated</td>
+              <td>2025-07-11</td>
+            </tr>
+            <tr>
+              <td>Integration Object</td>
+              <td>Shift Management Service</td>
+            </tr>
+            <tr>
+              <td>Integration type</td>
+              <td>Kafka - Event Sourcing</td>
+            </tr>
+            <tr>
+              <td>Kafka topic</td>
+              <td>sam.shift.event-sourcing.shift-events</td>
+            </tr>
+            <tr>
+              <td>Partitions</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <td>Retention</td>
+              <td>7 days</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="event-section">
+        <h2 class="event-section-title" id="event-description">Описание событий</h2>
+
+        <div class="confluence-information-macro confluence-information-macro-information">
+          <span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon">ℹ️</span>
+          <div class="confluence-information-macro-body">
+            <p>Сервис управления сменами публикует события в формате CloudEvents при изменениях статусов смен сотрудников.</p>
+          </div>
+        </div>
+
+        <h3 class="event-subsection-title">Типы событий</h3>
+        <table class="load-table">
+          <thead>
+            <tr>
+              <th>Тип события</th>
+              <th>Описание</th>
+              <th>Частота</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>shift.started</code></td>
+              <td>Смена начата</td>
+              <td>Высокая</td>
+            </tr>
+            <tr>
+              <td><code>shift.ended</code></td>
+              <td>Смена завершена</td>
+              <td>Высокая</td>
+            </tr>
+            <tr>
+              <td><code>shift.role.changed</code></td>
+              <td>Изменена роль сотрудника</td>
+              <td>Средняя</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="event-section">
+        <h2 class="event-section-title" id="event-structure">Структура события</h2>
+
+        <h3 class="event-subsection-title" id="schema">Схема</h3>
+        <div class="code-block">
+{
+  "description": "JSON Schema for Shift Events",
+  "type": "object",
+  "properties": {
+    "specversion": {"type": "string"},
+    "id": {"type": "string", "format": "uuid"},
+    "source": {"type": "string"},
+    "type": {"type": "string"},
+    "datacontenttype": {"type": "string"},
+    "dataschema": {"type": "string"},
+    "subject": {"type": "string"},
+    "time": {"type": "string", "format": "date-time"},
+    "data": {
+      "type": "object",
+      "properties": {
+        "shiftId": {"type": "string"},
+        "shiftUserId": {"type": "string"},
+        "darkstoreId": {"type": "string"},
+        "eventType": {"type": "string"},
+        "shiftUserRole": {"type": "string"}
+      },
+      "required": ["shiftId", "shiftUserId", "darkstoreId", "eventType"]
+    }
+  },
+  "required": ["specversion", "id", "source", "type", "datacontenttype", "subject", "time", "data"]
+}
+        </div>
+
+        <h3 class="event-subsection-title" id="json-structure">Описание полей</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Поле</th>
+              <th>Тип</th>
+              <th>Обязательное</th>
+              <th>Описание</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>specversion</code></td>
+              <td>string</td>
+              <td>Да</td>
+              <td>Версия CloudEvents (1.0)</td>
+            </tr>
+            <tr>
+              <td><code>id</code></td>
+              <td>string</td>
+              <td>Да</td>
+              <td>Уникальный идентификатор события (UUID)</td>
+            </tr>
+            <tr>
+              <td><code>source</code></td>
+              <td>string</td>
+              <td>Да</td>
+              <td>Источник события (/service-name/version)</td>
+            </tr>
+            <tr>
+              <td><code>type</code></td>
+              <td>string</td>
+              <td>Да</td>
+              <td>Тип события (например, shift.started)</td>
+            </tr>
+            <tr>
+              <td><code>data.shiftId</code></td>
+              <td>string</td>
+              <td>Да</td>
+              <td>Идентификатор смены</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="event-subsection-title" id="json-example">Пример события</h3>
+        <div class="code-block">
+{
+  "specversion": "1.0",
+  "id": "a1b2c3d4-e5f6-7890-g1h2-i3j4k5l6m7n8",
+  "source": "/shift-service/1.0.0",
+  "type": "shift.started",
+  "datacontenttype": "application/json",
+  "dataschema": "https://schemas.example.com/shift/v1",
+  "subject": "sam.shift.event-sourcing.shift-events",
+  "time": "2025-07-11T14:30:00.000Z",
+  "data": {
+    "shiftId": "SHIFT-20250711-001",
+    "shiftUserId": "EMP-12345",
+    "darkstoreId": "DS-42",
+    "eventType": "shift.started",
+    "shiftUserRole": "PICKER"
+  }
+}
+        </div>
+      </div>
+
+      <div class="event-section">
+        <h2 class="event-section-title" id="related-docs">Связанные документы</h2>
+        <ul>
+          <li><a href="#" style="color: #2196F3; text-decoration: none;">Протокол асинхронного взаимодействия</a></li>
+          <li><a href="#" style="color: #2196F3; text-decoration: none;">Kafka topics naming conventions</a></li>
+          <li><a href="#" style="color: #2196F3; text-decoration: none;">Event Streaming Guidelines</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Инициализация сайдбара
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarTrigger = document.querySelector('.sidebar-trigger');
+
+      let sidebarTimeout;
+
+      function showSidebar() {
+        clearTimeout(sidebarTimeout);
+        sidebar.style.left = '0';
+      }
+
+      function hideSidebar() {
+        sidebarTimeout = setTimeout(() => {
+          sidebar.style.left = '-300px';
+        }, 300);
+      }
+
+      if (sidebar && sidebarTrigger) {
+        sidebarTrigger.addEventListener('mouseenter', showSidebar);
+        sidebar.addEventListener('mouseenter', showSidebar);
+        sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+        sidebar.addEventListener('mouseleave', hideSidebar);
+      }
+
+      // Плавная прокрутка для якорных ссылок
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 20,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
