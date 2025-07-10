@@ -9,125 +9,8 @@
 </head>
 <body>
   <div class="sidebar-trigger"></div>
+  <div id="sidebar-container"></div>
 
-  <!-- Сайдбар -->
- <aside class="sidebar">
-    <div class="artifacts-title">📁 Examples of artifacts</div>
-    <ul class="artifacts-list">
-        <!-- API Contracts -->
-        <li class="artifacts-item">
-            <details class="artifact-group" >
-                <summary class="artifact-category">API Contracts</summary>
-                <ul class="artifact-subitems">
-                    <li class="artifact-subitem">
-                        <details class="artifact-subgroup">
-                            <summary class="artifact-subcategory">REST API</summary>
-                            <ul class="artifact-links">
-                                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
-                                    target="_blank"
-                                    class="artifacts-link">Swagger</a></li>
-                                <li><a href="api-get-searches.html"
-                                    class="artifacts-link active">Doc - GET /searches</a></li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li class="artifact-subitem">
-                        <details class="artifact-subgroup">
-                            <summary class="artifact-subcategory">Kafka API</summary>
-                            <ul class="artifact-links">
-                                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
-                                    target="_blank"
-                                    class="artifacts-link">Inbound</a></li>
-                                <li><a href="api-get-searches.html"
-                                    class="artifacts-link active">Outbound</a></li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li class="artifact-subitem">
-                        <details class="artifact-subgroup">
-                            <summary class="artifact-subcategory">GraphQL API</summary>
-                            <ul class="artifact-links">
-                                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
-                                    target="_blank"
-                                    class="artifacts-link">Swagger</a></li>
-                                <li><a href="api-get-searches.html"
-                                    class="artifacts-link active">Doc - GET /searches</a></li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li class="artifact-subitem">
-                        <details class="artifact-subgroup">
-                            <summary class="artifact-subcategory">JSON-RPC API</summary>
-                            <ul class="artifact-links">
-                                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
-                                    target="_blank"
-                                    class="artifacts-link">Swagger</a></li>
-                                <li><a href="api-get-searches.html"
-                                    class="artifacts-link active">Doc - GET /searches</a></li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li class="artifact-subitem">
-                        <details class="artifact-subgroup">
-                            <summary class="artifact-subcategory">FTP/SFTP/S3</summary>
-                            <ul class="artifact-links">
-                                <li><a href="https://alabans.github.io/resume-semochkin/api/api-docs.html"
-                                    target="_blank"
-                                    class="artifacts-link">Swagger</a></li>
-                                <li><a href="api-get-searches.html"
-                                    class="artifacts-link active">Doc - GET /searches</a></li>
-                            </ul>
-                        </details>
-                    </li>
-
-                </ul>
-            </details>
-        </li>
-         <!-- Architecture Artifacts -->
-        <li class="artifacts-item">
-            <details class="artifact-group">
-                <summary class="artifact-category">Architecture Artifacts</summary>
-                <ul class="artifact-subitems">
-                    <li><a href="#" class="artifacts-link">ADR</a></li>
-                    <li><a href="#" class="artifacts-link">Technical Solution</a></li>
-                </ul>
-            </details>
-        </li>
-
-        <!-- PDM -->
-        <li class="artifacts-item">
-            <details class="artifact-group">
-                <summary class="artifact-category">PDM</summary>
-                <ul class="artifact-subitems">
-                    <li><a href="#" class="artifacts-link">Database Schema</a></li>
-                </ul>
-            </details>
-        </li>
-
-        <!-- ER-diagram -->
-        <li class="artifacts-item">
-            <details class="artifact-group">
-                <summary class="artifact-category">ER-diagram</summary>
-                <ul class="artifact-subitems">
-                    <li><a href="#" class="artifacts-link">Entity Relations</a></li>
-                </ul>
-            </details>
-        </li>
-
-        <!-- Sequence diagram -->
-        <li class="artifacts-item">
-            <details class="artifact-group">
-                <summary class="artifact-category">Sequence diagram</summary>
-                <ul class="artifact-subitems">
-                    <li><a href="#" class="artifacts-link">Order Processing</a></li>
-                    <li><a href="#" class="artifacts-link">Payment Flow</a></li>
-                </ul>
-            </details>
-        </li>
-    </ul>
-</aside>
-
-  <!-- Основное содержимое -->
   <main class="main-content">
     <div class="theme-toggle">
       <button id="langSwitch">Switch to English 🌐</button>
@@ -151,7 +34,6 @@
       <h2 data-lang="keyInfoTitle">Ключевая информация</h2>
       <p data-lang="keyInfoText">7+ лет опыта в системном анализе и архитектуре...</p>
 
-      <!-- Опыт работы -->
       <div class="accordion-section" data-lang-section="experience">
         <button class="accordion">💼 Опыт работы</button>
         <div class="panel experience-container">
@@ -159,7 +41,6 @@
         </div>
       </div>
 
-      <!-- Навыки -->
       <div class="accordion-section" data-lang-section="skills">
         <button class="accordion">🛠 Ключевые навыки</button>
         <div class="panel">
@@ -169,7 +50,6 @@
         </div>
       </div>
 
-      <!-- Образование -->
       <div class="accordion-section" data-lang-section="education">
         <button class="accordion">🎓 Образование и курсы</button>
         <div class="panel education-panel">
@@ -177,7 +57,6 @@
         </div>
       </div>
 
-      <!-- Языки -->
       <div class="accordion-section" data-lang-section="languages">
         <button class="accordion">🌍 Языки</button>
         <div class="panel">
@@ -187,7 +66,6 @@
         </div>
       </div>
 
-      <!-- Дополнительно -->
       <div class="accordion-section" data-lang-section="extra">
         <button class="accordion">➕ Дополнительно</button>
         <div class="panel">
@@ -201,50 +79,69 @@
 
   <script src="lang.js"></script>
   <script>
-  // Активация аккордеона
-  const acc = document.querySelectorAll(".accordion");
-  acc.forEach(el => {
-    el.addEventListener("click", function() {
-      this.classList.toggle("active");
-      const panel = this.nextElementSibling;
-      panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
-    });
-  });
+    document.addEventListener('DOMContentLoaded', function() {
+      // Загрузка сайдбара
+      fetch('sidebar.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('sidebar-container').innerHTML = html;
+          initSidebar();
+        })
+        .catch(console.error);
 
-  // Управление сайдбаром
-  const sidebar = document.querySelector('.sidebar');
-  const sidebarTrigger = document.querySelector('.sidebar-trigger');
+      // Инициализация сайдбара
+      function initSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarTrigger = document.querySelector('.sidebar-trigger');
+        if(!sidebar || !sidebarTrigger) return;
 
-  let sidebarTimeout;
+        let sidebarTimeout;
+        const showSidebar = () => {
+          clearTimeout(sidebarTimeout);
+          sidebar.style.left = '0';
+          sidebar.style.pointerEvents = 'auto';
+        };
 
-  function showSidebar() {
-    clearTimeout(sidebarTimeout);
-    sidebar.style.left = '0';
-    sidebar.style.pointerEvents = 'auto';
-  }
+        const hideSidebar = () => {
+          sidebarTimeout = setTimeout(() => {
+            sidebar.style.left = '-300px';
+            sidebar.style.pointerEvents = 'none';
+          }, 300);
+        };
 
-  function hideSidebar() {
-    sidebarTimeout = setTimeout(() => {
-      sidebar.style.left = '-300px';
-      sidebar.style.pointerEvents = 'none';
-    }, 300); // Задержка перед исчезновением (можно регулировать)
-  }
+        sidebarTrigger.addEventListener('mouseenter', showSidebar);
+        sidebar?.addEventListener('mouseenter', showSidebar);
+        sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+        sidebar?.addEventListener('mouseleave', hideSidebar);
 
-  sidebarTrigger.addEventListener('mouseenter', showSidebar);
-  sidebar.addEventListener('mouseenter', showSidebar);
-
-  sidebarTrigger.addEventListener('mouseleave', hideSidebar);
-  sidebar.addEventListener('mouseleave', hideSidebar);
-
-  // Для мобильного меню
-  const artifactsTitle = document.querySelector('.artifacts-title');
-  if (artifactsTitle) {
-    artifactsTitle.addEventListener('click', function() {
-      if (window.innerWidth <= 768) {
-        document.querySelector('.sidebar').classList.toggle('expanded');
+        // Мобильное меню
+        document.querySelector('.artifacts-title')?.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            sidebar.classList.toggle('expanded');
+          }
+        });
       }
+
+      // Инициализация аккордеона
+      function initAccordion() {
+        const acc = document.querySelectorAll(".accordion");
+        acc.forEach((el, index) => {
+          el.addEventListener("click", function() {
+            this.classList.toggle("active");
+            const panel = this.nextElementSibling;
+            panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+          });
+
+          // Открываем первый элемент по умолчанию
+          if(index === 0) {
+            el.classList.add("active");
+            el.nextElementSibling.style.maxHeight = el.nextElementSibling.scrollHeight + "px";
+          }
+        });
+      }
+
+      initAccordion();
     });
-  }
-</script>
+  </script>
 </body>
 </html>
