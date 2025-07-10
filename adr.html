@@ -123,55 +123,13 @@
 </head>
 <body>
   <div class="sidebar-trigger"></div>
+  <div id="sidebar-container"></div>
 
-  <!-- Сайдбар -->
-  <aside class="sidebar">
-    <div class="artifacts-title">📁 Architecture Artifacts</div>
-    <ul class="artifacts-list">
-      <!-- API Contracts -->
-      <li class="artifacts-item">
-        <details class="artifact-group">
-          <summary class="artifact-category">API Contracts</summary>
-          <ul class="artifact-subitems">
-            <li class="artifact-subitem">
-              <details class="artifact-subgroup">
-                <summary class="artifact-subcategory">REST API</summary>
-                <ul class="artifact-links">
-                  <li><a href="#" target="_blank" class="artifacts-link">API Documentation</a></li>
-                </ul>
-              </details>
-            </li>
-          </ul>
-        </details>
-      </li>
-
-      <!-- ADRs -->
-      <li class="artifacts-item">
-        <details class="artifact-group" open>
-          <summary class="artifact-category">ADRs</summary>
-          <ul class="artifact-subitems">
-            <li><a href="#" class="artifacts-link active">QuantumFlow ADR</a></li>
-            <li><a href="#" class="artifacts-link">Data Lake ADR</a></li>
-          </ul>
-        </details>
-      </li>
-
-      <!-- Diagrams -->
-      <li class="artifacts-item">
-        <details class="artifact-group">
-          <summary class="artifact-category">Diagrams</summary>
-          <ul class="artifact-subitems">
-            <li><a href="#" class="artifacts-link">System Architecture</a></li>
-          </ul>
-        </details>
-      </li>
-    </ul>
-  </aside>
 
   <!-- Основное содержимое -->
   <main class="main-content">
     <div class="theme-toggle">
-      <button id="langSwitch">Switch to English 🌐</button>
+      <a href="https://alabans.github.io/resume-semochkin/index.html" class="home-link">На главную</a>
     </div>
 
     <div class="container adr-doc">
@@ -401,20 +359,25 @@
     </div>
   </main>
 
-  <script src="lang.js"></script>
+    <script src="lang.js"></script>
   <script>
-    // Инициализация аккордеона
-    document.addEventListener('DOMContentLoaded', function() {
-      const acc = document.querySelectorAll(".accordion");
-      acc.forEach(el => {
-        el.addEventListener("click", function() {
-          this.classList.toggle("active");
-          const panel = this.nextElementSibling;
-          panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
-        });
+    // Загрузка сайдбара
+    fetch('sidebar.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById('sidebar-container').innerHTML = html;
+        initializeSidebar();
+      })
+      .catch(error => {
+        console.error('Error loading sidebar:', error);
       });
 
-      // Управление сайдбаром
+    function initializeSidebar() {
       const sidebar = document.querySelector('.sidebar');
       const sidebarTrigger = document.querySelector('.sidebar-trigger');
 
@@ -440,7 +403,6 @@
         sidebar.addEventListener('mouseleave', hideSidebar);
       }
 
-      // Мобильное меню
       const artifactsTitle = document.querySelector('.artifacts-title');
       if (artifactsTitle) {
         artifactsTitle.addEventListener('click', function() {
@@ -449,6 +411,17 @@
           }
         });
       }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const acc = document.querySelectorAll(".accordion");
+      acc.forEach(el => {
+        el.addEventListener("click", function() {
+          this.classList.toggle("active");
+          const panel = this.nextElementSibling;
+          panel.style.maxHeight = panel.style.maxHeight ? null : panel.scrollHeight + "px";
+        });
+      });
     });
   </script>
 </body>
