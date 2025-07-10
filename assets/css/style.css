@@ -378,4 +378,22 @@ ul.skills-list li {
   .artifact-sublinks {
     padding-left: 0.5rem;
   }
+.home-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #2f4f4f;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 20px;
+  transition: 0.3s;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  cursor: pointer;
+}
+
+.home-link:hover {
+  background: #3b6f6f;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
 }
