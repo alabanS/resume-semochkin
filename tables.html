@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Документация PDM таблицы</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="sidebar-trigger"></div>
+  <div id="sidebar-container"></div>
+
+  <!-- Основное содержимое -->
+    <main class="main-content">
+    <div class="container">
+      <h1>Документация БД delivery_service</h1>
+
+      <h2>Основные таблицы</h2>
+
+      <div class="table-description">
+        <h3>1. Таблица users (Пользователи)</h3>
+        <p>Содержит информацию о зарегистрированных пользователях сервиса.</p>
+        <ul>
+          <li><strong>id</strong> - BIGSERIAL, первичный ключ</li>
+          <li><strong>email</strong> - VARCHAR(255), уникальный email пользователя</li>
+          <li><strong>phone</strong> - VARCHAR(20), номер телефона (может быть NULL)</li>
+          <li><strong>created_at</strong> - TIMESTAMPTZ, дата регистрации</li>
+        </ul>
+      </div>
+
+      <div class="table-description">
+        <h3>2. Таблица orders (Заказы)</h3>
+        <p>Основная таблица с информацией о заказах пользователей.</p>
+        <ul>
+          <li><strong>id</strong> - UUID, уникальный идентификатор заказа</li>
+          <li><strong>user_id</strong> - BIGINT, внешний ключ на users.id</li>
+          <li><strong>status</strong> - VARCHAR(50), текущий статус заказа</li>
+          <li><strong>total_amount</strong> - DECIMAL(10,2), общая сумма заказа</li>
+          <li><strong>created_at</strong> - TIMESTAMPTZ, дата создания заказа</li>
+        </ul>
+      </div>
+
+      <div class="table-description">
+        <h3>3. Таблица order_items (Позиции заказа)</h3>
+        <p>Содержит состав каждого заказа (товары и их количество).</p>
+        <ul>
+          <li><strong>id</strong> - BIGSERIAL, первичный ключ</li>
+          <li><strong>order_id</strong> - UUID, внешний ключ на orders.id</li>
+          <li><strong>product_id</strong> - INT, внешний ключ на products.id</li>
+          <li><strong>quantity</strong> - INT, количество товара</li>
+          <li><strong>price</strong> - DECIMAL(10,2), цена на момент заказа</li>
+        </ul>
+      </div>
+
+      <div class="table-description">
+        <h3>4. Таблица delivery (Доставка)</h3>
+        <p>Информация о доставке заказов.</p>
+        <ul>
+          <li><strong>id</strong> - BIGSERIAL, первичный ключ</li>
+          <li><strong>order_id</strong> - UUID, внешний ключ на orders.id</li>
+          <li><strong>courier_id</strong> - INT, внешний ключ на couriers.id</li>
+          <li><strong>address</strong> - TEXT, адрес доставки</li>
+          <li><strong>delivery_time</strong> - TIMESTAMPTZ, планируемое время доставки</li>
+        </ul>
+      </div>
+
+      <h2>Справочные таблицы</h2>
+
+      <div class="table-description">
+        <h3>5. Таблица products (Товары)</h3>
+        <p>Каталог товаров, доступных для заказа.</p>
+        <ul>
+          <li><strong>id</strong> - SERIAL, первичный ключ</li>
+          <li><strong>name</strong> - VARCHAR(255), название товара</li>
+          <li><strong>description</strong> - TEXT, описание товара</li>
+          <li><strong>price</strong> - DECIMAL(10,2), текущая цена</li>
+          <li><strong>category_id</strong> - INT, внешний ключ на categories.id</li>
+        </ul>
+      </div>
+
+      <div class="table-description">
+        <h3>6. Таблица couriers (Курьеры)</h3>
+        <p>Информация о курьерах сервиса.</p>
+        <ul>
+          <li><strong>id</strong> - SERIAL, первичный ключ</li>
+          <li><strong>name</strong> - VARCHAR(100), имя курьера</li>
+          <li><strong>phone</strong> - VARCHAR(20), контактный телефон</li>
+          <li><strong>vehicle_type</strong> - VARCHAR(50), тип транспорта</li>
+          <li><strong>status</strong> - VARCHAR(20), текущий статус (активен/неактивен)</li>
+        </ul>
+      </div>
+
+      <h2>Ключевые индексы</h2>
+      <div class="indexes">
+        <ul>
+          <li><strong>users_email_idx</strong> - Уникальный индекс на поле email в таблице users</li>
+          <li><strong>orders_user_id_idx</strong> - Индекс на поле user_id в таблице orders</li>
+          <li><strong>order_items_order_id_idx</strong> - Индекс на поле order_id в таблице order_items</li>
+          <li><strong>products_category_idx</strong> - Индекс на поле category_id в таблице products</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+
+  <script>
+    // Загрузка сайдбара
+    fetch('sidebar.html')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById('sidebar-container').innerHTML = html;
+        initializeSidebar();
+      })
+      .catch(error => {
+        console.error('Ошибка загрузки сайдбара:', error);
+        // Фолбэк, если сайдбар не загрузился
+        document.getElementById('sidebar-container').innerHTML = `
+          <aside class="sidebar">
+            <div class="artifacts-title">📁 Примеры артефактов</div>
+            <p>Сайдбар не загрузился. Пожалуйста, проверьте подключение.</p>
+          </aside>
+        `;
+        initializeSidebar();
+      });
+
+    function initializeSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarTrigger = document.querySelector('.sidebar-trigger');
+
+      let sidebarTimeout;
+
+      function showSidebar() {
+        clearTimeout(sidebarTimeout);
+        sidebar.style.left = '0';
+        sidebar.style.pointerEvents = 'auto';
+      }
+
+      function hideSidebar() {
+        sidebarTimeout = setTimeout(() => {
+          sidebar.style.left = '-300px';
+          sidebar.style.pointerEvents = 'none';
+        }, 300);
+      }
+
+      if (sidebar && sidebarTrigger) {
+        sidebarTrigger.addEventListener('mouseenter', showSidebar);
+        sidebar.addEventListener('mouseenter', showSidebar);
+        sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+        sidebar.addEventListener('mouseleave', hideSidebar);
+      }
+
+      const artifactsTitle = document.querySelector('.artifacts-title');
+      if (artifactsTitle) {
+        artifactsTitle.addEventListener('click', function() {
+          if (window.innerWidth <= 768) {
+            document.querySelector('.sidebar').classList.toggle('expanded');
+          }
+        });
+      }
+    }
+  </script>
+</body>
+</html>
