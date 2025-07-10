@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Нефункциональные требования - BookFlow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk&display=swap" rel="stylesheet" />
+  <style>
+    /* Основные стили */
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+
+    .main-content {
+      margin-left: 80px;
+      padding: 20px;
+      transition: margin-left 0.3s;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    /* Стили документации */
+    .api-doc {
+      margin-top: 2rem;
+    }
+
+    .api-endpoint {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      border-left: 4px solid #2196F3;
+      margin-bottom: 2rem;
+    }
+
+    .api-method {
+      font-weight: bold;
+      color: #2196F3;
+    }
+
+    .api-uri {
+      font-family: monospace;
+      background-color: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    .api-description {
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+
+    .api-section {
+      margin-bottom: 2rem;
+    }
+
+    .api-section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      color: #2f4f4f;
+      border-bottom: 2px solid #2196F3;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .api-subsection {
+      margin-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .api-subsection-title {
+      font-weight: 600;
+      color: #2f4f4f;
+      margin-bottom: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(33, 150, 243, 0.1);
+    }
+
+    tr:hover {
+      background-color: rgba(33, 150, 243, 0.2);
+    }
+
+    .code-block {
+      background-color: #f5f5f5;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      margin: 1rem 0;
+      border-left: 4px solid #2196F3;
+    }
+
+    .error-table {
+      border-left: 4px solid #f44336;
+    }
+
+    .error-table th {
+      background-color: #f44336;
+    }
+
+    .jira-link {
+      color: #2196F3;
+      text-decoration: none;
+    }
+
+    .jira-link:hover {
+      text-decoration: underline;
+    }
+
+    .load-table {
+      border-left: 4px solid #4CAF50;
+    }
+
+    .load-table th {
+      background-color: #4CAF50;
+    }
+
+    .status-macro {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .aui-lozenge {
+      background-color: #dfe1e6;
+      color: #42526e;
+    }
+
+    .aui-lozenge-success {
+      background-color: #e3fcef;
+      color: #006644;
+    }
+
+    .aui-lozenge-error {
+      background-color: #ffebe6;
+      color: #bf2600;
+    }
+
+    .aui-lozenge-current {
+      background-color: #deebff;
+      color: #0747a6;
+    }
+
+    .aui-lozenge-moved {
+      background-color: #eae6ff;
+      color: #403294;
+    }
+
+    /* Стили сайдбара */
+    .sidebar-trigger {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 60px;
+      height: 100vh;
+      background-color: #2c3e50;
+      z-index: 100;
+    }
+
+    #sidebar-container {
+      position: fixed;
+      left: -300px;
+      top: 0;
+      width: 300px;
+      height: 100vh;
+      background-color: #34495e;
+      color: white;
+      overflow-y: auto;
+      transition: left 0.3s;
+      z-index: 101;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    #sidebar-container:hover {
+      left: 0;
+    }
+
+    .sidebar-trigger:hover + #sidebar-container,
+    #sidebar-container:hover {
+      left: 60px;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: 15px;
+    }
+
+    .sidebar-nav a {
+      color: #ecf0f1;
+      text-decoration: none;
+      display: block;
+      padding: 8px 0;
+      transition: color 0.2s;
+    }
+
+    .sidebar-nav a:hover {
+      color: #3498db;
+    }
+
+    .sidebar-title {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #4a6278;
+    }
+
+    .home-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .home-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-trigger"></div>
+  <div id="sidebar-container">
+    <div class="sidebar-title">BookFlow Docs</div>
+    <ul class="sidebar-nav">
+      <li><a href="#general">Общие требования</a></li>
+      <li><a href="#reliability">Надежность</a></li>
+      <li><a href="#performance">Производительность</a></li>
+      <li><a href="#availability">Доступность</a></li>
+      <li><a href="#scalability">Масштабируемость</a></li>
+      <li><a href="#security">Безопасность</a></li>
+      <li><a href="#monitoring">Мониторинг</a></li>
+    </ul>
+  </div>
+
+  <main class="main-content">
+    <div class="theme-toggle">
+      <a href="https://example.com" class="home-link">На главную</a>
+    </div>
+
+    <div class="container api-doc">
+      <h1>BF-NFR-2023 Нефункциональные требования для сервиса BookFlow</h1>
+
+      <div class="api-description">
+        <p><strong>BookFlow - система управления электронной библиотекой с функциями каталогизации, поиска и рекомендаций книг.</strong></p>
+        <p><strong>Ответственный архитектор:</strong> Иванов Сергей Петрович</p>
+        <p><strong>Jira Epic:</strong> <a href="#" class="jira-link" target="_blank">BF-15</a></p>
+        <p><strong>Дата последнего обновления:</strong> 15.11.2023</p>
+      </div>
+
+      <div class="api-section" id="general">
+        <h2 class="api-section-title">1. Общие требования</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">1.1 Статусы требований</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Статус</th>
+                <th>Описание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="status-macro aui-lozenge">ЧЕРНОВИК</span></td>
+                <td>Черновик требования</td>
+              </tr>
+              <tr>
+                <td><span class="status-macro aui-lozenge aui-lozenge-current">ПРЕДЛОЖЕНО</span></td>
+                <td>Новое/Изменение требования</td>
+              </tr>
+              <tr>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Проведено ревью требования/согласовано</td>
+              </tr>
+              <tr>
+                <td><span class="status-macro aui-lozenge aui-lozenge-success">ВНЕДРЕНО</span></td>
+                <td>Требование реализовано/в проде</td>
+              </tr>
+              <tr>
+                <td><span class="status-macro aui-lozenge aui-lozenge-error">ОТКЛОНЕНО</span></td>
+                <td>Требование отклонено (с указанием причины)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="api-section" id="reliability">
+        <h2 class="api-section-title">2. Надежность</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">2.1 Требования к отказоустойчивости</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Требование</th>
+                <th>Статус</th>
+                <th>Ревью</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NFR-BF-001</td>
+                <td>Среднее время восстановления после сбоя (MTTR) не должно превышать 30 минут</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Петрова А.И. (15.10.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-002</td>
+                <td>Потеря данных при аварийном отключении не должна превышать 5 минут работы системы</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Петрова А.И. (15.10.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-003</td>
+                <td>Система должна обеспечивать uptime не менее 99.5% в течение месяца</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Петрова А.И. (15.10.2023)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="api-section" id="performance">
+        <h2 class="api-section-title">3. Производительность</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">3.1 Требования к скорости работы</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Требование</th>
+                <th>Статус</th>
+                <th>Ревью</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NFR-BF-101</td>
+                <td>Время отклика API на поисковые запросы не должно превышать 500 мс при 95% перцентиле</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Сидоров В.К. (20.10.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-102</td>
+                <td>Загрузка страницы каталога должна занимать не более 2 секунд при скорости интернета 10 Мбит/с</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Сидоров В.К. (20.10.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-103</td>
+                <td>Система должна обрабатывать до 1000 RPS в пиковые часы нагрузки</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Сидоров В.К. (20.10.2023)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">3.2 Ожидаемая нагрузка</h3>
+          <table class="load-table">
+            <thead>
+              <tr>
+                <th>Параметр</th>
+                <th>Текущая</th>
+                <th>Через 1 год</th>
+                <th>Через 3 года</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Количество пользователей</td>
+                <td>5,000</td>
+                <td>15,000</td>
+                <td>50,000</td>
+              </tr>
+              <tr>
+                <td>Активных пользователей в час</td>
+                <td>500</td>
+                <td>1,500</td>
+                <td>5,000</td>
+              </tr>
+              <tr>
+                <td>Книг в каталоге</td>
+                <td>50,000</td>
+                <td>150,000</td>
+                <td>500,000</td>
+              </tr>
+              <tr>
+                <td>Поисковых запросов в день</td>
+                <td>10,000</td>
+                <td>30,000</td>
+                <td>100,000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="api-section" id="availability">
+        <h2 class="api-section-title">4. Доступность</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">4.1 Требования к доступности</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Требование</th>
+                <th>Статус</th>
+                <th>Ревью</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NFR-BF-201</td>
+                <td>Система должна быть доступна 24/7 за исключением плановых технических работ</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Кузнецов Д.М. (25.10.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-202</td>
+                <td>Плановые работы не должны занимать более 4 часов в месяц и должны проводиться в ночное время (00:00-06:00 по МСК)</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Кузнецов Д.М. (25.10.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-203</td>
+                <td>Геораспределение серверов должно обеспечивать доступность системы при отказе одного дата-центра</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Кузнецов Д.М. (25.10.2023)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="api-section" id="scalability">
+        <h2 class="api-section-title">5. Масштабируемость</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">5.1 Требования к масштабированию</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Требование</th>
+                <th>Статус</th>
+                <th>Ревью</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NFR-BF-301</td>
+                <td>Система должна поддерживать горизонтальное масштабирование для обработки увеличения нагрузки в 5 раз без изменения архитектуры</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Федоров Г.Р. (01.11.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-302</td>
+                <td>Увеличение объема хранимых данных в 10 раз не должно требовать изменения логики приложения</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Федоров Г.Р. (01.11.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-303</td>
+                <td>Добавление новых функций не должно требовать остановки системы</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Федоров Г.Р. (01.11.2023)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Рекомендации по масштабированию</h4>
+          <div class="code-block">
+# Конфигурация сервиса BookFlow
+api_servers:
+  min_replicas: 3
+  max_replicas: 15
+  cpu_threshold: 65%
+  memory_threshold: 75%
+
+search_service:
+  shards: 6
+  replicas: 2
+  index_refresh_interval: 30s
+
+database:
+  read_replicas: 2
+  connection_pool: 50
+          </div>
+        </div>
+      </div>
+
+      <div class="api-section" id="security">
+        <h2 class="api-section-title">6. Безопасность</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">6.1 Требования к безопасности</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Требование</th>
+                <th>Статус</th>
+                <th>Ревью</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NFR-BF-401</td>
+                <td>Все передаваемые данные должны шифроваться с использованием TLS 1.2+</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Безруков И.С. (05.11.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-402</td>
+                <td>Аутентификация пользователей должна выполняться с использованием OAuth 2.0</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Безруков И.С. (05.11.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-403</td>
+                <td>Пароли пользователей должны храниться в хешированном виде с использованием алгоритма bcrypt</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Безруков И.С. (05.11.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-404</td>
+                <td>Система должна проходить регулярные пентесты не реже 1 раза в квартал</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-current">ПРЕДЛОЖЕНО</span></td>
+                <td>На рассмотрении</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="api-section" id="monitoring">
+        <h2 class="api-section-title">7. Мониторинг и логирование</h2>
+
+        <div class="api-subsection">
+          <h3 class="api-subsection-title">7.1 Требования к мониторингу</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Требование</th>
+                <th>Статус</th>
+                <th>Ревью</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>NFR-BF-501</td>
+                <td>Система должна предоставлять метрики производительности в формате Prometheus</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Смирнова О.П. (10.11.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-502</td>
+                <td>Логи должны храниться не менее 30 дней с возможностью поиска и анализа</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Смирнова О.П. (10.11.2023)</td>
+              </tr>
+              <tr>
+                <td>NFR-BF-503</td>
+                <td>Критические ошибки должны активировать алерты в течение 5 минут</td>
+                <td><span class="status-macro aui-lozenge aui-lozenge-moved">ПРИНЯТО</span></td>
+                <td>Смирнова О.П. (10.11.2023)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Ключевые метрики для мониторинга</h4>
+          <div class="code-block">
+# Основные метрики BookFlow
+- api_request_duration_seconds
+- api_request_count
+- api_error_count
+- search_query_duration
+- database_query_duration
+- cache_hit_ratio
+- memory_usage_bytes
+- cpu_usage_percent
+- disk_usage_percent
+- active_users_count
+          </div>
+
+          <p><strong>Дашборды мониторинга:</strong> <a href="#" class="jira-link">https://grafana.example.com/d/bookflow</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Инициализация сайдбара
+    function initializeSidebar() {
+      const sidebar = document.getElementById('sidebar-container');
+      const sidebarTrigger = document.querySelector('.sidebar-trigger');
+
+      function showSidebar() {
+        sidebar.style.left = '60px';
+      }
+
+      function hideSidebar() {
+        sidebar.style.left = '-300px';
+      }
+
+      if (sidebar && sidebarTrigger) {
+        sidebarTrigger.addEventListener('mouseenter', showSidebar);
+        sidebar.addEventListener('mouseenter', showSidebar);
+        sidebarTrigger.addEventListener('mouseleave', hideSidebar);
+        sidebar.addEventListener('mouseleave', hideSidebar);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initializeSidebar);
+  </script>
+</body>
+</html>
