@@ -208,15 +208,8 @@ function updateLang() {
   `;
 
   // Ключевая информация
-  document.querySelector("h2").textContent = currentLang === "ru" ? "Моя экспертиза" : "Core Expertise";
-  document.querySelector("h2").nextElementSibling.textContent = lang.keyInfo;
-
-  // Сайдбар
-  const sidebar = document.querySelector(".sidebar");
-  sidebar.querySelector(".artifacts-title").textContent = lang.sidebar.title;
-  sidebar.querySelectorAll(".artifacts-link").forEach((link, i) => {
-    link.textContent = lang.sidebar.items[i];
-  });
+  document.querySelector("[data-lang='keyInfoTitle']").textContent = currentLang === "ru" ? "Ключевая информация" : "Core Expertise";
+  document.querySelector("[data-lang='keyInfoText']").textContent = lang.keyInfo;
 
   // Опыт работы
   const experienceContainer = document.querySelector(".experience-container");
